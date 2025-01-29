@@ -438,76 +438,20 @@ def dashboard_swap(request, recipe_id):
 
 @login_required
 def update_within_week_preferences(request):
-    profile = request.user.profile
+    if request.method == "POST":
+        profile = request.user.profile
+        preferences = profile.within_week_preferences or {}
+        
+        # Update preferences from POST data
+        preferences['breakfast'] = request.POST.get('breakfast', '')
+        preferences['lunch'] = request.POST.get('lunch', '')
+        preferences['dinner'] = request.POST.get('dinner', '')
+        preferences['snack'] = request.POST.get('snack', '')
 
-    if request.method == 'POST':
-        print("POST Data Received:", request.POST)  # Log the data
-        form = WithinWeekPreferencesForm(request.POST)
-        if form.is_valid():
-            form.save(profile)
+        # Save back to the profile
+        profile.within_week_preferences = preferences
+        profile.save()
 
-            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
-                preferences = {
-                    "breakfast": profile.within_week_preferences.get("breakfast", "No preference selected"),
-                    "lunch": profile.within_week_preferences.get("lunch", "No preference selected"),
-                    "dinner": profile.within_week_preferences.get("dinner", "No preference selected"),
-                    "snack": profile.within_week_preferences.get("snack", "No preference selected"),
-                }
-                return JsonResponse({"success": True, "preferences": preferences})
-
-            messages.success(request, "Within-week preferences updated successfully!")
-            return redirect("profile")
-        else:
-            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
-                return JsonResponse({"success": False, "error": "Invalid form submission."}, status=400)
-
-            messages.error(request, "Please correct the errors below.")
-
-    initial_data = {
-        "meal_variety_breakfast": profile.within_week_preferences.get("breakfast", "medium"),
-        "meal_variety_lunch": profile.within_week_preferences.get("lunch", "medium"),
-        "meal_variety_dinner": profile.within_week_preferences.get("dinner", "medium"),
-        "meal_variety_snack": profile.within_week_preferences.get("snack", "medium"),
-    }
-    form = WithinWeekPreferencesForm(initial=initial_data)
-    return render(request, "update_preferences.html", {"form": form})
-
-
-@login_required
-def update_across_week_preferences(request):
-    profile = request.user.profile
-
-    if request.method == 'POST':
-        print("POST Data Received:", request.POST)  # Log the data
-        form = AcrossWeekPreferencesForm(request.POST)
-        if form.is_valid():
-            form.save(profile)
-
-            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
-                # Return all meal types for Across-Weeks preferences
-                preferences = {
-                    "breakfast": profile.across_week_preferences.get("breakfast", "No preference selected"),
-                    "lunch": profile.across_week_preferences.get("lunch", "No preference selected"),
-                    "dinner": profile.across_week_preferences.get("dinner", "No preference selected"),
-                    "snack": profile.across_week_preferences.get("snack", "No preference selected"),
-                }
-                return JsonResponse({"success": True, "preferences": preferences})
-
-            messages.success(request, "Across-week preferences updated successfully!")
-            return redirect("profile")
-        else:
-            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
-                return JsonResponse({"success": False, "error": "Invalid form submission."}, status=400)
-
-            messages.error(request, "Please correct the errors below.")
-
-    initial_data = {
-        "breakfast": profile.across_week_preferences.get("breakfast", "medium"),
-        "lunch": profile.across_week_preferences.get("lunch", "medium"),
-        "dinner": profile.across_week_preferences.get("dinner", "medium"),
-        "snack": profile.across_week_preferences.get("snack", "medium"),
-    }
-    form = AcrossWeekPreferencesForm(initial=initial_data)
-    return render(request, "update_preferences.html", {"form": form})
-
-
+        # Return updated preferences in the response
+        return JsonResponse({"success": True, "preferences": preferences})
+    return JsonResponse({"success": False, "error": "Invalid request"}, status=400)

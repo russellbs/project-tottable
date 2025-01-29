@@ -45,32 +45,6 @@
             <button type="submit" class="btn btn-success">Save Within-Week Preferences</button>
             <button type="button" id="cancel-within-week-preferences-btn" class="btn btn-secondary">Cancel</button>
         </form>
-
-        <!-- Across-Week Preferences -->
-        <div id="preferences-across-weeks-display">
-            <h3>Across-Weeks Variety</h3>
-            {% for pref in across_week_preferences_flat %}
-                <p><strong>{{ pref.meal|capfirst }}:</strong> {{ pref.value }}</p>
-            {% endfor %}
-            <button id="edit-across-weeks-preferences-btn" class="btn btn-primary">Edit Across-Weeks Preferences</button>
-        </div>
-
-        <form id="preferences-across-weeks-form" method="POST" action="{% url 'update_across_week_preferences' %}" style="display: none;">
-            {% csrf_token %}
-            <h3>Update Across-Weeks Variety</h3>
-            {% for pref in across_week_preferences_flat %}
-            <div class="form-group">
-                <label for="across_week_{{ pref.meal|slugify }}">{{ pref.meal|capfirst }}</label>
-                <select name="{{ pref.meal }}" id="across_week_{{ pref.meal|slugify }}" class="form-control">
-                    <option value="low" {% if pref.value == "Low Variety" %}selected{% endif %}>Low Variety</option>
-                    <option value="medium" {% if pref.value == "Medium Variety" %}selected{% endif %}>Medium Variety</option>
-                    <option value="high" {% if pref.value == "High Variety" %}selected{% endif %}>High Variety</option>
-                </select>
-            </div>
-            {% endfor %}
-            <button type="submit" class="btn btn-success">Save Across-Weeks Preferences</button>
-            <button type="button" id="cancel-across-weeks-preferences-btn" class="btn btn-secondary">Cancel</button>
-        </form>
     </div>
 
     <!-- Little Munchkins Section -->

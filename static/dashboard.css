@@ -1,0 +1,466 @@
+/* Adjust meal plan card spacing */
+.card {
+    border-radius: 8px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+/* List item adjustments */
+.list-group-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+/* Edit button styling */
+.edit-btn {
+    color: #555;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.2s ease;
+}
+
+.edit-btn:hover {
+    color: #f48383; /* Match the Tottable hover color */
+    transform: scale(1.1);
+}
+
+/* Tooltip styling */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -30px;
+    right: 0;
+    background: #555;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+/* Dashboard Styling */
+.dashboard {
+    margin-top: 20px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Improved Table Styling */
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 1rem;
+    background-color: #fff;
+}
+
+.table th, .table td {
+    padding: 1rem;
+    text-align: left;
+    vertical-align: top;
+}
+
+.table thead th {
+    background-color: #f5f5f5; /* Light grey header background */
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9; /* Alternate row background */
+}
+
+.table tbody tr:hover {
+    background-color: #e8f5e9; /* Light green hover effect */
+}
+
+.table tbody td {
+    border: none; /* Remove inner borders */
+}
+
+/* Highlight current day */
+thead th.current-day {
+    background-color: #ffebee;
+    color: #c62828;
+    font-weight: bold;
+}
+
+/* Make table fit the screen */
+.table-responsive {
+    overflow-x: auto;
+    padding: 1rem;
+}
+
+/* Cards for smaller screens */
+@media (max-width: 768px) {
+    .table-responsive {
+        overflow: visible;
+    }
+
+    .table {
+        display: none; /* Hide the table on small screens */
+    }
+
+    /* Card Layout for Days */
+    .day-card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 1rem; /* Add gap between cards */
+    }
+
+    .day-card {
+        flex: 1 1 calc(100% - 1rem);
+        border: 1px solid #dee2e6;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .day-card h4 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .day-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .day-card ul li {
+        margin-bottom: 0.5rem;
+    }
+
+    .day-card ul li strong {
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+
+    .day-card ul li small {
+        color: #6c757d;
+    }
+}
+
+/* Styling for the recipe title links */
+.recipe-title-link {
+    color: #f9a8a8;
+    font-weight: bold; /* Make the recipe title bold */
+    text-decoration: none;
+}
+
+.recipe-title-link:hover {
+    text-decoration: underline;
+}
+
+/* Styling for the "View Recipe" and "Swap Meal" links */
+.quick-actions a {
+    color: #666; /* Subtle gray for quick action links */
+    font-size: 0.9em; /* Slightly smaller font for subtlety */
+    text-decoration: none;
+    margin: 0 5px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.quick-actions a i {
+    margin-left: 4px; /* Space between text and icon */
+}
+
+.quick-actions a:hover {
+    text-decoration: underline;
+}
+
+/* Ensure spacing between quick actions */
+.quick-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Add spacing between cards for mobile view */
+.day-card {
+    margin-bottom: 15px; /* Space between cards */
+}
+
+/* Consistent spacing inside day cards */
+.day-card ul li {
+    margin-bottom: 10px; /* Space between meals */
+}
+
+
+.messages {
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.tooltip-inner {
+    background-color: #333; /* Dark background */
+    color: #fff; /* White text */
+    font-size: 0.9rem; /* Slightly smaller text */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px 10px; /* Adjust padding */
+}
+.tooltip-arrow {
+    color: #333; /* Match tooltip background */
+}
+
+
+/* Week Navigation */
+.week-navigation {
+    display: flex;
+    justify-content: center; /* Center align the navigation */
+    align-items: center;
+    gap: 16px; /* Add spacing between elements */
+    text-align: center;
+    margin-bottom: 20px; /* Space below navigation */
+}
+
+/* Week Buttons */
+.week-navigation .btn {
+    background-color: #f9a8a8; /* Set button background color */
+    color: #fff; /* White text */
+    border: none; /* Remove border */
+    border-radius: 20px; /* Rounded corners */
+    padding: 10px 30px; /* Add equal padding to both sides */
+    font-size: 1rem; /* Adjust font size */
+    text-align: center; /* Center-align text */
+    white-space: nowrap; /* Prevent text wrapping */
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Button Hover Effect */
+.week-navigation .btn:hover {
+    background-color: #f48383; /* Darker hover color */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Disabled Button Styling */
+.week-navigation .btn:disabled {
+    background-color: #f2dede; /* Lightened version for disabled buttons */
+    color: #999; /* Grey text for disabled state */
+    cursor: not-allowed; /* Show not-allowed cursor */
+}
+
+/* Week Label */
+.week-navigation .week-display {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #555;
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .week-navigation {
+        flex-direction: column; /* Stack buttons and label vertically */
+        gap: 12px; /* Reduce spacing for smaller screens */
+    }
+
+    .week-navigation .btn {
+        padding: 10px 20px; /* Adjust padding for smaller screens */
+    }
+
+    .week-navigation .week-display {
+        font-size: 0.9rem; /* Slightly smaller text for mobile */
+    }
+}
+
+/* Center the h2 in the Meal Plan Section */
+.meal-plan-section h2 {
+    text-align: center; /* Center align the text */
+    font-size: 1.5rem; /* Adjust font size if needed */
+    font-weight: 600; /* Ensure it stands out */
+    margin-bottom: 20px; /* Add space below */
+    color: #333; /* Optional: Add a darker color for better readability */
+}
+
+/* Responsive Adjustments for smaller screens */
+@media (max-width: 768px) {
+    .meal-plan-section h2 {
+        font-size: 1.2rem; /* Slightly reduce font size for smaller screens */
+    }
+}
+
+/* Recipe Title Styling */
+#meal-plan table td a.recipe-title-link {
+    text-decoration: none;
+    color: #f9a8a8; /* Pink color for recipe titles */
+    font-weight: bold; /* Bold recipe titles */
+    display: block; /* Ensure consistency in line layout */
+}
+
+#meal-plan table td a.recipe-title-link:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Table Header Styling */
+#meal-plan table th {
+    background-color: #fff; /* Remove grey background */
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 8px; /* Rounded corners */
+    color: #555; /* Neutral text color */
+}
+
+/* Add Emojis to Headers */
+#meal-plan table th.breakfast::before {
+    content: "🍳    ";
+}
+#meal-plan table th.lunch::before {
+    content: "🥗    ";
+}
+#meal-plan table th.dinner::before {
+    content: "🍽    ";
+}
+#meal-plan table th.snack::before {
+    content: "🍎    ";
+}
+
+/* Mini Card Styling for Table Cells */
+#meal-plan table td {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Darker shadow */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 5px; /* Add spacing */
+    height: 140px; /* Adjust height for less white space */
+    vertical-align: top; /* Align content at the top */
+    text-align: center;
+    position: relative; /* For aligning quick actions */
+}
+
+/* Ensure all cells are the same size */
+#meal-plan table {
+    border-spacing: 10px; /* Add spacing between cells */
+    border-collapse: separate;
+    table-layout: fixed; /* Uniform column widths */
+}
+
+/* Align Quick Actions at the Bottom */
+#meal-plan table td .quick-actions {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* Hover Effects */
+#meal-plan table td:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Slightly darker hover shadow */
+}
+
+
+/* Prevent Title Overlap with Links */
+@media (max-width: 992px) {
+    #meal-plan table td {
+        min-height: 180px; /* Slightly larger height for smaller screens */
+    }
+}
+
+/* Mobile View Individual Cards */
+@media (max-width: 768px) {
+    .day-card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 1rem; /* Add spacing between cards */
+    }
+
+    .day-card {
+        flex: 1 1 calc(48% - 1rem); /* Two cards per row */
+        border: 1px solid #dee2e6;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Mini card effect */
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .day-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Hover effect */
+    }
+
+    .day-card h4 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .day-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .day-card ul li {
+        margin-bottom: 0.5rem;
+    }
+
+    .day-card ul li strong {
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+
+    .day-card ul li small {
+        color: #6c757d;
+    }
+
+    /* Add Emojis to Mobile Cards */
+    .day-card .breakfast::before {
+        content: "🍳 ";
+    }
+    .day-card .lunch::before {
+        content: "🥗 ";
+    }
+    .day-card .dinner::before {
+        content: "🍽 ";
+    }
+    .day-card .snack::before {
+        content: "🍎 ";
+    }
+}

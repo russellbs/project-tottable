@@ -1,0 +1,126 @@
+/* General Container */
+.recipe-detail {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 16px; /* Reduced padding */
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6; /* Improved readability */
+}
+
+/* Back Button */
+.back-button {
+    display: inline-block;
+    margin-bottom: 8px; /* Reduced margin */
+    text-decoration: none;
+    color: #024fa1; /* Keep original color */
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Recipe Header */
+.recipe-header h1 {
+    font-size: 2rem;
+    margin-bottom: 6px; /* Reduced margin */
+}
+
+.recipe-header p {
+    font-size: 1.2rem;
+    margin-bottom: 10px; /* Reduced margin */
+    color: #555;
+}
+
+/* Recipe Metadata Section */
+.recipe-metadata {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; /* Adjusted gap */
+    margin-bottom: 16px; /* Reduced overall gap */
+    justify-content: space-between;
+}
+
+.metadata-card {
+    background-color: #f9f9f9;
+    padding: 10px; /* Balanced padding */
+    border-radius: 8px; /* Restored rounded box */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Restored subtle shadow */
+    text-align: center;
+    flex: 1 1 calc(25% - 8px); /* Adjusted for consistent gap */
+}
+
+/* Section Headers */
+.recipe-detail h2 {
+    font-size: 1.6rem; /* Slightly increased for emphasis */
+    margin-bottom: 8px; /* Balanced margin */
+    color: #333;
+}
+
+/* Ingredients List */
+.recipe-ingredients ul {
+    list-style: disc;
+    padding-left: 20px;
+    margin-bottom: 16px; /* Reduced spacing */
+}
+
+.recipe-ingredients li {
+    margin-bottom: 6px; /* Reduced gap */
+    line-height: 1.5; /* Improved readability */
+}
+
+/* Instructions List */
+.recipe-instructions ol {
+    list-style: decimal;
+    padding-left: 20px;
+    margin-bottom: 16px; /* Reduced spacing */
+}
+
+.recipe-instructions li {
+    margin-bottom: 6px; /* Reduced gap */
+    line-height: 1.6; /* Improved readability */
+}
+
+/* Tips Section */
+.recipe-tips p {
+    font-size: 1rem;
+    padding: 12px; /* Reduced padding */
+    margin-bottom: 16px; /* Reduced spacing */
+    color: #555;
+    line-height: 1.5; /* Consistent readability */
+}
+
+/* Tags Section */
+.recipe-tags p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 16px; /* Reduced spacing */
+    line-height: 1.5; /* Consistent readability */
+}
+
+/* Select Recipe Button */
+.select-recipe {
+    display: inline-block;
+    margin-bottom: 16px; /* Space between Select Recipe and the Back button */
+    background-color: #f9a8a8; /* Updated color */
+    color: #fff; /* White text for contrast */
+    font-weight: 600;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 1rem;
+    border-radius: 8px; /* Rounded corners */
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for prominence */
+    transition: background-color 0.3s ease;
+}
+
+.select-recipe a:hover {
+    background-color: #e08989; /* Slightly darker shade for hover */
+}
+
+/* Back Button */
+.back-button {
+    margin-top: 16px; /* Add spacing between Back button and Select Recipe button */
+    display: inline-block;
+    text-decoration: none;
+    color: #024fa1;
+    font-weight: 600;
+    font-size: 1rem;
+}

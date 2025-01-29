@@ -15,5 +15,4 @@ urlpatterns = [
     path('delete-child/<int:child_id>/', views.delete_child, name='delete_child'),  # Delete child
     path('dashboard/swap/<str:recipe_id>/', views.dashboard_swap, name='dashboard_swap'),
     path('update_within_week_preferences/', views.update_within_week_preferences, name='update_within_week_preferences'),
-    path('update_across_week_preferences/', views.update_across_week_preferences, name='update_across_week_preferences'),
 ]

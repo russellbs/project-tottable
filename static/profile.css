@@ -1,0 +1,200 @@
+/* Profile page */
+/* Profile Container */
+.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    position: relative;
+}
+
+/* Profile Heading */
+.profile-container h1 {
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Section Styling */
+.profile-container .section {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* User Details Section */
+.profile-container .user-details {
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.profile-container .user-details p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+/* Children Section */
+.profile-container .children-section {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+/* Individual Child Profile */
+.profile-container .child-profile {
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 1.1rem;
+}
+
+.profile-container .child-profile:last-child {
+    border-bottom: none;
+}
+
+/* Add Child Button */
+#add-child-btn {
+    display: block;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #f9a8a8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#add-child-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Add Child Form */
+#add-child-form {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+/* Form Labels */
+#add-child-form label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+/* Form Inputs */
+#add-child-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    line-height: 1.5;
+}
+
+/* Multi-Select Dropdown (Custom Implementation) */
+.custom-multi-select {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #ffffff;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.custom-multi-select div {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.custom-multi-select input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.custom-multi-select label {
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* Submit Button in the Form */
+#add-child-form button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #f9a8a8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#add-child-form button:hover {
+    background-color: #218838;
+}
+
+#add-child-form button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Preferences Display Section */
+#preferences-display {
+    text-align: left;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    line-height: 1.6; /* Improves readability */
+}
+
+#preferences-display p {
+    margin-bottom: 10px; /* Consistent spacing with other sections */
+}
+
+/* Section Titles */
+.profile-container .section h2 {
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #333; /* Optional: consistent color */
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 20px;
+    }
+
+    .profile-container .section {
+        padding: 15px;
+    }
+
+    #add-child-form {
+        padding: 15px;
+    }
+
+    #add-child-btn {
+        width: 100%;
+    }
+
+    .custom-multi-select {
+        max-height: 200px;
+    }
+}

@@ -1,0 +1,261 @@
+.recipe-library {
+    margin: 0 auto;
+    padding: 40px;
+    max-width: 1200px;
+    text-align: center;
+}
+
+.library-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 16px; /* Headline-to-paragraph spacing */
+}
+
+.library-header p {
+    font-size: 1.2rem;
+    margin-bottom: 32px; /* Paragraph-to-section spacing */
+}
+
+/* Search and Filter Section */
+.search-filter {
+    margin-bottom: 40px;
+}
+
+.search-bar-container {
+    margin-bottom: 16px;
+}
+
+/* Search Bar */
+.search-bar {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Filter Options */
+.filter-options {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    text-align: left;
+}
+
+/* Dropdowns */
+.filter-dropdown {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 20px; /* Rounded dropdowns */
+    background-color: #fff;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    min-width: 150px;
+}
+
+/* Checkbox Styling */
+.filter-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.filter-checkbox input[type="checkbox"] {
+    transform: scale(1.2); /* Slightly larger checkbox */
+}
+
+/* Custom Multi-select Container */
+.custom-multi-select-container {
+    display: flex;
+    align-items: center; /* Align label and multi-select horizontally */
+    gap: 16px; /* Spacing between label and options */
+    width: 100%; /* Full-width container */
+    margin-top: 16px; /* Add spacing from the previous row */
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+}
+
+/* Multi-select Label */
+.multi-select-label {
+    font-size: 1rem;
+    font-weight: 600;
+    white-space: nowrap; /* Prevent label from wrapping */
+}
+
+/* Custom Multi-select Options Wrapper */
+.custom-multi-select-options {
+    display: flex;
+    flex-wrap: wrap; /* Allow options to wrap horizontally */
+    gap: 8px; /* Spacing between options */
+    border: 1px solid #ddd;
+    border-radius: 20px; /* Rounded corners */
+    padding: 10px;
+    background-color: #fff;
+    max-height: 200px; /* Add a maximum height for better usability */
+    overflow-y: auto; /* Enable scrolling for long lists */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    flex: 1; /* Allow options to take the remaining space */
+}
+
+/* Custom Multi-select Options */
+.custom-option {
+    display: inline-flex; /* Align options horizontally */
+    align-items: center; /* Vertically align checkbox and label */
+    gap: 8px; /* Space between checkbox and label */
+    padding: 4px 8px; /* Add padding for better spacing */
+    background-color: #f9f9f9; /* Light background for better separation */
+    border-radius: 12px; /* Rounded corners for each option */
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.custom-option:hover {
+    background-color: #e0e0e0; /* Slight hover effect */
+    transform: scale(1.05); /* Slight scale-up on hover */
+}
+
+.custom-option input[type="checkbox"] {
+    transform: scale(1.2); /* Slightly larger checkbox */
+}
+
+.custom-option label {
+    font-size: 0.9rem;
+    cursor: pointer;
+    white-space: nowrap; /* Prevent text wrapping for the label */
+}
+
+/* Filter Options */
+.filter-options {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* Allow wrapping for responsiveness */
+    gap: 16px;
+    text-align: left;
+    width: 100%; /* Ensure filters span the container width */
+}
+
+/* Filter Dropdowns */
+.filter-dropdown {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 20px; /* Rounded dropdowns */
+    background-color: #fff;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    min-width: 150px;
+}
+
+/* Search Bar */
+.search-bar-container {
+    margin-bottom: 16px;
+    width: 100%; /* Full-width container */
+}
+
+.search-bar {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .filter-options {
+        flex-direction: column; /* Stack filters vertically */
+        align-items: flex-start;
+    }
+
+    .search-bar,
+    .filter-dropdown,
+    .custom-multi-select-options {
+        width: 100%; /* Full-width inputs for smaller screens */
+    }
+
+    .custom-multi-select-container {
+        flex-direction: column; /* Stack label and multi-select vertically */
+        align-items: flex-start;
+        margin-top: 16px; /* Add spacing for mobile */
+    }
+
+    .multi-select-label {
+        margin-bottom: 8px; /* Add spacing between label and multi-select */
+    }
+}
+
+/* Recipe Grid and Card Styles */
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px; /* Reduced gap */
+    margin-bottom: 64px; /* Reduced spacing */
+}
+
+.recipe-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px; /* Reduced padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    height: auto; /* Allow height to adjust dynamically */
+}
+
+.recipe-info h3 {
+    font-size: 1.4rem;
+    margin-top: 16px;
+    margin-bottom: 8px; /* Reduced spacing */
+}
+
+.recipe-info p {
+    font-size: 1rem;
+    margin-bottom: 16px;
+    color: #666;
+    text-align: left; /* Align text for readability */
+}
+
+.recipe-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination span {
+    font-size: 1rem;
+    color: #333;
+}
+
+.back-button a {
+    display: inline-block; /* Ensure the button does not span full width */
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #6c757d;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.back-button a:hover {
+    background-color: #5a6268;
+    transform: scale(1.05); /* Optional hover effect */
+}
+
+

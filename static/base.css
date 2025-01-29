@@ -1,0 +1,252 @@
+/* Base styles for the project */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Use medium 500 for headings or bold text */
+h1, h2, h3, h4, h5, h6, strong, .bold-text {
+    font-weight: 500;
+}
+
+.container {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    margin: 0 auto;
+}
+
+section {
+    padding: 15px;
+    width: 100%;
+}
+
+.full-height {
+    height: 60vh;
+}
+
+/* Alternating section colors
+section:nth-child(odd) {
+    background-color: hsl(10, 50%, 95%); /* Very light pinkish coral 
+    color: #333;
+}
+
+section:nth-child(even) {
+    background-color: hsl(0, 0%, 98%); /* Soft off-white 
+}*/
+
+/* Buttons */
+.btn {
+    background-color: #f9a8a8; /* Light pink coral as default */
+    color: #fff; /* White text for contrast */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px; /* Rounded corners for a polished look */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for hover and interaction */
+}
+
+.btn:hover {
+    background-color: #f48383; /* Slightly darker coral on hover */
+    transform: scale(1.02); /* Slight enlargement on hover for visual feedback */
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Custom Navbar Styles */
+.custom-navbar {
+    background-color: hsl(0, 0%, 98%); /* Matching div white color */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15); /* Darker shadow */
+    padding: 1rem 0; /* Adjusted padding for navbar height */
+}
+
+.navbar-toggler {
+    border: none; /* Remove border around hamburger menu */
+    outline: none; /* Remove focus outline */
+}
+
+.navbar-brand {
+    color: hsla(10, 50%, 45%, 0.95); /* Deeper coral with slight opacity */
+    font-size: 1.5rem; /* Larger font size for brand */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Center brand */
+    display: block; /* Ensure it takes space for centering */
+}
+
+.nav-link {
+    color: #333; /* Standard link color */
+    transition: color 0.3s; /* Smooth transition for hover effects */
+}
+
+.nav-link:hover {
+    color: hsla(10, 50%, 45%, 1); /* Slightly darker on hover */
+}
+
+@media (min-width: 992px) {
+    .navbar-toggler {
+        display: none; /* Hide toggler button on larger screens */
+    }
+    .navbar-brand {
+        position: static;
+        transform: none; /* Remove transformation for desktop */
+    }
+}
+
+/* Ensure the footer stays at the bottom */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1; /* Main content container takes up the available space */
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #f8f9fa; /* Light gray background for consistency */
+    color: #333; /* Dark text for readability */
+    padding: 40px 20px;
+    font-family: 'Poppins', sans-serif;
+    border-top: 1px solid #ddd;
+    margin-top: 60px;
+}
+
+/* Footer Content Sections */
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto; /* Center footer content */
+    gap: 20px;
+}
+
+/* Footer Section Styling */
+.footer-section {
+    flex: 1 1 200px; /* Responsive widths */
+    min-width: 180px; /* Ensure consistent section sizes */
+}
+
+.footer-section h4 {
+    font-weight: 600;
+    font-size: 1.2em;
+    color: hsla(10, 50%, 45%, 0.95); /* Primary theme color for headings */
+    margin-bottom: 15px;
+}
+
+.footer-section a {
+    display: block;
+    font-size: 0.9em;
+    color: #333; /* Consistent text color */
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: #024f9d; /* Darker hover color */
+}
+
+/* Footer Social Icons */
+.footer-social a img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    transition: opacity 0.3s;
+}
+
+.footer-social a img:hover {
+    opacity: 0.7;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.8em;
+    color: #666; /* Subtle text color */
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.footer-bottom a {
+    color: hsla(10, 50%, 45%, 0.95);
+    text-decoration: none;
+    margin: 0 5px;
+    transition: color 0.3s;
+}
+
+.footer-bottom a:hover {
+    color: hsla(10, 50%, 45%, 0.95);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-section {
+        margin-bottom: 20px;
+    }
+}
+
+
+/* User Navbar Container */
+.user-navbar-container {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    margin-bottom: 20px;
+}
+
+/* Navbar Links Center Alignment */
+.user-navbar ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 30px;
+}
+
+.user-navbar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 5px 10px;
+    font-family: 'Poppins', sans-serif;
+    transition: color 0.3s ease;
+}
+
+.user-navbar ul li a:hover {
+    color: #0366d6; /* Hover color consistent with theme */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .user-navbar ul {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+}
+
+
