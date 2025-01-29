@@ -1,0 +1,17 @@
+{% load static %}
+<div class="blog-navbar-container">
+    <div class="navbar-title">Parent Resources</div>
+    <nav class="blog-navbar">
+        <ul>
+            <li><a href="{% url 'post_list' %}?filter=by_age">By Age &#9662;</a></li>
+            <li><a href="{% url 'post_list' %}?filter=playtime">Playtime & Activities</a></li>
+            <li><a href="{% url 'post_list' %}?filter=podcast">Podcast</a></li>
+        </ul>
+        <div class="navbar-search">
+            <input type="text" placeholder="Search" class="search-input">
+            <button class="search-button">
+                <img src="{% static 'icons/search-icon.svg' %}" alt="Search" class="search-icon">
+            </button>
+        </div>
+    </nav>
+</div>

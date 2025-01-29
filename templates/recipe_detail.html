@@ -1,0 +1,105 @@
+{% extends "main.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}{{ recipe.title }} - Recipe Details{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'recipe_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Include the user-specific header -->
+{% include 'user_header.html' %}
+
+<div class="recipe-detail container">
+    <!-- Select Recipe Button -->
+    {% if swap_mode %}
+    <div class="select-recipe">
+        <a href="{% url 'dashboard_swap' recipe.id %}?meal_type={{ meal_type }}&day={{ day }}" 
+           class="btn btn-primary">
+            Select Recipe
+        </a>
+    </div>
+    {% endif %}
+
+    <!-- Back Button -->
+    <div class="back-button">
+        <a href="{% if request.GET.from == 'dashboard' %}{% url 'dashboard' %}{% else %}
+                {% url 'recipe_library' %}?swap={{ swap_mode|yesno:'1,' }}&meal_type={{ meal_type }}&day={{ day }}
+                {% endif %}" 
+        class="btn btn-secondary">
+            ← {% if request.GET.from == 'dashboard' %}Back to Dashboard{% else %}Back to Recipe Library{% endif %}
+        </a>
+    </div>
+
+    <!-- Recipe Header -->
+    <header class="recipe-header">
+        <h1>{{ recipe.title }}</h1>
+        <p>{{ recipe.description }}</p>
+    </header>
+
+    <!-- Recipe Metadata Section -->
+    <section class="recipe-metadata">
+        <div class="metadata-card">
+            <strong>Prep Time</strong>
+            <p>{{ recipe.preparation_time }} min</p>
+        </div>
+        <div class="metadata-card">
+            <strong>Cook Time</strong>
+            <p>{{ recipe.cooking_time }} min</p>
+        </div>
+        <div class="metadata-card">
+            <strong>Meal Type</strong>
+            <p>
+                {% for meal_type in recipe.meal_types.all %}
+                    {{ meal_type.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+        </div>
+        <div class="metadata-card">
+            <strong>Age Suitability</strong>
+            <p>{{ recipe.min_age_months }}–{{ recipe.max_age_months }} months</p>
+        </div>
+    </section>
+
+    <!-- Ingredients Section -->
+    <section class="recipe-ingredients">
+        <h2>Ingredients</h2>
+        <ul>
+            {% for recipe_ingredient in recipe.recipeingredient_set.all %}
+            <li>
+                {{ recipe_ingredient.ingredient.name }} - 
+                {{ recipe_ingredient.quantity_as_fraction }}{% if recipe_ingredient.unit %} {{ recipe_ingredient.unit }}{% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>      
+
+    <!-- Instructions Section -->
+    <section class="recipe-instructions">
+        <h2>Instructions</h2>
+        <ol>
+            {% for bold_text, normal_text in instructions|split_and_format %}
+            <li>
+                {% if bold_text %}<strong>{{ bold_text }}</strong>{% endif %} {{ normal_text }}
+            </li>
+            {% endfor %}
+        </ol>
+    </section>
+
+    <!-- Tips Section -->
+    <section class="recipe-tips">
+        {% if recipe.tips %}
+        <h2>Tottable Tips</h2>
+        <ul>
+            {% for bold_text, normal_text in recipe.tips|split_and_format %}
+            <li>
+                {% if bold_text %}<strong>{{ bold_text }}</strong>{% endif %} {{ normal_text }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </section>    
+</div>
+{% endblock %}

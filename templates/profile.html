@@ -1,0 +1,224 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'user_header.html' %}
+
+<div class="profile-container">
+    <h1>My Profile</h1>
+
+    <!-- User Details Section -->
+    <div class="section user-details">
+        <h2>Profile Details</h2>
+        <p><strong>Name:</strong> {{ user.first_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Member Since:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+    </div>
+
+    <!-- Meal Plan Preferences Section -->
+    <div class="section meal-preferences">
+        <h2>Meal Plan Preferences</h2>
+
+        <!-- Preferences for Within-Week Variety -->
+        <!-- Within-Week Preferences -->
+        <div id="preferences-within-week-display">
+            <h3>Within-Week Variety</h3>
+            {% for pref in within_week_preferences_flat %}
+                <p><strong>{{ pref.meal|capfirst }}:</strong> {{ pref.value }}</p>
+            {% endfor %}
+            <button id="edit-within-week-preferences-btn" class="btn btn-primary">Edit Within-Week Preferences</button>
+        </div>
+
+        <form id="preferences-within-week-form" method="POST" action="{% url 'update_within_week_preferences' %}" style="display: none;">
+            {% csrf_token %}
+            <h3>Update Within-Week Variety</h3>
+            {% for pref in within_week_preferences_flat %}
+            <div class="form-group">
+                <label for="within_week_{{ pref.meal|slugify }}">{{ pref.meal|capfirst }}</label>
+                <select name="{{ pref.meal }}" id="within_week_{{ pref.meal|slugify }}" class="form-control">
+                    <option value="low" {% if pref.value == "Low Variety" %}selected{% endif %}>Low Variety</option>
+                    <option value="medium" {% if pref.value == "Medium Variety" %}selected{% endif %}>Medium Variety</option>
+                    <option value="high" {% if pref.value == "High Variety" %}selected{% endif %}>High Variety</option>
+                </select>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-success">Save Within-Week Preferences</button>
+            <button type="button" id="cancel-within-week-preferences-btn" class="btn btn-secondary">Cancel</button>
+        </form>
+
+        <!-- Across-Week Preferences -->
+        <div id="preferences-across-weeks-display">
+            <h3>Across-Weeks Variety</h3>
+            {% for pref in across_week_preferences_flat %}
+                <p><strong>{{ pref.meal|capfirst }}:</strong> {{ pref.value }}</p>
+            {% endfor %}
+            <button id="edit-across-weeks-preferences-btn" class="btn btn-primary">Edit Across-Weeks Preferences</button>
+        </div>
+
+        <form id="preferences-across-weeks-form" method="POST" action="{% url 'update_across_week_preferences' %}" style="display: none;">
+            {% csrf_token %}
+            <h3>Update Across-Weeks Variety</h3>
+            {% for pref in across_week_preferences_flat %}
+            <div class="form-group">
+                <label for="across_week_{{ pref.meal|slugify }}">{{ pref.meal|capfirst }}</label>
+                <select name="{{ pref.meal }}" id="across_week_{{ pref.meal|slugify }}" class="form-control">
+                    <option value="low" {% if pref.value == "Low Variety" %}selected{% endif %}>Low Variety</option>
+                    <option value="medium" {% if pref.value == "Medium Variety" %}selected{% endif %}>Medium Variety</option>
+                    <option value="high" {% if pref.value == "High Variety" %}selected{% endif %}>High Variety</option>
+                </select>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-success">Save Across-Weeks Preferences</button>
+            <button type="button" id="cancel-across-weeks-preferences-btn" class="btn btn-secondary">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Little Munchkins Section -->
+    <div class="section children-section">
+        <h2>Little Munchkins</h2>
+
+        <!-- Display existing children -->
+        <div id="children-list">
+            {% for child in children %}
+            <div class="child-profile" id="child-{{ child.id }}">
+                <div class="child-display">
+                    <h3>{{ child.name }}</h3>
+                    <p><strong>Date of Birth:</strong> {{ child.dob }}</p>
+                    <p><strong>Likes Ingredients:</strong> {{ child.likes_ingredients.all|join:", " }}</p>
+                    <p><strong>Dislikes Ingredients:</strong> {{ child.dislikes_ingredients.all|join:", " }}</p>
+                    <p><strong>Allergies:</strong> {{ child.allergies|default:"None" }}</p>
+
+                    <!-- Edit Button -->
+                    <button class="btn btn-secondary edit-child-btn" data-child-id="{{ child.id }}">Edit</button>
+                </div>
+
+                <!-- Edit Form (Hidden by Default) -->
+                <div class="child-edit-form" style="display: none;">
+                    <form class="edit-child-form" method="POST" action="{% url 'edit_child' %}" data-child-id="{{ child.id }}">
+                        {% csrf_token %}
+                        <input type="hidden" name="child_id" value="{{ child.id }}">
+
+                        <div class="form-group">
+                            <label for="name-{{ child.id }}">Munchkin's Name</label>
+                            <input type="text" name="name" id="name-{{ child.id }}" class="form-control" value="{{ child.name }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dob-{{ child.id }}">Date of Birth</label>
+                            <input type="date" name="dob" id="dob-{{ child.id }}" class="form-control" value="{{ child.dob|date:'Y-m-d' }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="likes-ingredients-{{ child.id }}">Likes Ingredients</label>
+                            <div class="custom-multi-select" id="likes-ingredients-{{ child.id }}">
+                                {% for ingredient in ingredients %}
+                                <div>
+                                    <input type="checkbox" id="likes-{{ child.id }}-{{ ingredient.id }}" name="likes_ingredients" value="{{ ingredient.id }}" 
+                                           {% if ingredient in child.likes_ingredients.all %}checked{% endif %}>
+                                    <label for="likes-{{ child.id }}-{{ ingredient.id }}">{{ ingredient.name }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dislikes-ingredients-{{ child.id }}">Dislikes Ingredients</label>
+                            <div class="custom-multi-select" id="dislikes-ingredients-{{ child.id }}">
+                                {% for ingredient in ingredients %}
+                                <div>
+                                    <input type="checkbox" id="dislikes-{{ child.id }}-{{ ingredient.id }}" name="dislikes_ingredients" value="{{ ingredient.id }}" 
+                                           {% if ingredient in child.dislikes_ingredients.all %}checked{% endif %}>
+                                    <label for="dislikes-{{ child.id }}-{{ ingredient.id }}">{{ ingredient.name }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="allergies-{{ child.id }}">Allergies</label>
+                            <div class="custom-multi-select" id="allergies-{{ child.id }}">
+                                {% for allergen in allergens %}
+                                <div>
+                                    <input type="checkbox" id="allergies-{{ child.id }}-{{ allergen }}" name="allergies" value="{{ allergen }}" 
+                                           {% if allergen in child.allergies %}checked{% endif %}>
+                                    <label for="allergies-{{ child.id }}-{{ allergen }}">{{ allergen }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success save-child-btn">Save Changes</button>
+                        <button type="button" class="btn btn-danger delete-child-btn" data-child-id="{{ child.id }}">Delete</button>
+                        <button type="button" class="btn btn-secondary cancel-edit-btn" data-child-id="{{ child.id }}">Cancel</button>
+                    </form>
+                </div>
+            </div>
+            {% empty %}
+            <p>No Little Munchkins added yet.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Add Child Button -->
+        <button id="add-child-btn" class="btn btn-primary">Add Little Munchkin</button>
+    </div>
+
+    <!-- Add Child Form -->
+    <div id="add-child-form" style="display: none;">
+        <form id="add-child-form-element" method="POST" action="{% url 'add_child' %}">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="name">Munchkin's Name</label>
+                <input type="text" name="name" id="name" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" name="dob" id="dob" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="likes_ingredients">Likes Ingredients</label>
+                <div class="custom-multi-select" id="likes-ingredients">
+                    {% for ingredient in ingredients %}
+                    <div>
+                        <input type="checkbox" id="likes-{{ ingredient.id }}" name="likes_ingredients" value="{{ ingredient.id }}">
+                        <label for="likes-{{ ingredient.id }}">{{ ingredient.name }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="dislikes_ingredients">Dislikes Ingredients</label>
+                <div class="custom-multi-select" id="dislikes-ingredients">
+                    {% for ingredient in ingredients %}
+                    <div>
+                        <input type="checkbox" id="dislikes-{{ ingredient.id }}" name="dislikes_ingredients" value="{{ ingredient.id }}">
+                        <label for="dislikes-{{ ingredient.id }}">{{ ingredient.name }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="allergies">Allergies</label>
+                <div class="custom-multi-select" id="allergies">
+                    {% for allergen in allergens %}
+                    <div>
+                        <input type="checkbox" id="allergies-{{ allergen }}" name="allergies" value="{{ allergen }}">
+                        <label for="allergies-{{ allergen }}">{{ allergen }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>            
+
+            <button type="submit" class="btn btn-success">Save Munchkin</button>
+        </form>
+    </div>
+</div>
+
+<link rel="stylesheet" href="{% static 'profile.css' %}">
+<script src="{% static 'profile.js' %}"></script>
+<script src="{% static 'profile_preferences.js' %}"></script>
+{% endblock %}

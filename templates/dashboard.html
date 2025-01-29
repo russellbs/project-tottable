@@ -1,0 +1,251 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}Dashboard - Tottable{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Include the user-specific header -->
+{% include 'user_header.html' %}
+
+<div class="dashboard container">
+    <!-- Render Messages -->
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="week-navigation text-center my-4">
+        <!-- Previous Week Button with Tooltip -->
+        {% if previous_week_start < account_creation_week_start %}
+            <button id="prev-week" class="btn btn-secondary mx-2" disabled
+                    data-bs-toggle="tooltip" title="This is the earliest available week">
+                &laquo; Previous Week
+            </button>
+        {% else %}
+            <a href="?week={{ week_offset|add:'-1' }}" id="prev-week" class="btn btn-primary mx-2"
+               data-bs-toggle="tooltip" title="Go to the week starting {{ previous_week_start|date:'F d, Y' }}">
+                &laquo; Previous Week
+            </a>
+        {% endif %}
+    
+        <span id="week-label" class="week-display">
+            Week of {{ displayed_week_start|date:"F d, Y" }} - {{ displayed_week_end|date:"F d, Y" }}
+        </span>
+    
+        <!-- Next Week Button -->
+        {% if next_week_start > next_week_available_date %}
+            <button id="next-week" class="btn btn-secondary mx-2" disabled
+                    data-bs-toggle="tooltip" title="Available on {{ next_week_available_date|date:'F d, Y' }}">
+                Next Week &raquo;
+            </button>
+        {% else %}
+            <a href="?week={{ week_offset|add:'1' }}" id="next-week" class="btn btn-primary mx-2"
+               data-bs-toggle="tooltip" title="Go to the week starting {{ next_week_start|date:'F d, Y' }}">
+                Next Week &raquo;
+            </a>
+        {% endif %}
+    </div>    
+                             
+    
+    <!-- Weekly Meal Plan Section -->
+    <section class="meal-plan-section mx-auto my-5">
+        {% if children %}
+            {% for child, meal_plan in meal_plans %}
+                {% if meal_plan %}
+                    <h2>{{ child.name }}'s Meal Plan for the Week of {{ displayed_week_start|date:"F d, Y" }}</h2>
+
+                    <!-- Table View for Larger Screens -->
+                    <div id="meal-plan" class="table-responsive d-none d-md-block">
+                        <table class="table table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th><strong>Day</strong></th>
+                                    <th class="breakfast"><strong>Breakfast</strong></th>
+                                    <th class="lunch"><strong>Lunch</strong></th>
+                                    <th class="dinner"><strong>Dinner</strong></th>
+                                    <th class="snack"><strong>Snack</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for meal in meal_plan.meals.all %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ meal.get_day_display }}</strong>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'recipe_detail' meal.breakfast.id %}?from=dashboard" class="recipe-title-link">
+                                            <strong>{{ meal.breakfast.title }}</strong>
+                                        </a><br>
+                                        <!--<small>{{ meal.breakfast.description }}</small>-->
+                                        <div class="quick-actions">
+                                            <a href="{% url 'recipe_detail' meal.breakfast.id %}?from=dashboard" class="view-recipe-link">
+                                                View Recipe
+                                                <i class="bi bi-box-arrow-up-right"></i>
+                                            </a>
+                                            <a href="{% url 'recipe_library' %}?meal_type=breakfast&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                            class="swap-meal-link">
+                                                Swap Meal
+                                                <i class="bi bi-arrow-repeat"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'recipe_detail' meal.lunch.id %}?from=dashboard" class="recipe-title-link">
+                                            <strong>{{ meal.lunch.title }}</strong>
+                                        </a><br>
+                                        <!--<small>{{ meal.lunch.description }}</small>-->
+                                        <div class="quick-actions">
+                                            <a href="{% url 'recipe_detail' meal.lunch.id %}?from=dashboard" class="view-recipe-link">
+                                                View Recipe
+                                                <i class="bi bi-box-arrow-up-right"></i>
+                                            </a>
+                                            <a href="{% url 'recipe_library' %}?meal_type=lunch&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                            class="swap-meal-link">
+                                                Swap Meal
+                                                <i class="bi bi-arrow-repeat"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'recipe_detail' meal.dinner.id %}?from=dashboard" class="recipe-title-link">
+                                            <strong>{{ meal.dinner.title }}</strong>
+                                        </a><br>
+                                        <!--<small>{{ meal.dinner.description }}</small>-->
+                                        <div class="quick-actions">
+                                            <a href="{% url 'recipe_detail' meal.dinner.id %}?from=dashboard" class="view-recipe-link">
+                                                View Recipe
+                                                <i class="bi bi-box-arrow-up-right"></i>
+                                            </a>
+                                            <a href="{% url 'recipe_library' %}?meal_type=dinner&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                            class="swap-meal-link">
+                                                Swap Meal
+                                                <i class="bi bi-arrow-repeat"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {% if meal.snack %}
+                                            <a href="{% url 'recipe_detail' meal.snack.id %}?from=dashboard" class="recipe-title-link">
+                                                <strong>{{ meal.snack.title }}</strong>
+                                            </a><br>
+                                            <!--<small>{{ meal.snack.description }}</small>-->
+                                            <div class="quick-actions">
+                                                <a href="{% url 'recipe_detail' meal.snack.id %}?from=dashboard" class="view-recipe-link">
+                                                    View Recipe
+                                                    <i class="bi bi-box-arrow-up-right"></i>
+                                                </a>
+                                                <a href="{% url 'recipe_library' %}?meal_type=snack&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                                class="swap-meal-link">
+                                                    Swap Meal
+                                                    <i class="bi bi-arrow-repeat"></i>
+                                                </a>
+                                            </div>
+                                        {% else %}
+                                            <em>No snack assigned</em>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+
+                    <!-- Card View for Smaller Screens -->
+                    <div class="day-card-container d-block d-md-none">
+                        {% for meal in meal_plan.meals.all %}
+                    
+                        <!-- Day Header -->
+                        <div class="day-header">
+                            <h3>{{ meal.get_day_display }}</h3>
+                        </div>
+                        <!-- Breakfast Card -->
+                        <div class="day-card breakfast">
+                            <h4>🍳 Breakfast</h4>
+                            <a href="{% url 'recipe_detail' meal.breakfast.id %}?from=dashboard" class="recipe-title-link">
+                                {{ meal.breakfast.title }}
+                            </a>
+                            <div class="quick-actions">
+                                <a href="{% url 'recipe_detail' meal.breakfast.id %}?from=dashboard" class="view-recipe-link">
+                                    View Recipe
+                                </a>
+                                <a href="{% url 'recipe_library' %}?meal_type=breakfast&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                   class="swap-meal-link">
+                                    Swap Meal
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Lunch Card -->
+                        <div class="day-card lunch">
+                            <h4>🥗 Lunch</h4>
+                            <a href="{% url 'recipe_detail' meal.lunch.id %}?from=dashboard" class="recipe-title-link">
+                                {{ meal.lunch.title }}
+                            </a>
+                            <div class="quick-actions">
+                                <a href="{% url 'recipe_detail' meal.lunch.id %}?from=dashboard" class="view-recipe-link">
+                                    View Recipe
+                                </a>
+                                <a href="{% url 'recipe_library' %}?meal_type=lunch&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                   class="swap-meal-link">
+                                    Swap Meal
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Dinner Card -->
+                        <div class="day-card dinner">
+                            <h4>🍽 Dinner</h4>
+                            <a href="{% url 'recipe_detail' meal.dinner.id %}?from=dashboard" class="recipe-title-link">
+                                {{ meal.dinner.title }}
+                            </a>
+                            <div class="quick-actions">
+                                <a href="{% url 'recipe_detail' meal.dinner.id %}?from=dashboard" class="view-recipe-link">
+                                    View Recipe
+                                </a>
+                                <a href="{% url 'recipe_library' %}?meal_type=dinner&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                   class="swap-meal-link">
+                                    Swap Meal
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Snack Card -->
+                        <div class="day-card snack">
+                            <h4>🍎 Snack</h4>
+                            {% if meal.snack %}
+                            <a href="{% url 'recipe_detail' meal.snack.id %}?from=dashboard" class="recipe-title-link">
+                                {{ meal.snack.title }}
+                            </a>
+                            <div class="quick-actions">
+                                <a href="{% url 'recipe_detail' meal.snack.id %}?from=dashboard" class="view-recipe-link">
+                                    View Recipe
+                                </a>
+                                <a href="{% url 'recipe_library' %}?meal_type=snack&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                   class="swap-meal-link">
+                                    Swap Meal
+                                </a>
+                            </div>
+                            {% else %}
+                            <em>No snack assigned</em>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p>No meal plan found for {{ child.name }} for this week. A new meal plan will be generated automatically!</p>
+                    {% endif %}
+                    {% endfor %}
+                    {% else %}
+                    <p>No child profiles found. Add a child profile to generate meal plans!</p>
+                    {% endif %}                    
+
+<!-- Include the footer -->
+{% include '_footer.html' %}
+{% endblock %}

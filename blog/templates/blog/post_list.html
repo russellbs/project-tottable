@@ -1,0 +1,55 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'base.css' %}">
+<link rel="stylesheet" href="{% static 'blog/blog_styles.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'blog/_blog_navbar.html' %}
+
+    <!-- Featured Posts Scrolling Box -->
+    <div class="featured-posts">
+        {% for post in posts|slice:":3" %} <!-- Display the first 3 posts as featured -->
+            <div class="featured-post">
+                <div class="featured-image">
+                    <img src="{{ post.image_url|default:'https://via.placeholder.com/800x500' }}" alt="{{ post.title }}">
+                </div>
+                <div class="featured-content">
+                    <h2>{{ post.title }}</h2>
+                    <p>{{ post.content|truncatewords:20 }}</p>
+                    <a href="{% url 'blog_post' post.slug %}" class="read-now-button">READ NOW</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Dot Indicators for Carousel Navigation -->
+    <div class="dot-indicators">
+        {% for post in posts|slice:":3" %}
+            <span class="dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}"></span>
+        {% endfor %}
+    </div>
+
+    <!-- Blog Post Grid Section -->
+    <div class="blog-grid">
+        {% for post in posts %}
+            <div class="blog-grid-item">
+                <img src="{{ post.image_url|default:'https://via.placeholder.com/300x200' }}" alt="{{ post.title }}">
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.content|truncatewords:15 }}</p>
+                <a href="{% url 'blog_post' post.slug %}" class="read-more-button">Read More</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% include '_footer.html' %}
+{% endblock %}
+
+<!-- Include the JavaScript for the carousel -->
+{% block scripts %}
+<script src="{% static 'blog/blog_home.js' %}"></script>
+{% endblock %}

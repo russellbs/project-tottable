@@ -1,0 +1,79 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'base.css' %}">
+<link rel="stylesheet" href="{% static 'blog/blog_styles.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'blog/_blog_navbar.html' %}
+
+    <div class="post-wrapper">
+        <div class="post-container">
+            <!-- Article Title -->
+            <h1 class="post-title">{{ post.title }}</h1>
+
+            <!-- Article Image -->
+            <div class="post-image">
+                <img src="{{ post.image_url }}" alt="Featured Image">
+            </div>
+
+            <!-- Article Content -->
+            <div class="post-content">
+                <!-- Render the entire TinyMCE content safely -->
+                {{ post.content|safe }}
+
+                <!-- Email Signup Section -->
+                <div class="email-signup">
+                    <h2>Here's a tip:</h2>
+                    <p>Looking for an easy way to keep up with your child's development? Get weekly guidance and expert tips straight to your inbox.</p>
+                    <div id="signup-form">
+                        <button type="button" onclick="showAdditionalFields()">Sign Me Up</button>
+                        <input type="hidden" id="csrf-token" value="{{ csrf_token }}">
+                    </div>
+                </div>
+            </div>
+                    
+            <!-- Author Section -->
+            <div class="author-section">
+                <div class="author-details">
+                    <h3>Author</h3>
+                    <p>{{ post.author }}</p>
+                    <a href="#">Visit site</a>
+                </div>
+                <div class="post-tags">
+                    <p>Posted in: 
+                         {% for tag in post.tags.all %} 
+                            <a href="#">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+                         {% endfor %}
+                    </p>
+                </div>                
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Posts (Keep Reading) Section -->
+    <div class="keep-reading-wrapper">
+        <div class="keep-reading">
+            <h2>Keep Reading</h2>
+            <div class="related-posts">
+                {% for related in post.related_posts %}
+                    <div class="related-post">
+                        <img src="{{ related.image_url }}" alt="Related Post Image">
+                        <h4>{{ related.title }}</h4>
+                        <p>{{ related.tag }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% include '_footer.html' %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'blog/blog_post.js' %}"></script>
+{% endblock %}

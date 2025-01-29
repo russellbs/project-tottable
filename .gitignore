@@ -1,0 +1,37 @@
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Virtual environment
+env/
+venv/
+
+# Django specific
+db.sqlite3
+*.log
+*.pot
+*.pyc
+*.so
+staticfiles/
+static/
+media/
+
+# Environment variables
+.env
+
+# Editor and IDE-specific
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+
+# MacOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db

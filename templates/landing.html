@@ -1,0 +1,98 @@
+{% extends 'main.html' %}
+
+{% block title %}Welcome to Tottable{% endblock %}  <!-- Set page-specific title -->
+
+{% block content %}
+<!-- Hero Section with Background Image -->
+<section class="hero text-center" style="background-image: url('your-image-url.jpg'); background-size: cover; background-position: center; height: 90vh; color: white; display: flex; align-items: center; justify-content: center;">
+    <div class="container">
+        <h1 class="display-4 font-weight-bold">Simplify Meal Planning for Your Baby</h1>
+        <p class="lead mt-4">Personalized meal plans and recipes for your baby's development.</p>
+        <a href="#features" class="btn btn-primary btn-lg mt-3">Get Started</a>
+    </div>
+</section>
+
+<!-- Features Section (Off-white background, full-height) -->
+<section id="features" class="full-height text-center py-5">
+    <div class="container">
+        <h2>Why Parents Love Tottable</h2>
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <img src="icon1.png" alt="Personalized Plans" class="mb-3">
+                <h3>Personalized Meal Plans</h3>
+                <p>Weekly recommendations based on your baby's preferences.</p>
+            </div>
+            <div class="col-md-4">
+                <img src="icon2.png" alt="Shopping List" class="mb-3">
+                <h3>Automated Shopping List</h3>
+                <p>Get a list sent to your phone or email for easy shopping.</p>
+            </div>
+            <div class="col-md-4">
+                <img src="icon3.png" alt="Weaning Guidance" class="mb-3">
+                <h3>Baby-Led Weaning</h3>
+                <p>Receive expert guidance on your baby's feeding journey.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section (Coral background, full-height) -->
+<section id="how-it-works" class="full-height text-center py-5">
+    <div class="container">
+        <h2>How Tottable Works</h2>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <h3>Step 1</h3>
+                <p>Enter your baby's food preferences and details.</p>
+            </div>
+            <div class="col-md-4">
+                <h3>Step 2</h3>
+                <p>Get customized meal plans every week.</p>
+            </div>
+            <div class="col-md-4">
+                <h3>Step 3</h3>
+                <p>Receive a shopping list and start cooking with ease.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section (Off-white background, full-height) -->
+<section id="testimonials" class="full-height text-center py-5">
+    <div class="container">
+        <h2>What Parents Are Saying</h2>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <blockquote class="blockquote">
+                    <p>"Tottable has made meal planning stress-free. My baby loves every recipe!"</p>
+                    <footer class="blockquote-footer">Sarah, Mom of 1</footer>
+                </blockquote>
+            </div>
+            <div class="col-md-6">
+                <blockquote class="blockquote">
+                    <p>"I don't have to think about what to cook anymore, it's all planned for me."</p>
+                    <footer class="blockquote-footer">John, Dad of 2</footer>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Email Sign-Up Section (Coral background, full-height) -->
+<section class="email-signup full-height text-center py-5">
+    <div class="container">
+        <h2>Stay Updated with Tottable</h2>
+        <p>Sign up for weekly meal plans, recipes, and tips straight to your inbox!</p>
+        <form action="/subscribe" method="POST" class="d-flex justify-content-center">
+            <input type="email" name="email" placeholder="Enter your email" required class="form-control w-50">
+            <button type="submit" class="btn btn-primary ms-3">Sign Up</button>
+        </form>
+    </div>
+</section>
+
+<!-- Footer (Stays independent from the previous section) -->
+<footer class="bg-dark text-light py-4 text-center">
+    <p>&copy; 2024 Tottable | All rights reserved.</p>
+    <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+</footer>
+{% endblock %}

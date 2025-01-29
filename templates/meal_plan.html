@@ -1,0 +1,18 @@
+{% extends "main.html" %}
+
+{% load static %}
+
+{% block title %}Meal Plan - Tottable{% endblock %}
+
+{% block content %}
+<!-- Include the user-specific header -->
+{% include 'user_header.html' %}
+
+<div class="container my-5">
+    <h1>Your Meal Plan</h1>
+    <p>This is where the meal plan details will be displayed.</p>
+</div>
+
+<!-- Include the footer -->
+{% include '_footer.html' %}
+{% endblock %}

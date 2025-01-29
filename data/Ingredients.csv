@@ -1,0 +1,119 @@
+Ingredient ID,Name,Food Category,Allergen Type,Is Vegetarian,Is Vegan
+ING-0000001,Rolled oats,Grains,None,Yes,Yes
+ING-0000002,Water,Liquid,None,Yes,Yes
+ING-0000003,Pearled barley,Grains,None,Yes,Yes
+ING-0000004,Zucchini,Vegetable,None,Yes,Yes
+ING-0000005,Mint leaf,Herb,None,Yes,Yes
+ING-0000006,Sweet green peas,Vegetable,None,Yes,Yes
+ING-0000007,Sweet potato,Vegetable,None,Yes,Yes
+ING-0000008,Pears,Fruit,None,Yes,Yes
+ING-0000009,Apples,Fruit,None,Yes,Yes
+ING-0000010,Banana,Fruit,None,Yes,Yes
+ING-0000011,Carrots,Vegetable,None,Yes,Yes
+ING-0000012,Chickpeas,Legume,None,Yes,Yes
+ING-0000013,Cumin,Spice,None,Yes,Yes
+ING-0000015,Whole-milk yogurt,Dairy,Dairy,Yes,No
+ING-0000016,Blueberries,Fruit,None,Yes,Yes
+ING-0000017,Milk,Liquid,Dairy,Yes,No
+ING-0000018,Olive oil,Oil,None,Yes,Yes
+ING-0000019,Sea salt,Seasoning,None,Yes,Yes
+ING-0000020,Instant polenta,Grain,Gluten,Yes,No
+ING-0000021,Parmesan cheese,Dairy,Dairy,Yes,No
+ING-0000022,Butter,Dairy,Dairy,Yes,No
+ING-0000023,Maple syrup,Sweetener,None,Yes,Yes
+ING-0000024,Ground cinnamon,Spice,None,Yes,Yes
+ING-0000025,Vanilla extract,Flavoring,None,Yes,Yes
+ING-0000026,Whole-grain bread,Grain,Gluten,Yes,No
+ING-0000027,Yellow onion,Vegetable,None,Yes,Yes
+ING-0000028,Garlic,Vegetable,None,Yes,Yes
+ING-0000029,Carrot,Vegetable,None,Yes,Yes
+ING-0000030,Chicken broth,Liquid,None,No,No
+ING-0000031,Dried brown lentils,Legume,None,Yes,Yes
+ING-0000032,Crushed tomatoes,Vegetable,None,Yes,Yes
+ING-0000033,Goat cheese,Dairy,Dairy,Yes,No
+ING-0000034,Red bell peppers,Vegetable,None,Yes,Yes
+ING-0000035,Paprika,Spice,None,Yes,Yes
+ING-0000036,Lemon juice,Flavoring,None,Yes,Yes
+ING-0000037,Toasted sesame oil,Oil,None,Yes,Yes
+ING-0000038,Brown sugar,Sweetener,None,Yes,Yes
+ING-0000039,Fresh ginger,Flavoring,None,Yes,Yes
+ING-0000040,Pork loin,Protein,None,No,No
+ING-0000041,Ground turkey leg and thigh meat,Protein,None,No,No
+ING-0000042,Dried oregano,Spice,None,Yes,Yes
+ING-0000043,Ground nutmeg,Spice,None,Yes,Yes
+ING-0000044,Dried whole-wheat orzo,Grain,Gluten,Yes,No
+ING-0000045,Ground lamb,Protein,None,No,No
+ING-0000046,Egg yolk,Protein,None,Yes,No
+ING-0000047,Cucumber,Vegetable,None,Yes,Yes
+ING-0000048,Fresh thyme,Herb,None,Yes,Yes
+ING-0000049,Whole tomatoes,Vegetable,None,Yes,Yes
+ING-0000050,Chicken or vegetable broth,Liquid,None,No,Yes
+ING-0000051,Sugar,Sweetener,None,Yes,Yes
+ING-0000052,Whipping cream,Dairy,Dairy,Yes,No
+ING-0000053,Cooked rice,Grain,Gluten,Yes,No
+ING-0000054,Shallots,Vegetable,None,Yes,Yes
+ING-0000055,Chicken breast,Protein,None,No,No
+ING-0000056,Honey,Sweetener,None,Yes,No
+ING-0000057,Papaya,Fruit,None,Yes,Yes
+ING-0000058,Kiwi,Fruit,None,Yes,Yes
+ING-0000059,Strawberries,Fruit,None,Yes,Yes
+ING-0000060,Whole-wheat flour tortillas,Grain,Gluten,Yes,No
+ING-0000061,Pinto beans,Legume,None,Yes,Yes
+ING-0000062,Monterey Jack cheese,Dairy,Dairy,Yes,No
+ING-0000063,Dijon mustard,Condiment,None,Yes,Yes
+ING-0000064,All-purpose flour,Grain,Gluten,Yes,No
+ING-0000065,White sesame seeds,Seed,None,Yes,Yes
+ING-0000066,Baking powder,Leavening,None,Yes,Yes
+ING-0000067,Mini pitas or slider buns,Grain,Gluten,Yes,No
+ING-0000068,Black beans,Legume,None,Yes,Yes
+ING-0000069,Cheddar cheese,Dairy,Dairy,Yes,No
+ING-0000070,Green onions,Vegetable,None,Yes,Yes
+ING-0000071,Tomato salsa,Condiment,None,Yes,Yes
+ING-0000072,Broccoli florets,Vegetable,None,Yes,Yes
+ING-0000073,Sharp cheddar cheese,Dairy,Dairy,Yes,No
+ING-0000074,Whole-wheat flour,Grain,Gluten,Yes,No
+ING-0000075,Baking soda,Leavening,None,Yes,Yes
+ING-0000076,Applesauce,Fruit,None,Yes,Yes
+ING-0000077,Canola oil,Oil,None,Yes,Yes
+ING-0000078,Medjool dates,Fruit,None,Yes,Yes
+ING-0000079,Orange,Fruit,None,Yes,Yes
+ING-0000080,Short-grain rice,Grain,Gluten-Free,Yes,Yes
+ING-0000081,Rice vinegar,Condiment,None,Yes,Yes
+ING-0000082,Salmon,Protein,Fish,No,No
+ING-0000083,Soy sauce,Seasoning,Soy,Yes,No
+ING-0000084,Asparagus,Vegetable,None,Yes,Yes
+ING-0000085,Soba noodles,Grain,Gluten,Yes,No
+ING-0000086,Brown basmati rice,Grain,Gluten-Free,Yes,Yes
+ING-0000087,Fresh cilantro,Herb,None,Yes,Yes
+ING-0000088,Fresh basil,Herb,None,Yes,Yes
+ING-0000089,Fresh parsley,Herb,None,Yes,Yes
+ING-0000090,Almond butter,Spread,Nuts,No,No
+ING-0000091,Raspberry preserves,Spread,None,Yes,Yes
+ING-0000092,Ground coriander,Spice,None,Yes,Yes
+ING-0000093,Baby bok choy,Vegetable,None,Yes,Yes
+ING-0000094,Mild chili powder,Spice,None,Yes,Yes
+ING-0000095,Soft bread,Grain,Gluten,Yes,No
+ING-0000096,Cream cheese,Dairy,Dairy,Yes,No
+ING-0000097,Fruit preserves,Spread,None,Yes,Yes
+ING-0000098,Mango,Fruit,None,Yes,Yes
+ING-0000099,Arborio rice,Grain,Gluten-Free,Yes,Yes
+ING-0000100,Baby spinach,Vegetable,None,Yes,Yes
+ING-0000101,Dried apricots,Fruit,None,Yes,Yes
+ING-0000102,Whole-wheat pizza dough,Grain,Gluten,Yes,No
+ING-0000103,Butternut squash,Vegetable,None,Yes,Yes
+ING-0000104,Cooked quinoa,Grain,Gluten-Free,Yes,Yes
+ING-0000105,Panko bread crumbs,Grain,Gluten,Yes,No
+ING-0000106,Dark chocolate,Confectionery,None,Yes,No
+ING-0000107,Vanilla ice cream,Dessert,Dairy,Yes,No
+ING-0000108,Cantaloupe,Fruit,None,Yes,Yes
+ING-0000109,Nectarine,Fruit,None,Yes,Yes
+ING-0000110,Peach,Fruit,None,Yes,Yes
+ING-0000111,Avocado,Fruit,None,Yes,Yes
+ING-0000112,Sharp white cheddar cheese,Dairy,Dairy,Yes,No
+ING-0000113,Baby beets,Vegetable,None,Yes,Yes
+ING-0000114,Fresh basil leaves,Herb,None,Yes,Yes
+ING-0000115,Light coconut milk,Liquid,None,Yes,Yes
+ING-0000116,Edamame,Legume,None,Yes,Yes
+ING-0000117,White (cannellini) beans,Legume,None,Yes,Yes
+ING-0000118,Cauliflower florets,Vegetable,None,Yes,Yes
+ING-0000119,Powdered sugar,Sweetener,None,Yes,Yes

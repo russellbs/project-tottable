@@ -1,0 +1,162 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}Recipe Library - Tottable{% endblock %}
+
+{% block extra_head %}
+<!-- Link to the global base stylesheet -->
+<link rel="stylesheet" href="{% static 'base.css' %}">
+<link rel="stylesheet" href="{% static 'recipe_library.css' %}">
+{% endblock %}
+
+{% block content %}
+{% include 'user_header.html' %}
+
+<div class="recipe-library container">
+
+    <div class="back-button mb-3">
+        {% if swap_mode %}
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary">
+            ← Back to Dashboard
+        </a>
+        {% endif %}
+    </div>        
+
+    <!-- Header -->
+    <header class="library-header">
+        <h1>Recipe Library</h1>
+        {% if swap_mode %}
+        <p>Choose a recipe to replace the current {{ meal_type|capfirst }} for {{ day|capfirst }}.</p>
+        {% else %}
+        <p>Find the perfect recipe tailored to your baby's preferences and dietary needs.</p>
+        {% endif %}
+    </header>
+
+    <!-- Search and Filter Section -->
+    <!-- Search and Filter Section -->
+    <div class="search-filter">
+        <form id="filter-form" method="GET" action="{% url 'recipe_library' %}">
+            <!-- Hidden fields to preserve swap_mode, meal_type, and day -->
+            {% if swap_mode %}
+            <input type="hidden" name="swap" value="1">
+            {% endif %}
+            {% if meal_type %}
+            <input type="hidden" name="meal_type" value="{{ meal_type }}">
+            {% endif %}
+            {% if day %}
+            <input type="hidden" name="day" value="{{ day }}">
+            {% endif %}
+            <!-- Search Bar -->
+            <div class="search-bar-container">
+                <input 
+                    type="text" 
+                    name="query" 
+                    value="{{ request.GET.query }}" 
+                    placeholder="Search recipes..." 
+                    class="search-bar">
+            </div>
+    
+        <!-- Filter Options (inline layout) -->
+        <div class="filter-options">
+            <!-- Meal Type Dropdown -->
+            <select name="meal_type" class="filter-dropdown rounded-dropdown">
+                <option value="">Meal Type</option>
+                <option value="B" {% if request.GET.meal_type == "B" %}selected{% endif %}>Breakfast</option>
+                <option value="L" {% if request.GET.meal_type == "L" %}selected{% endif %}>Lunch</option>
+                <option value="D" {% if request.GET.meal_type == "D" %}selected{% endif %}>Dinner</option>
+                <option value="S" {% if request.GET.meal_type == "S" %}selected{% endif %}>Snack</option>
+                <option value="DR" {% if request.GET.meal_type == "DR" %}selected{% endif %}>Drink</option>
+            </select>
+    
+            <!-- Age Suitability Dropdown -->
+            <select name="age_range" class="filter-dropdown rounded-dropdown">
+                <option value="">Age Suitability</option>
+                <option value="6-9" {% if request.GET.age_range == "6-9" %}selected{% endif %}>6–9 months</option>
+                <option value="9-12" {% if request.GET.age_range == "9-12" %}selected{% endif %}>9–12 months</option>
+                <option value="12+" {% if request.GET.age_range == "12+" %}selected{% endif %}>12+ months</option>
+            </select>
+    
+            <!-- Ingredient Search -->
+            <!--<input type="text" name="ingredient" value="{{ request.GET.ingredient }}" placeholder="Search by ingredient..." class="search-bar">-->
+    
+            <!-- Vegetarian and Vegan Checkboxes -->
+            <label class="filter-checkbox">
+                <input type="checkbox" name="vegetarian" value="1" {% if request.GET.vegetarian == "1" %}checked{% endif %}> Vegetarian
+            </label>
+            <!--<label class="filter-checkbox">
+                <input type="checkbox" name="vegan" value="1" {% if request.GET.vegan == "1" %}checked{% endif %}> Vegan
+            </label>-->
+    
+            <!-- Exclude Allergens Multi-select -->
+            <div class="custom-multi-select-container">
+                <label for="exclude_allergens" class="multi-select-label">Exclude Allergens:</label>
+                <div class="custom-multi-select-options">
+                    <div class="custom-option">
+                        <input type="checkbox" id="allergen-nuts" name="exclude_allergens" value="nuts" {% if "nuts" in request.GET.exclude_allergens %}checked{% endif %}>
+                        <label for="allergen-nuts">Nuts</label>
+                    </div>
+                    <div class="custom-option">
+                        <input type="checkbox" id="allergen-dairy" name="exclude_allergens" value="dairy" {% if "dairy" in request.GET.exclude_allergens %}checked{% endif %}>
+                        <label for="allergen-dairy">Dairy</label>
+                    </div>
+                    <div class="custom-option">
+                        <input type="checkbox" id="allergen-gluten" name="exclude_allergens" value="gluten" {% if "gluten" in request.GET.exclude_allergens %}checked{% endif %}>
+                        <label for="allergen-gluten">Gluten</label>
+                    </div>
+                    <div class="custom-option">
+                        <input type="checkbox" id="allergen-soy" name="exclude_allergens" value="soy" {% if "soy" in request.GET.exclude_allergens %}checked{% endif %}>
+                        <label for="allergen-soy">Soy</label>
+                    </div>
+                    <div class="custom-option">
+                        <input type="checkbox" id="allergen-shellfish" name="exclude_allergens" value="shellfish" {% if "shellfish" in request.GET.exclude_allergens %}checked{% endif %}>
+                        <label for="allergen-shellfish">Shellfish</label>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </form>
+</div>    
+
+    <!-- Recipe Grid -->
+    <section class="recipe-list">
+        <div class="recipe-grid">
+            {% for recipe in page_obj %}
+            <div class="recipe-card">
+                <h3 class="recipe-title">{{ recipe.title }}</h3>
+                <p class="recipe-description">{{ recipe.description }}</p>
+                <a href="{% url 'recipe_detail' recipe.id %}?swap={{ swap_mode|yesno:'1,' }}&meal_type={{ meal_type }}&day={{ day }}" 
+                   class="view-recipe-button">
+                    View Recipe
+                </a>
+                {% if swap_mode %}
+                <a href="{% url 'dashboard_swap' recipe.id %}?meal_type={{ meal_type }}&day={{ day }}" class="select-recipe-button">
+                    Select Recipe
+                </a>
+                {% endif %}
+            </div>
+            {% empty %}
+            <p>No recipes found. Try refining your search or check back later!</p>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}&swap={{ swap_mode|yesno:'1,' }}&meal_type={{ meal_type }}&day={{ day }}" class="step-links">Previous</a>
+            {% endif %}
+
+            <span class="current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&swap={{ swap_mode|yesno:'1,' }}&meal_type={{ meal_type }}&day={{ day }}" class="step-links">Next</a>
+            {% endif %}
+        </div>
+    </section>
+</div>
+
+{% include '_footer.html' %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'recipe_library.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% load static %}
+<div class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>Learn More</h4>
+            <a href="#">About Us</a>
+            <a href="#">Reviews</a>
+            <a href="#">Careers</a>
+            <a href="#">Blog</a>
+            <a href="#">Sustainability</a>
+        </div>
+        <div class="footer-section">
+            <h4>Our Products</h4>
+            <a href="#">The Play Kits</a>
+            <a href="#">The Play Gym</a>
+            <a href="#">The Music Set</a>
+            <a href="#">Montessori-Inspired Toys</a>
+        </div>
+        <div class="footer-section">
+            <h4>Support</h4>
+            <a href="#">Setup</a>
+            <a href="#">FAQs</a>
+            <a href="#">Return Policy</a>
+            <a href="#">Vouchers & Discounts</a>
+        </div>
+        <div class="footer-section">
+            <h4>Have a question?</h4>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="footer-section footer-social">
+            <h4>Follow Us</h4>
+            <a href="#"><img src="{% static 'icons/instagram-icon.svg' %}" alt="Instagram"></a>
+            <a href="#"><img src="{% static 'icons/facebook-icon.svg' %}" alt="Facebook"></a>
+            <a href="#"><img src="{% static 'icons/youtube-icon.svg' %}" alt="YouTube"></a>
+            <a href="#"><img src="{% static 'icons/pinterest-icon.svg' %}" alt="Pinterest"></a>
+            <a href="#"><img src="{% static 'icons/tiktok-icon.svg' %}" alt="TikTok"></a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; {{ year|default:"2024" }} | <a href="#">Privacy</a> | <a href="#">Terms</a> | <a href="#">Sitemap</a></p>
+    </div>
+</div>
