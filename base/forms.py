@@ -51,8 +51,9 @@ class AddChildForm(forms.ModelForm):
 
 class WithinWeekPreferencesForm(forms.Form):
     MEAL_VARIETY_CHOICES = [
+        ("no", "No Variety"),  # Add the "No Variety" option
         ("low", "Low Variety"),
-        ("medium", "Medium Variety"),
+        ("medium", "Medium Variety"),  # Default remains "Medium Variety"
         ("high", "High Variety"),
     ]
 
@@ -62,6 +63,7 @@ class WithinWeekPreferencesForm(forms.Form):
     meal_variety_snack = forms.ChoiceField(choices=MEAL_VARIETY_CHOICES, required=False, label="Snack Variety")
 
     def save(self, user_profile):
+        # Ensure default is "medium" if the user doesn't explicitly select a value
         user_profile.within_week_preferences = {
             "breakfast": self.cleaned_data.get("meal_variety_breakfast", "medium"),
             "lunch": self.cleaned_data.get("meal_variety_lunch", "medium"),
@@ -69,6 +71,7 @@ class WithinWeekPreferencesForm(forms.Form):
             "snack": self.cleaned_data.get("meal_variety_snack", "medium"),
         }
         user_profile.save()
+
 
 
 class AcrossWeekPreferencesForm(forms.Form):

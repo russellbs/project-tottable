@@ -198,3 +198,77 @@
         max-height: 200px;
     }
 }
+
+/* Preferences Display Section */
+#preferences-within-week-display {
+    text-align: left; /* Left-align the text */
+    font-size: 1.2rem; /* Adjust font size for readability */
+    line-height: 1.6; /* Improve readability with consistent line height */
+    margin-bottom: 20px; /* Add margin below the section */
+}
+
+#preferences-within-week-display p {
+    margin-bottom: 10px; /* Add spacing between preference rows */
+}
+
+/* Spacing between preferences and buttons */
+#preferences-within-week-display button {
+    margin-top: 20px; /* Add space above the button */
+}
+
+/* Preferences Form Section */
+#preferences-within-week-form {
+    text-align: left; /* Left-align all text within the form */
+    margin-top: 20px; /* Add spacing above the form */
+}
+
+/* Form Labels */
+#preferences-within-week-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 1rem;
+}
+
+/* Form Select Fields */
+#preferences-within-week-form select {
+    width: 100%; /* Full width */
+    margin-bottom: 20px; /* Space below each select field */
+    padding: 10px; /* Consistent padding */
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Buttons in the Form */
+#preferences-within-week-form .btn {
+    margin-top: 20px; /* Add spacing above buttons */
+    margin-right: 10px; /* Space between Save and Cancel buttons */
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+}
+
+/* Left-align the Form Header */
+#preferences-within-week-form h3 {
+    text-align: left;
+    margin-bottom: 20px; /* Add spacing below the header */
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Add gap between form and the surrounding content */
+#preferences-within-week-form {
+    padding-bottom: 20px;
+}
+
+/* Improve overall form layout */
+#preferences-within-week-form .form-group {
+    margin-bottom: 20px; /* Space between each form group */
+}
+
+/* Buttons in Preferences Display */
+#preferences-within-week-display .btn {
+    text-align: left;
+    margin-top: 20px; /* Spacing from the preferences list */
+}

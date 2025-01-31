@@ -36,15 +36,28 @@
             <div class="form-group">
                 <label for="within_week_{{ pref.meal|slugify }}">{{ pref.meal|capfirst }}</label>
                 <select name="{{ pref.meal }}" id="within_week_{{ pref.meal|slugify }}" class="form-control">
+                    <option value="no" {% if pref.value == "No Variety" %}selected{% endif %}>No Variety</option>
                     <option value="low" {% if pref.value == "Low Variety" %}selected{% endif %}>Low Variety</option>
                     <option value="medium" {% if pref.value == "Medium Variety" %}selected{% endif %}>Medium Variety</option>
                     <option value="high" {% if pref.value == "High Variety" %}selected{% endif %}>High Variety</option>
-                </select>
+                </select>                
             </div>
             {% endfor %}
             <button type="submit" class="btn btn-success">Save Within-Week Preferences</button>
             <button type="button" id="cancel-within-week-preferences-btn" class="btn btn-secondary">Cancel</button>
-        </form>
+        </form>    
+        
+        <!-- Regenerate Meal Plan Button for Each Child -->
+        {% for child in children %}
+        <div id="regenerate-meal-plan-section-{{ child.id }}" style="margin-top: 20px;">
+            <button id="regenerate-meal-plan-btn-{{ child.id }}" class="btn btn-warning regenerate-meal-plan-btn" data-child-id="{{ child.id }}">
+                Regenerate {{ child.name }}'s Meal Plan
+            </button>
+            <p id="last-regenerated-info-{{ child.id }}" style="font-size: 0.9em; color: gray;">
+                Last regenerated: {{ child.meal_plans.last.created_at|date:"F j, Y" }}
+            </p>
+        </div>
+        {% endfor %}
     </div>
 
     <!-- Little Munchkins Section -->
