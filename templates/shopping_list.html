@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Shopping List - Tottable{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'base.css' %}">
+<link rel="stylesheet" href="{% static 'shopping_list.css' %}">
+{% endblock %}
+
+{% block content %}
+{% include 'user_header.html' %}
+
+<div class="week-navigation mb-3">
+    <a href="?week={{ week_offset|add:"-1" }}" class="btn btn-week-nav">← Previous Week</a>
+    <h1 class="week-title">{{ displayed_week_start }} - {{ displayed_week_end }}</h1>
+    <a href="?week={{ week_offset|add:"1" }}" class="btn btn-week-nav">Next Week →</a>
+</div>
+
+<div class="container shopping-list-container">
+    <!-- Shopping List Display -->
+    <ul id="shopping-list" class="list-group">
+        {% for name, details in ingredients.items %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span data-id="item-{{ forloop.counter }}">{{ name }} - {{ details.quantity }} {{ details.unit }}</span>
+            <button class="btn btn-sm btn-outline-success" onclick="toggleCrossOff(this)">✓</button>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No ingredients found in your meal plan.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons mt-4">
+        <button class="btn btn-success" id="email-list-btn">Email List</button>
+        <button class="btn btn-secondary" id="export-notes-btn">Export to Notes</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'shopping_list.js' %}"></script>
+{% endblock %}

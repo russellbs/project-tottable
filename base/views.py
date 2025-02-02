@@ -4,7 +4,8 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
-from .models import Ingredient, Child, Recipe, MealPlan, Meal
+from django.db.models import Sum
+from .models import Ingredient, Child, Recipe, MealPlan, Meal, RecipeIngredient
 from .forms import AddChildForm, WithinWeekPreferencesForm, AcrossWeekPreferencesForm  # Import the AddChildForm
 from datetime import datetime, timedelta
 from django.db.models import Q
@@ -590,5 +591,70 @@ def regenerate_meals_for_plan(meal_plan):
     return meal_plan
 
 
+def test_meal_plan_email(request):
+    meal_plan = {
+        "Monday": {"breakfast": "Baby Oatmeal", "lunch": "Sweet Potato Puree", "dinner": "Mashed Peas", "snack": "Banana Mash"},
+        "Tuesday": {"breakfast": "Apple Cinnamon Porridge", "lunch": "Carrot-Chickpea Mash", "dinner": "Pumpkin Risotto", "snack": "Avocado Toast"},
+        "Wednesday": {"breakfast": "Mini Broccoli Frittatas", "lunch": "Cheesy Soft Polenta", "dinner": "Turkey Bolognese", "snack": "Blueberry Bliss Smoothie"},
+    }
+    
+    context = {
+        "child_name": "Emma",
+        "meal_plan": meal_plan,
+        "meal_plan_url": "/meal-plan/",
+        "shopping_list_url": "/shopping-list/",
+        "swap_meal_url": "/swap-meal/",
+        "preferences_url": "/preferences/",
+    }
+    
+    return render(request, "meal_plan_email.html", context)
 
 
+@login_required
+def shopping_list(request):
+    user = request.user
+    ingredients = {}
+
+    # Handle week offset for navigation
+    week_offset = int(request.GET.get('week', 0))
+    current_week_start = timezone.now().date() - timedelta(days=timezone.now().weekday())
+    displayed_week_start = current_week_start + timedelta(weeks=week_offset)
+    displayed_week_end = displayed_week_start + timedelta(days=6)
+
+    # Fetch MealPlans for the current user's children for the selected week
+    meal_plans = MealPlan.objects.filter(
+        child__parent=user,
+        start_date=displayed_week_start,
+        end_date=displayed_week_end
+    )
+
+    for meal_plan in meal_plans:
+        for meal in meal_plan.meals.all():  # Iterate through each meal
+            for meal_type in ['breakfast', 'lunch', 'dinner', 'snack']:
+                recipe = getattr(meal, meal_type, None)
+                if recipe:
+                    recipe_ingredients = RecipeIngredient.objects.filter(recipe=recipe)
+                    for item in recipe_ingredients:
+                        name = item.ingredient.name
+                        quantity = item.quantity
+                        unit = item.unit
+
+                        # Aggregate duplicate ingredients
+                        if name in ingredients:
+                            if ingredients[name]['unit'] == unit:
+                                ingredients[name]['quantity'] += quantity
+                            else:
+                                # Handle unit mismatch gracefully
+                                ingredients[name]['quantity'] += quantity
+                                ingredients[name]['unit'] = f"{ingredients[name]['unit']} / {unit}"
+                        else:
+                            ingredients[name] = {'quantity': quantity, 'unit': unit}
+
+    context = {
+        'ingredients': ingredients,
+        'displayed_week_start': displayed_week_start,
+        'displayed_week_end': displayed_week_end,
+        'week_offset': week_offset,
+    }
+
+    return render(request, 'shopping_list.html', context)

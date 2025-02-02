@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Baby’s Weekly Meal Plan is Ready! 🍽️</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+            text-align: center;
+        }
+        p {
+            color: #555;
+            text-align: center;
+            font-size: 16px;
+        }
+        .meal-day {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        .meal-day h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .meal-list {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+        }
+        .meal-list li {
+            padding: 5px 0;
+            font-size: 15px;
+            text-align: center;
+        }
+        .button {
+            display: block;
+            width: 80%;
+            text-align: center;
+            background-color: #36b37e;
+            color: white;
+            padding: 12px;
+            margin: 15px auto;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 6px;
+        }
+        .button:hover {
+            background-color: #2e9c6e;
+        }
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Weekly Meal Plan is Here! 🍽️</h1>
+        <p>We've put together this week's meal plan for {{ child_name }} based on your preferences.</p>
+
+        <!-- Loop through each day -->
+        {% for day, meals in meal_plan.items %}
+        <div class="meal-day">
+            <h3>{{ day }}</h3>
+            <ul class="meal-list">
+                <li><strong>🥣 Breakfast:</strong> {{ meals.breakfast }}</li>
+                <li><strong>🥗 Lunch:</strong> {{ meals.lunch }}</li>
+                <li><strong>🍽️ Dinner:</strong> {{ meals.dinner }}</li>
+                <li><strong>🍎 Snack:</strong> {{ meals.snack }}</li>
+            </ul>
+        </div>
+        {% endfor %}
+
+        <!-- Buttons -->
+        <a href="{{ meal_plan_url }}" class="button">View Full Meal Plan</a>
+        <a href="{{ shopping_list_url }}" class="button">🛒 Get Shopping List</a>
+        <a href="{{ swap_meal_url }}" class="button" style="background-color: #f2994a;">🔄 Swap a Meal</a>
+
+        <p>Need to tweak something? You can swap meals anytime.</p>
+
+        <div class="footer">
+            <p>Happy feeding! 🍼 | <a href="{{ preferences_url }}">Update Preferences</a></p>
+            <p>💛 The Tottable Team</p>
+        </div>
+    </div>
+</body>
+</html>
