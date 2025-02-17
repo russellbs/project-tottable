@@ -1,3 +1,46 @@
+/* Hero Section */
+.hero {
+    background-color: #f8f9fa; /* Light background */
+    text-align: left;
+    display: flex;
+    align-items: center;
+    height: 90vh;
+    padding-left: 10%;
+    padding-right: 5%;
+}
+
+/* Hero Heading - Main Title */
+.hero-heading {
+    font-size: 56px; /* Standard for hero sections */
+    font-weight: 600; /* Slightly bolder for impact */
+    line-height: 1.2;
+}
+
+/* Hero Subtext - Subtitle */
+.hero-subtext {
+    font-size: 28px; /* Bigger but secondary in importance */
+    font-weight: 400;
+    margin-top: 15px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero {
+        padding-left: 5%;
+        padding-right: 5%;
+        text-align: center;
+    }
+
+    .hero-heading {
+        font-size: 48px; /* Adjust for smaller screens */
+    }
+
+    .hero-subtext {
+        font-size: 24px;
+    }
+}
+
+
 /* Base styles for the project */
 
 body {

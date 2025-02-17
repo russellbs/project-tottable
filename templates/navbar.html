@@ -1,0 +1,44 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top custom-navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'landing_page' %}">Tottable</a>
+        <div class="navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link profile-circle" href="#" id="userDropdown">
+                            {{ user.first_name|first|upper }}
+                        </a>
+                        <ul class="dropdown-menu" id="userDropdownMenu">
+                            <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="{% url 'recipe_library' %}">Recipes</a></li>
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'shopping_list' %}">Shopping List</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form id="logoutForm" action="{% url 'logout' %}" method="post" style="display: none;">
+                                    {% csrf_token %}
+                                </form>
+                                <a class="dropdown-item text-danger" href="#" onclick="document.getElementById('logoutForm').submit(); return false;">
+                                    Log Out
+                                </a>
+                            </li>                            
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary text-white px-3" href="{% url 'signup' %}">Try for Free</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Load Navbar CSS & JS -->
+<link href="{% static 'navbar.css' %}" rel="stylesheet">
+<script src="{% static 'navbar.js' %}"></script>

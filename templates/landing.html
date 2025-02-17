@@ -1,84 +1,101 @@
 {% extends 'main.html' %}
 
-{% block title %}Welcome to Tottable{% endblock %}  <!-- Set page-specific title -->
+{% load static %} 
+
+{% block title %}Welcome to Tottable{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'landing.css' %}">
+{% endblock %}
 
 {% block content %}
 <!-- Hero Section with Background Image -->
-<section class="hero text-center" style="background-image: url('your-image-url.jpg'); background-size: cover; background-position: center; height: 90vh; color: white; display: flex; align-items: center; justify-content: center;">
+<section class="hero" style="background: url('/media/Tottable_Hero.jpg') no-repeat center center; background-size: cover;">
     <div class="container">
-        <h1 class="display-4 font-weight-bold">Simplify Meal Planning for Your Baby</h1>
-        <p class="lead mt-4">Personalized meal plans and recipes for your baby's development.</p>
-        <a href="#features" class="btn btn-primary btn-lg mt-3">Get Started</a>
+        <h1 class="hero-heading">
+            Take meal planning <br> off your plate
+        </h1>
+        <p class="hero-subtext">
+            Personalized meal plans for your <br> baby's development
+        </p>
+        <a href="#features" class="btn btn-primary btn-lg mt-3">Reduce your mental load</a>
     </div>
 </section>
 
-<!-- Features Section (Off-white background, full-height) -->
+<!-- Features Section -->
 <section id="features" class="full-height text-center py-5">
     <div class="container">
         <h2>Why Parents Love Tottable</h2>
         <div class="row mt-5">
             <div class="col-md-4">
-                <img src="icon1.png" alt="Personalized Plans" class="mb-3">
-                <h3>Personalized Meal Plans</h3>
-                <p>Weekly recommendations based on your baby's preferences.</p>
+                <i data-lucide="calendar" class="mb-3" style="width: 40px; height: 40px;"></i>
+                <h3>Automatic Meal Plans</h3>
+                <p>Personalized meal plans crafted from 500+ nutritious recipes—tailored to your baby's age, preferences, and allergies.</p>
             </div>
             <div class="col-md-4">
-                <img src="icon2.png" alt="Shopping List" class="mb-3">
-                <h3>Automated Shopping List</h3>
-                <p>Get a list sent to your phone or email for easy shopping.</p>
-            </div>
+                <i data-lucide="shuffle" class="mb-3" style="width: 40px; height: 40px;"></i>
+                <h3>Smart Ingredient Swaps</h3>
+                <p>Not sure about an ingredient in your meal plan? Swap it out with ease! Tottable gives you the flexibility to adjust recipes to suit your baby’s needs, so you stay in control.</p>
+            </div>            
             <div class="col-md-4">
-                <img src="icon3.png" alt="Weaning Guidance" class="mb-3">
-                <h3>Baby-Led Weaning</h3>
-                <p>Receive expert guidance on your baby's feeding journey.</p>
+                <i data-lucide="clock" class="mb-3" style="width: 40px; height: 40px;"></i>
+                <h3>Less Time in the Kitchen</h3>
+                <p>Spend less time planning and more time playing—Tottable streamlines grocery shopping and meal prep with easy-to-follow recipes and an automated shopping list.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- How It Works Section (Coral background, full-height) -->
+<!-- How It Works Section -->
 <section id="how-it-works" class="full-height text-center py-5">
     <div class="container">
         <h2>How Tottable Works</h2>
         <div class="row mt-4">
             <div class="col-md-4">
-                <h3>Step 1</h3>
-                <p>Enter your baby's food preferences and details.</p>
+                <i data-lucide="clipboard-list" class="mb-3" style="width: 40px; height: 40px;"></i>
+                <h3>Set Your Meal Variety</h3>
+                <p>Do you love structure or variety? Choose how much meal rotation you want in your weekly plan—from a steady routine to an adventurous mix!</p>
             </div>
             <div class="col-md-4">
-                <h3>Step 2</h3>
-                <p>Get customized meal plans every week.</p>
+                <i data-lucide="baby" class="mb-3" style="width: 40px; height: 40px;"></i>
+                <h3>Enter Your Baby’s Preferences</h3>
+                <p>Tell us what your baby loves (or doesn't!). Mark favorite foods, dislikes, and allergies so Tottable curates the perfect menu for your little one.</p>
             </div>
             <div class="col-md-4">
-                <h3>Step 3</h3>
-                <p>Receive a shopping list and start cooking with ease.</p>
+                <i data-lucide="check-circle" class="mb-3" style="width: 40px; height: 40px;"></i>
+                <h3>Done! Tottable Takes Care of the Rest</h3>
+                <p>Sit back and relax. Tottable delivers a weekly meal plan, customized shopping list, and easy-to-follow recipes—so you can focus on what really matters.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Testimonials Section (Off-white background, full-height) -->
-<section id="testimonials" class="full-height text-center py-5">
+<!-- The Problem with Meal Planning Section -->
+<section id="problem" class="full-height text-center py-5">
     <div class="container">
-        <h2>What Parents Are Saying</h2>
+        <h2>The Problem with Meal Planning</h2>
         <div class="row mt-4">
-            <div class="col-md-6">
-                <blockquote class="blockquote">
-                    <p>"Tottable has made meal planning stress-free. My baby loves every recipe!"</p>
-                    <footer class="blockquote-footer">Sarah, Mom of 1</footer>
-                </blockquote>
+            <div class="col-md-4">
+                <i data-lucide="brain" class="mb-3" style="width: 40px; height: 40px;"></i>
+                <h3>The Mental Load is Constant</h3>
+                <p>Parents spend <strong>over 13 hours a week</strong> managing household tasks—cooking, cleaning, grocery shopping, and planning meals. Even when they’re not actively doing these tasks, they’re thinking about them. That invisible workload adds up, fast.</p>
             </div>
-            <div class="col-md-6">
-                <blockquote class="blockquote">
-                    <p>"I don't have to think about what to cook anymore, it's all planned for me."</p>
-                    <footer class="blockquote-footer">John, Dad of 2</footer>
-                </blockquote>
+            <div class="col-md-4">
+                <i data-lucide="zap" class="mb-3" style="width: 40px; height: 40px;"></i>
+                <h3>Decision Fatigue is Real</h3>
+                <p>The average person makes <strong>35,000+ decisions every day</strong>—and parents make even more. What's for dinner? Does my child have enough variety? Do I need to run to the store? The endless decision-making drains energy, leaving parents mentally exhausted before the day is over.</p>
+            </div>
+            <div class="col-md-4">
+                <i data-lucide="users" class="mb-3" style="width: 40px; height: 40px;"></i>
+                <h3>The Burden Falls Mostly on Mothers</h3>
+                <p>Even in families where both parents work, moms handle most of the household responsibilities. The pressure of juggling meal planning, childcare, and everything in between is one of the biggest contributors to parental stress and burnout.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Email Sign-Up Section (Coral background, full-height) -->
+
+<!-- Email Sign-Up Section -->
 <section class="email-signup full-height text-center py-5">
     <div class="container">
         <h2>Stay Updated with Tottable</h2>
@@ -90,9 +107,16 @@
     </div>
 </section>
 
-<!-- Footer (Stays independent from the previous section) -->
+<!-- Footer -->
 <footer class="bg-dark text-light py-4 text-center">
     <p>&copy; 2024 Tottable | All rights reserved.</p>
     <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
 </footer>
+
+<!-- Lucide Icons Script -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+
 {% endblock %}

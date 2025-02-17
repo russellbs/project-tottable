@@ -1,50 +1,53 @@
+/* Container */
 .shopping-list-container {
     max-width: 600px;
     margin: auto;
     padding: 20px;
     background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Optionally, you could remove the shadow for an even cleaner look */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
     font-family: Arial, sans-serif;
-}
-
-h1 {
-    text-align: center;
-    font-size: 28px;
-    margin: 0 20px;
-    color: #333;
-    flex: 1;
 }
 
 /* Week Navigation */
 .week-navigation {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
+    text-align: center;
     margin-bottom: 20px;
 }
 
-/* Week Buttons */
-.week-btn {
+.week-title {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.week-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;  /* aligns with container padding */
+}
+
+.btn-week-nav {
     background-color: #f9a8a8;
     color: white;
     border: none;
     border-radius: 20px;
     padding: 10px 20px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     transition: background-color 0.3s ease, transform 0.2s ease;
     text-decoration: none;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 }
 
-.week-btn:hover {
+.btn-week-nav:hover {
     background-color: #f48383;
     transform: scale(1.05);
 }
 
+/* Shopping List Styles */
 #shopping-list {
     list-style-type: none;
     padding: 0;
@@ -52,20 +55,22 @@ h1 {
 }
 
 #shopping-list li {
+    background-color: #fff;               /* Clean white background */
+    padding: 16px 20px;                   /* More padding for internal space */
+    margin-bottom: 15px;                  /* Space between items */
+    border: 1px solid #e0e0e0;            /* Light border for separation */
+    border-radius: 6px;                   /* Rounded corners */
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background-color: #f9f9f9;
-    padding: 12px 16px;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    margin-bottom: 10px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    flex-wrap: nowrap;
+    gap: 15px;                          /* Gap between flex children (text and button) */
+    transition: transform 0.2s ease;
+}
+
+#shopping-list li:last-child {
+    border-bottom: none;
 }
 
 #shopping-list li:hover {
-    background-color: #eef6ff;
     transform: translateY(-2px);
 }
 
@@ -90,68 +95,53 @@ button {
     border-radius: 4px;
     transition: background-color 0.2s ease, transform 0.1s ease;
     margin-left: 5px;
-}
-
-.button-group {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-}
-
-.btn-outline-success {
     background-color: #e6f4ea;
     color: #2e7d32;
 }
 
-.btn-outline-success:hover {
+button:hover {
     background-color: #c8e6c9;
-}
-
-.btn-outline-danger {
-    background-color: #fdecea;
-    color: #c62828;
-}
-
-.btn-outline-danger:hover {
-    background-color: #f8d7da;
+    transform: scale(1.05);
 }
 
 /* Action Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+
 #email-list-btn,
 #export-notes-btn {
     width: 48%;
     padding: 12px;
     font-size: 16px;
     border-radius: 6px;
-    margin: 5px 1%;
     transition: background-color 0.3s ease, transform 0.1s ease;
-}
-
-#email-list-btn {
     background-color: #4caf50;
     color: white;
+    text-align: center;
+    border: none;
 }
 
-#email-list-btn:hover {
-    background-color: #43a047;
-    transform: translateY(-2px);
-}
-
-#export-notes-btn {
-    background-color: #607d8b;
-    color: white;
-}
-
+#email-list-btn:hover,
 #export-notes-btn:hover {
-    background-color: #546e7a;
+    background-color: #43a047;
     transform: translateY(-2px);
 }
 
 /* Responsive Design */
 @media (max-width: 600px) {
-    .week-navigation {
+    .week-buttons {
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
+    }
+
+    .btn-week-nav {
+        width: 100%;
+        padding: 8px 14px;
+        font-size: 0.9rem;
     }
 
     #email-list-btn,
@@ -167,11 +157,6 @@ button {
     #shopping-list li span {
         flex: 1 1 100%;
         padding-bottom: 8px;
-    }
-
-    .button-group {
-        justify-content: flex-end;
-        width: 100%;
     }
 
     button {

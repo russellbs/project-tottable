@@ -1,0 +1,155 @@
+/* === GENERAL STYLES === */
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+}
+
+/* === HERO SECTION (UNCHANGED) === */
+.hero {
+    background-color: #f8f9fa; /* Light background */
+    text-align: left;
+    display: flex;
+    align-items: center;
+    height: 90vh;
+    padding-left: 10%;
+    padding-right: 5%;
+}
+
+.hero-heading {
+    font-size: 56px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.hero-subtext {
+    font-size: 28px;
+    font-weight: 400;
+    margin-top: 15px;
+}
+
+/* === FEATURES SECTION (WHITE) === */
+#features {
+    background-color: #FFFFFF; /* White */
+    padding: 80px 0;
+}
+
+#features h2 {
+    font-size: 38px;
+    font-weight: 600;
+    color: #333;
+}
+
+#features .col-md-4 {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: none; /* Removed hover effects */
+}
+
+#features i {
+    color: #FF6B6B;
+    font-size: 40px;
+}
+
+/* === HOW IT WORKS SECTION (TOTTABLE CORAL) === */
+#how-it-works {
+    background: #FCEAE4; /* Tottable coral */
+    padding: 80px 0;
+}
+
+#how-it-works h2 {
+    font-size: 38px;
+    font-weight: 600;
+    color: #333;
+}
+
+#how-it-works .col-md-4 {
+    background: #FCEAE4;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+#how-it-works i {
+    color: #FF6B6B;
+    font-size: 40px;
+}
+
+/* === TESTIMONIALS SECTION (WHITE) === */
+#testimonials {
+    background-color: #FFFFFF; /* White */
+    padding: 80px 0;
+}
+
+#testimonials .blockquote {
+    background: #FFF;
+    padding: 20px;
+    border-radius: 8px;
+    font-style: italic;
+    box-shadow: none;
+}
+
+#testimonials i {
+    color: #FF6B6B;
+    font-size: 24px;
+}
+
+/* === EMAIL SIGNUP SECTION (TOTTABLE CORAL) === */
+.email-signup {
+    background: #FCEAE4; /* Tottable coral */
+    padding: 80px 0;
+    color: white;
+}
+
+.email-signup input {
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.email-signup button {
+    background-color: white;
+    color: #FF6B6B;
+    border: none;
+    padding: 12px 20px;
+    font-weight: bold;
+}
+
+.email-signup button:hover {
+    background-color: #FFC7C7;
+    color: white;
+}
+
+/* === FOOTER === */
+footer {
+    background: #333;
+    color: white;
+    padding: 20px;
+    font-size: 14px;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+    .hero {
+        padding: 5%;
+        text-align: center;
+    }
+
+    .hero-heading {
+        font-size: 42px;
+    }
+
+    .hero-subtext {
+        font-size: 20px;
+    }
+}

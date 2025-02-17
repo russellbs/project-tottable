@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth import login
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from django.db.models import Sum
 from .models import Ingredient, Child, Recipe, MealPlan, Meal, RecipeIngredient
-from .forms import AddChildForm, WithinWeekPreferencesForm, AcrossWeekPreferencesForm  # Import the AddChildForm
+from .forms import AddChildForm, WithinWeekPreferencesForm, AcrossWeekPreferencesForm, SignupForm  # Import the AddChildForm
 from datetime import datetime, timedelta
 from django.db.models import Q
 from django.utils import timezone
@@ -658,3 +660,18 @@ def shopping_list(request):
     }
 
     return render(request, 'shopping_list.html', context)
+
+def signup(request):
+    if request.method == "POST":
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data["password"])
+            user.username = user.email  # Use email as username
+            user.save()
+            login(request, user)  # Log in the user immediately
+            return redirect("dashboard")  # Redirect to dashboard after signup
+    else:
+        form = SignupForm()
+    return render(request, "signup.html", {"form": form})
+

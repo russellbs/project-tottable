@@ -1,0 +1,47 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2 class="auth-title">Sign up</h2>
+        <p class="auth-subtitle">Create an account or <a href="{% url 'login' %}">Log in</a></p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="id_email">Email address</label>
+                <input type="email" name="email" id="id_email" class="form-control" placeholder="Email address" required>
+            </div>
+
+            <div class="form-group">
+                <label for="id_first_name">Username</label>
+                <input type="text" name="first_name" id="id_first_name" class="form-control" placeholder="Username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="id_password">Password</label>
+                <input type="password" name="password" id="id_password" class="form-control" placeholder="Password" required>
+            </div>
+
+            <div class="form-group checkbox-container">
+                <input type="checkbox" id="marketing_opt_out">
+                <label for="marketing_opt_out">I do not want to receive emails with advertising, news, and promotions.</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+
+            <p class="terms-text">
+                By signing up, you accept our <a href="#">terms of service</a> and <a href="#">privacy policy</a>.
+            </p>
+        </form>
+    </div>
+</div>
+{% endblock %}

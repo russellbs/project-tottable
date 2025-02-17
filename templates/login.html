@@ -1,0 +1,38 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}Log In{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2 class="auth-title">Log in</h2>
+        <p class="auth-subtitle">Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="id_email">Email address</label>
+                <input type="email" name="email" id="id_email" class="form-control" placeholder="Email address" required>
+            </div>
+
+            <div class="form-group">
+                <label for="id_password">Password</label>
+                <input type="password" name="password" id="id_password" class="form-control" placeholder="Password" required>
+            </div>
+
+            <div class="form-group checkbox-container">
+                <input type="checkbox" id="remember_me">
+                <label for="remember_me">Remember me</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

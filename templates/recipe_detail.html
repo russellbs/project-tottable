@@ -63,17 +63,28 @@
         </div>
     </section>
 
-    <!-- Ingredients Section -->
+    <!-- Ingredients Section (Clean Table) -->
     <section class="recipe-ingredients">
         <h2>Ingredients</h2>
-        <ul>
-            {% for recipe_ingredient in recipe.recipeingredient_set.all %}
-            <li>
-                {{ recipe_ingredient.ingredient.name }} - 
-                {{ recipe_ingredient.quantity_as_fraction }}{% if recipe_ingredient.unit %} {{ recipe_ingredient.unit }}{% endif %}
-            </li>
-            {% endfor %}
-        </ul>
+        <table class="ingredients-table">
+            <thead>
+                <tr>
+                    <th>Ingredient</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for recipe_ingredient in recipe.recipeingredient_set.all %}
+                <tr>
+                    <td>{{ recipe_ingredient.ingredient.name }}</td>
+                    <td>
+                        {{ recipe_ingredient.quantity_as_fraction }}
+                        {% if recipe_ingredient.unit %} {{ recipe_ingredient.unit }}{% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </section>      
 
     <!-- Instructions Section -->
@@ -88,7 +99,7 @@
         </ol>
     </section>
 
-    <!-- Tips Section -->
+    <!-- Tottable Tips (Subtle Light Box) -->
     <section class="recipe-tips">
         {% if recipe.tips %}
         <h2>Tottable Tips</h2>

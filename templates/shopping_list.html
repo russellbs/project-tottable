@@ -12,9 +12,13 @@
 {% include 'user_header.html' %}
 
 <div class="week-navigation mb-3">
-    <a href="?week={{ week_offset|add:"-1" }}" class="btn btn-week-nav">← Previous Week</a>
-    <h1 class="week-title">{{ displayed_week_start }} - {{ displayed_week_end }}</h1>
-    <a href="?week={{ week_offset|add:"1" }}" class="btn btn-week-nav">Next Week →</a>
+    <h1 class="week-title">
+        Shopping list for the week of {{ displayed_week_start|date:"F d, Y" }}
+    </h1>
+    <div class="week-buttons">
+        <a href="?week={{ week_offset|add:"-1" }}" class="btn-week-nav">← Previous Week</a>
+        <a href="?week={{ week_offset|add:"1" }}" class="btn-week-nav">Next Week →</a>
+    </div>
 </div>
 
 <div class="container shopping-list-container">
@@ -32,7 +36,7 @@
 
     <!-- Action Buttons -->
     <div class="action-buttons mt-4">
-        <button class="btn btn-success" id="email-list-btn">Email List</button>
+        <!--<button class="btn btn-success" id="email-list-btn">Email List</button>-->
         <button class="btn btn-secondary" id="export-notes-btn">Export to Notes</button>
     </div>
 </div>
