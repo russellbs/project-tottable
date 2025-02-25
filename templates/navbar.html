@@ -2,7 +2,10 @@
 
 <nav class="navbar navbar-expand-lg navbar-light fixed-top custom-navbar">
     <div class="container-fluid">
+        <!-- ✅ Tottable logo stays on the left -->
         <a class="navbar-brand" href="{% url 'landing_page' %}">Tottable</a>
+
+        <!-- ✅ Navbar content (buttons) stays on the right -->
         <div class="navbar-collapse">
             <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}

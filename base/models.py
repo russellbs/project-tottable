@@ -32,6 +32,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
 
     MEAL_VARIETY_CHOICES = [
+        ('no', 'No Variety'),
         ('low', 'Low Variety'),
         ('medium', 'Medium Variety'),
         ('high', 'High Variety'),

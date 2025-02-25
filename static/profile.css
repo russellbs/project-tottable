@@ -1,4 +1,10 @@
 /* Profile page */
+
+/* Full-page background */
+body {
+    background-color: #ffffff;  /* ✅ Matching the auth page background */
+}
+
 /* Profile Container */
 .profile-container {
     max-width: 1200px;
@@ -7,7 +13,6 @@
     background-color: #ffffff;
     padding: 40px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1;
     position: relative;
 }
@@ -41,6 +46,79 @@
     margin-bottom: 10px;
 }
 
+/* Meal Plan Preferences Section */
+.meal-preferences {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+/* Form Labels */
+.meal-preferences label {
+    font-size: 1rem;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Dropdown Styling */
+.meal-preferences select {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+}
+
+/* Preferences Display */
+#preferences-within-week-display {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+#preferences-within-week-display p {
+    margin-bottom: 10px;
+}
+
+/* Preferences Form Section */
+#preferences-within-week-form {
+    margin-top: 20px;
+}
+
+/* ✅ Consistent Pink Buttons */
+.btn-primary, 
+.btn-success, 
+.btn-warning, 
+.btn-secondary, 
+#add-child-btn, 
+#add-child-form button, 
+.regenerate-meal-plan-btn {
+    background-color: #f9a8a8;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover, 
+.btn-success:hover, 
+.btn-warning:hover, 
+.btn-secondary:hover, 
+#add-child-btn:hover, 
+#add-child-form button:hover, 
+.regenerate-meal-plan-btn:hover {
+    background-color: #e48989;
+}
+
+/* ❌ Keep Delete Button Red */
+.btn-danger {
+    background-color: #f44336;
+    color: white;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #d32f2f;
+}
+
 /* Children Section */
 .profile-container .children-section {
     text-align: left;
@@ -56,24 +134,6 @@
 
 .profile-container .child-profile:last-child {
     border-bottom: none;
-}
-
-/* Add Child Button */
-#add-child-btn {
-    display: block;
-    margin: 20px 0;
-    padding: 10px 20px;
-    background-color: #f9a8a8;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#add-child-btn:hover {
-    background-color: #0056b3;
 }
 
 /* Add Child Form */
@@ -107,6 +167,45 @@
     line-height: 1.5;
 }
 
+/* Ensure ingredient list is left-aligned */
+#add-child-form .custom-multi-select {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Ensures everything stays left-aligned */
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #ffffff;
+    max-height: 250px;
+    overflow-y: auto;
+    width: 100%; /* Ensures it takes the full width of the form */
+}
+
+/* Fix alignment of checkboxes and labels */
+#add-child-form .ingredient-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px;
+    width: 100%; /* Ensures items don’t get squeezed */
+}
+
+/* Ensure checkboxes and labels are properly aligned */
+#add-child-form .ingredient-option input[type="checkbox"] {
+    margin: 0;
+    width: 16px;
+    height: 16px;
+}
+
+/* Prevent label text from shifting */
+#add-child-form .ingredient-option label {
+    flex-grow: 1; /* Ensures labels expand properly */
+    white-space: nowrap;
+    text-align: left; /* Ensures text aligns correctly */
+}
+
+
 /* Multi-Select Dropdown (Custom Implementation) */
 .custom-multi-select {
     border: 1px solid #ddd;
@@ -133,37 +232,62 @@
     cursor: pointer;
 }
 
-/* Submit Button in the Form */
-#add-child-form button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #f9a8a8;
-    color: white;
-    border: none;
+/* Ingredient List Styling */
+.ingredient-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ddd;
     border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    background-color: #ffffff;
 }
 
-#add-child-form button:hover {
-    background-color: #218838;
+/* Ingredient Options: Ensure checkboxes and labels align */
+.ingredient-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px;
 }
 
-#add-child-form button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
+/* Fix label alignment */
+.ingredient-option label {
+    white-space: nowrap;
 }
+
+/* Fix checkbox alignment */
+.ingredient-option input[type="checkbox"] {
+    margin: 0;
+    width: 16px;
+    height: 16px;
+}
+
+
+/* Search Box - Ensure consistent styling */
+.ingredient-search {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+
 
 /* Preferences Display Section */
 #preferences-display {
     text-align: left;
     font-size: 1.2rem;
     margin-bottom: 20px;
-    line-height: 1.6; /* Improves readability */
+    line-height: 1.6;
 }
 
 #preferences-display p {
-    margin-bottom: 10px; /* Consistent spacing with other sections */
+    margin-bottom: 10px;
 }
 
 /* Section Titles */
@@ -172,9 +296,8 @@
     font-size: 1.5rem;
     font-weight: 500;
     margin-bottom: 20px;
-    color: #333; /* Optional: consistent color */
+    color: #333;
 }
-
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
@@ -201,25 +324,25 @@
 
 /* Preferences Display Section */
 #preferences-within-week-display {
-    text-align: left; /* Left-align the text */
-    font-size: 1.2rem; /* Adjust font size for readability */
-    line-height: 1.6; /* Improve readability with consistent line height */
-    margin-bottom: 20px; /* Add margin below the section */
+    text-align: left;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
 }
 
 #preferences-within-week-display p {
-    margin-bottom: 10px; /* Add spacing between preference rows */
+    margin-bottom: 10px;
 }
 
 /* Spacing between preferences and buttons */
 #preferences-within-week-display button {
-    margin-top: 20px; /* Add space above the button */
+    margin-top: 20px;
 }
 
 /* Preferences Form Section */
 #preferences-within-week-form {
-    text-align: left; /* Left-align all text within the form */
-    margin-top: 20px; /* Add spacing above the form */
+    text-align: left;
+    margin-top: 20px;
 }
 
 /* Form Labels */
@@ -232,9 +355,9 @@
 
 /* Form Select Fields */
 #preferences-within-week-form select {
-    width: 100%; /* Full width */
-    margin-bottom: 20px; /* Space below each select field */
-    padding: 10px; /* Consistent padding */
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
     font-size: 1rem;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -242,8 +365,8 @@
 
 /* Buttons in the Form */
 #preferences-within-week-form .btn {
-    margin-top: 20px; /* Add spacing above buttons */
-    margin-right: 10px; /* Space between Save and Cancel buttons */
+    margin-top: 20px;
+    margin-right: 10px;
     padding: 10px 20px;
     font-size: 1rem;
     border-radius: 4px;
@@ -252,7 +375,7 @@
 /* Left-align the Form Header */
 #preferences-within-week-form h3 {
     text-align: left;
-    margin-bottom: 20px; /* Add spacing below the header */
+    margin-bottom: 20px;
     font-size: 1.2rem;
     font-weight: 600;
 }
@@ -264,11 +387,11 @@
 
 /* Improve overall form layout */
 #preferences-within-week-form .form-group {
-    margin-bottom: 20px; /* Space between each form group */
+    margin-bottom: 20px;
 }
 
 /* Buttons in Preferences Display */
 #preferences-within-week-display .btn {
     text-align: left;
-    margin-top: 20px; /* Spacing from the preferences list */
+    margin-top: 20px;
 }

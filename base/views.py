@@ -31,8 +31,8 @@ def profile(request):
 
     # Prepare Within-Week Preferences
     within_week_preferences_flat = [
-        {"meal": meal, "value": profile.within_week_preferences.get(meal, "No preference selected").title()}
-        for meal in ["breakfast", "lunch", "dinner", "snack"]
+    {"meal": meal, "value": profile.get_within_week_display(meal)}
+    for meal in ["breakfast", "lunch", "dinner", "snack"]
     ]
 
     # Prepare Across-Week Preferences

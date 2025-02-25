@@ -1,8 +1,10 @@
+// Existing event listener for DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function () {
     const childrenList = document.getElementById('children-list');
     const addChildButton = document.getElementById('add-child-btn');
     const addChildFormContainer = document.getElementById('add-child-form');
     const addChildForm = document.getElementById('add-child-form-element');
+    const cancelAddChildButton = document.getElementById('cancel-add-child-btn');
 
     // Ensure all essential DOM elements are present
     if (!childrenList || !addChildButton || !addChildForm || !addChildFormContainer) {
@@ -50,8 +52,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Show/Hide "Add Child" Form
     addChildButton.addEventListener('click', function () {
-        addChildFormContainer.style.display =
-            addChildFormContainer.style.display === 'block' ? 'none' : 'block';
+        addChildFormContainer.style.display = 'block';
+    });
+
+    // Hide "Add Child" Form when Cancel is clicked
+    cancelAddChildButton.addEventListener('click', function () {
+        addChildFormContainer.style.display = 'none';
     });
 
     // Handle "Add Child" Form Submission
@@ -101,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Handle Cancel Button Click
+    // Handle Cancel Button Click for Edit Form
     childrenList.addEventListener('click', function (e) {
         if (e.target.classList.contains('cancel-edit-btn')) {
             const childProfile = e.target.closest('.child-profile');
@@ -186,4 +192,26 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
-});
+
+    // ========= INSERT SEARCH FUNCTIONALITY BELOW =========
+    // Enable ingredient search inside Add Child & Edit Child forms
+    const searchInputs = document.querySelectorAll(".ingredient-search");
+
+    searchInputs.forEach(input => {
+        input.addEventListener("input", function () {
+            const searchValue = this.value.toLowerCase();
+            const targetId = this.getAttribute("data-target");
+            const ingredientOptions = document.querySelectorAll(`#${targetId} .ingredient-option`);
+
+            ingredientOptions.forEach(option => {
+                const label = option.querySelector("label").innerText.toLowerCase();
+                if (label.includes(searchValue)) {
+                    option.style.display = "flex";  // Show matching options
+                } else {
+                    option.style.display = "none";  // Hide non-matching options
+                }
+            });
+        });
+    });
+
+}); // END of DOMContentLoaded listener
