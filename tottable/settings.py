@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-yf(sk$^2#=k)=)vh2@f8w&n&79!rheb+g^)e7rqby6s!=(d20m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tottable.com', 'www.tottable.com']
 
 
 # Application definition
