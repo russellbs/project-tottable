@@ -25,6 +25,7 @@ def landing_page(request):
 def profile(request):
     user = request.user
     ingredients = Ingredient.objects.all()
+    allergens = Ingredient.objects.exclude(allergen_type__isnull=True).exclude(allergen_type__exact='').values_list('allergen_type', flat=True).distinct()
     children = Child.objects.filter(parent=user)
 
     profile = user.profile
@@ -47,6 +48,7 @@ def profile(request):
         "children": children,
         "within_week_preferences_flat": within_week_preferences_flat,
         "across_week_preferences_flat": across_week_preferences_flat,
+        "allergens": allergens,
     }
 
     return render(request, "profile.html", context)
@@ -177,59 +179,44 @@ def dashboard(request):
     user = request.user
     children = Child.objects.filter(parent=user)
 
-    # Account creation date
-    account_creation_date = user.date_joined.date()
-
-    # Determine the start of the week containing the account creation date
-    account_creation_week_start = account_creation_date - timedelta(days=account_creation_date.weekday())
-
     # Determine the week to display (default: current week)
-    week_offset = int(request.GET.get('week', 0))
-    current_week_start = timezone.now().date() - timedelta(days=timezone.now().weekday())
+    week_offset = int(request.GET.get("week", 0))
+    today = timezone.now().date()
+    current_week_start = today - timedelta(days=today.weekday())
     displayed_week_start = current_week_start + timedelta(weeks=week_offset)
     displayed_week_end = displayed_week_start + timedelta(days=6)
-    previous_week_start = displayed_week_start - timedelta(days=7)
 
-    # Allow "Next Week" 3 days before the current week ends
-    next_week_available_date = current_week_start + timedelta(days=4)  # Thursday of the current week
-
-    # Calculate the next week's start date
+    # Next Week logic (allows two weeks ahead)
     next_week_start = displayed_week_start + timedelta(days=7)
+    previous_week_start = displayed_week_start - timedelta(days=7)
+    next_week_available_date = current_week_start + timedelta(days=4)
 
-    # Prepare meal plans
+    # Ensure a meal plan is available for the selected week
     meal_plans = []
     for child in children:
-        latest_meal_plan = MealPlan.objects.filter(
-            child=child,
-            start_date=displayed_week_start,
-            end_date=displayed_week_end,
-        ).order_by('-created_at').first()  # Ensure we fetch the latest meal plan
+        meal_plan = MealPlan.objects.filter(
+            child=child, start_date=displayed_week_start, end_date=displayed_week_end
+        ).order_by("-created_at").first()
 
-        if latest_meal_plan:
-            print(f"Dashboard displaying Meal Plan ID: {latest_meal_plan.id}, Created At: {latest_meal_plan.created_at}")
-        else:
-            print(f"No meal plan found for {child.name} for this week. Generating a new one...")
+        if not meal_plan:
+            print(f"Generating meal plan for {child.name}, Week Offset: {week_offset}")
+            meal_plan = generate_meal_plan(child.id, week_offset)
 
-        # Generate meal plan only if none exists
-        if not latest_meal_plan:
-            latest_meal_plan = generate_meal_plan(child.id)
-
-        meal_plans.append((child, latest_meal_plan))
+        meal_plans.append((child, meal_plan))
 
     context = {
-        'children': children,
-        'meal_plans': meal_plans,
-        'displayed_week_start': displayed_week_start,
-        'displayed_week_end': displayed_week_end,
-        'previous_week_start': previous_week_start,
-        'next_week_start': next_week_start,  # Pass this to the template
-        'next_week_available_date': next_week_available_date,
-        'week_offset': week_offset,
-        'account_creation_date': account_creation_date,
-        'account_creation_week_start': account_creation_week_start,
+        "children": children,
+        "meal_plans": meal_plans,
+        "displayed_week_start": displayed_week_start,
+        "displayed_week_end": displayed_week_end,
+        "previous_week_start": previous_week_start,
+        "next_week_start": next_week_start,
+        "next_week_available_date": next_week_available_date,
+        "week_offset": week_offset,
     }
-    
-    return render(request, 'dashboard.html', context)
+
+    return render(request, "dashboard.html", context)
+
 
 
 
@@ -287,10 +274,17 @@ def recipe_library(request):
     if exclude_allergens:
         recipes = recipes.exclude(ingredients__allergen_type__in=exclude_allergens)
 
+    allergens = Ingredient.objects.exclude(allergen_type__isnull=True).exclude(allergen_type__exact="").values_list('allergen_type', flat=True).distinct()
+        
     # Pagination
     paginator = Paginator(recipes.distinct(), 12)  # Show 12 recipes per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+
+    # 👶 Get the first child and their age in months
+    children = Child.objects.filter(parent=request.user)
+    selected_child = children.first()
+    child_age_months = selected_child.age_in_months() if selected_child else None
 
     return render(request, 'recipe_library.html', {
         'page_obj': page_obj,
@@ -299,6 +293,10 @@ def recipe_library(request):
         'age_range': age_range,
         'swap_mode': swap_mode,
         'day': day,
+        'allergens': allergens,
+        'selected_child': selected_child,
+        'child_age_months': child_age_months,
+        'exclude_allergens': exclude_allergens,
     })
 
 @login_required
@@ -318,6 +316,11 @@ def recipe_detail(request, id):
     back_link = request.GET.get('from', 'recipe_library')  # Default to recipe library if `from` is not provided
     back_link_url = f"{back_link}?swap=1&meal_type={meal_type}&day={day}" if swap_mode else back_link
 
+    # ✅ Add logic to get the current user's first child (or whichever one makes sense)
+    child = request.user.children.first()
+    child_name = child.name if child else None
+    child_age_months = child.age_in_months() if child else None
+
     return render(request, 'recipe_detail.html', {
         'recipe': recipe,
         'instructions': instructions,
@@ -325,105 +328,76 @@ def recipe_detail(request, id):
         'meal_type': meal_type,
         'day': day,
         'back_link_url': back_link_url,
+        'child_name': child_name,
+        'child_age_months': child_age_months,
     })
 
-def generate_meal_plan(child_id):
+def generate_meal_plan(child_id, week_offset=0):
     from datetime import timedelta
+    from django.utils.timezone import now
 
-    # Fetch child and relevant preferences
     child = get_object_or_404(Child, id=child_id)
     dislikes = child.dislikes_ingredients.all()
-    likes = child.likes_ingredients.all()
     allergies = child.allergies.split(',') if child.allergies else []
 
-    # Fetch preferences
-    profile = child.parent.profile
-
-    # Define the days and meal types
-    days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-
-    # Check if a meal plan for the current week already exists
-    today = timezone.now().date()
-    start_date = today - timedelta(days=today.weekday())
+    # Determine the start and end of the requested week
+    today = now().date()
+    start_date = today - timedelta(days=today.weekday()) + timedelta(weeks=week_offset)
     end_date = start_date + timedelta(days=6)
+
+    # Check if a meal plan for this specific week already exists
     meal_plan, created = MealPlan.objects.get_or_create(
         child=child, start_date=start_date, end_date=end_date
     )
 
     if not created:
-        # If a meal plan already exists, do nothing
+        # If a meal plan already exists, return it
         return meal_plan
 
-    # Variety mapping (normalize to lowercase for consistency)
-    variety_levels = [
-        ("high", (6, 7)),
-        ("medium", (4, 5)),
-        ("low", (2, 3)),
-        ("no", (1, 1)),  # No Variety
-    ]
+    # Meal assignment logic
+    days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+    meal_types = ["Breakfast", "Lunch", "Dinner", "Snack"]
+    profile = child.parent.profile
 
-    # Assign recipes for each meal type
-    for meal_type in ["Breakfast", "Lunch", "Dinner", "Snack"]:
-        # Normalize the preferred variety to lowercase
+    for meal_type in meal_types:
         preferred_level = profile.within_week_preferences.get(meal_type.lower(), "medium").lower()
+        variety_mapping = {"high": (6, 7), "medium": (4, 5), "low": (2, 3), "no": (1, 1)}
+        min_variety, max_variety = variety_mapping.get(preferred_level, (4, 5))
 
-        # Initialize variables
-        selected_recipes = []
-        fallback_index = next((i for i, (level, _) in enumerate(variety_levels) if level == preferred_level), None)
+        child_age = child.age_in_months()
 
-        if fallback_index is None:
-            print(f"Warning: Unrecognized variety level '{preferred_level}', defaulting to 'medium'.")
-            fallback_index = 1  # Default to "medium"
-
-        # Try each variety level, starting from the preferred level
-        while fallback_index < len(variety_levels):
-            variety_name, (min_recipes, max_recipes) = variety_levels[fallback_index]
-            num_unique_recipes = random.randint(min_recipes, max_recipes)
-
-            # Fetch and shuffle recipes
-            possible_recipes = list(
-                Recipe.objects.filter(
-                    meal_types__name=meal_type
-                ).exclude(
-                    ingredients__in=dislikes
-                ).exclude(
-                    ingredients__food_category__in=allergies
-                )
+        possible_recipes = list(
+            Recipe.objects.filter(
+                meal_types__name=meal_type,
+                min_age_months__lte=child_age,
+                max_age_months__gte=child_age
             )
+            .exclude(ingredients__in=dislikes)
+            .exclude(ingredients__allergen_type__in=allergies)
+        )
 
-            if len(possible_recipes) >= num_unique_recipes:
-                # We have enough recipes for this variety level
-                selected_recipes = possible_recipes[:num_unique_recipes]
-                break
-            else:
-                # Try the next lower variety level
-                fallback_index += 1
+        num_unique_recipes = min(len(possible_recipes), random.randint(min_variety, max_variety))
 
-        # If still no recipes are found, skip this meal type
-        if not selected_recipes:
-            print(f"No suitable recipes found for meal type {meal_type}! Skipping...")
+        if num_unique_recipes == 0:
+            print(f"⚠️ No valid recipes found for {meal_type}. Skipping meal plan generation.")
             continue
 
-        # Assign meals for each day
-        for day_index, day in enumerate(days):
-            if variety_name == "no":
-                # Use the same recipe every day
-                selected_recipe = selected_recipes[0]
-            else:
-                # Rotate through selected recipes for variety
-                selected_recipe = selected_recipes[day_index % len(selected_recipes)]
+        selected_recipes = random.sample(possible_recipes, num_unique_recipes)
 
-            # Create or update the meal for the day
-            meal, _ = Meal.objects.get_or_create(
-                meal_plan=meal_plan,
-                day=day,
-                defaults={meal_type.lower(): selected_recipe},
-            )
-            # Update the meal in case it already exists but doesn't have the current meal_type
+        for day_index, day in enumerate(days):
+            if preferred_level == "no":
+                selected_recipe = selected_recipes[0]
+            elif preferred_level == "high":
+                selected_recipe = selected_recipes[day_index % len(selected_recipes)]
+            else:
+                selected_recipe = selected_recipes[(day_index // 2) % len(selected_recipes)]
+
+            meal, _ = Meal.objects.get_or_create(meal_plan=meal_plan, day=day)
             setattr(meal, meal_type.lower(), selected_recipe)
             meal.save()
 
     return meal_plan
+
 
 
 logger = logging.getLogger(__name__)
@@ -556,10 +530,16 @@ def regenerate_meals_for_plan(meal_plan):
         num_unique_recipes = random.randint(min_variety, max_variety)
 
         # Fetch recipes
+        child_age = child.age_in_months()
+
         possible_recipes = list(
-            Recipe.objects.filter(meal_types__name=meal_type)
+            Recipe.objects.filter(
+                meal_types__name=meal_type,
+                min_age_months__lte=child_age,
+                max_age_months__gte=child_age
+            )
             .exclude(ingredients__in=dislikes)
-            .exclude(ingredients__food_category__in=allergies)
+            .exclude(ingredients__allergen_type__in=allergies)
         )
 
         if len(possible_recipes) < num_unique_recipes:
@@ -573,8 +553,9 @@ def regenerate_meals_for_plan(meal_plan):
             # If "no variety," use the same recipe every day
             if preferred_level == "no":
                 selected_recipe = selected_recipes[0]
+            elif preferred_level == "high":
+                selected_recipe = selected_recipes[day_index % len(selected_recipes)]
             else:
-                # Ensure meals repeat for consecutive days
                 if day_index % 2 == 0 and i < len(selected_recipes) - 1:
                     i += 1
                 selected_recipe = selected_recipes[i % len(selected_recipes)]

@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from fractions import Fraction
+from dateutil.relativedelta import relativedelta
+from django.utils.timezone import now
 
 def default_meal_variety():
     return {
@@ -134,6 +136,23 @@ class Child(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.parent.username})"
+
+    def age_in_months(self):
+        delta = relativedelta(now().date(), self.dob)
+        return delta.years * 12 + delta.months
+    
+    def age_display(self):
+        """Return the child's age as 'X years, Y months' or just 'Y months'."""
+        delta = relativedelta(now().date(), self.dob)
+        years = delta.years
+        months = delta.months
+
+        if years and months:
+            return f"{years} year{'s' if years != 1 else ''}, {months} month{'s' if months != 1 else ''}"
+        elif years:
+            return f"{years} year{'s' if years != 1 else ''}"
+        else:
+            return f"{months} month{'s' if months != 1 else ''}"
 
 class MealPlan(models.Model):
     child = models.ForeignKey(

@@ -46,27 +46,45 @@ function getUncrossedItems() {
         .join("\n");
 }
 
-// Email List (Only Non-Crossed Items)
-document.getElementById("email-list-btn").addEventListener("click", function () {
-    const items = getUncrossedItems();
-    const subject = encodeURIComponent("My Tottable Shopping List");
-    const body = encodeURIComponent(items);
-    window.location.href = `mailto:?subject=${subject}&body=${body}`;
-});
+document.addEventListener("DOMContentLoaded", function () {
+    restoreCrossOffState(); // Keep this inside here too
 
-// Export to Notes (Only Non-Crossed Items)
-document.getElementById("export-notes-btn").addEventListener("click", function () {
-    const items = getUncrossedItems();
+    const exportBtn = document.getElementById("export-notes-btn");
+    if (exportBtn) {
+        exportBtn.addEventListener("click", function () {
+            const items = getUncrossedItems();
 
-    if (navigator.share) {
-        navigator.share({
-            title: "Tottable Shopping List",
-            text: items,
-        }).catch((error) => console.error("Error sharing:", error));
-    } else {
-        alert("This feature is not supported on your device.");
+            if (navigator.share) {
+                navigator.share({
+                    title: "Tottable Shopping List",
+                    text: items,
+                }).catch((error) => console.error("Error sharing:", error));
+            } else {
+                // Fallback: Create and download .txt file
+                const blob = new Blob([items], { type: "text/plain" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "tottable_shopping_list.txt";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        });
+    }
+
+    const emailBtn = document.getElementById("email-list-btn");
+    if (emailBtn) {
+        emailBtn.addEventListener("click", function () {
+            const items = getUncrossedItems();
+            const subject = encodeURIComponent("My Tottable Shopping List");
+            const body = encodeURIComponent(items);
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        });
     }
 });
+
 
 // Restore crossed-off state on page load
 document.addEventListener("DOMContentLoaded", restoreCrossOffState);

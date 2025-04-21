@@ -1,20 +1,47 @@
 /* Navbar */
 .custom-navbar {
+    position: relative;  /* Needed for absolute dropdown */
     padding: 15px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 0;
+    z-index: 1000;
+}
+
+/* Layout for left logo / right buttons */
+.custom-navbar .container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* Navbar Brand (Tottable) */
 .navbar-brand {
     font-size: 20px;
     margin-left: 10px;
+    flex-shrink: 0;
 }
 
-/* Navbar items */
+/* Navbar Collapse */
+.navbar-collapse {
+    flex-grow: 1;
+    display: flex !important;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* Navbar Items */
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
 .navbar-nav .nav-item {
     margin-left: 15px;
+    position: relative;
 }
 
 /* Profile Circle */
@@ -50,6 +77,7 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     min-width: 200px;
     padding: 10px 0;
+    z-index: 9999;
 }
 
 .dropdown-menu.show {
@@ -74,6 +102,10 @@
     border-top: 1px solid #f9a8a8;
 }
 
+.nav-item.dropdown {
+    position: relative;
+}
+
 /* Logout Button */
 .dropdown-item.text-danger {
     color: #dc2626 !important;
@@ -83,36 +115,56 @@
     background-color: #fee2e2;
 }
 
-/* ✅ MOBILE STYLING - Keep "Tottable" on the left, buttons on the right */
+
+/* ✅ MOBILE STYLING */
 @media (max-width: 768px) {
-    /* Remove hamburger menu */
+    .custom-navbar {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .custom-navbar .container-fluid {
+        flex-wrap: nowrap;
+    }
+
     .navbar-toggler {
         display: none !important;
     }
 
-    /* Keep brand on the left */
     .navbar-brand {
         margin-left: 10px;
     }
 
-    /* Ensure navbar is spaced correctly */
     .navbar-collapse {
+        flex-grow: 1;
         display: flex !important;
-        flex-direction: row;
         justify-content: flex-end;
+        align-items: center;
         width: auto;
     }
 
-    /* Ensure buttons are on the right */
     .navbar-nav {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: flex-end;
+        width: auto;
+        position: relative;
     }
 
-    /* Space out navbar items */
     .navbar-nav .nav-item {
-        margin: 5px 15px;
+        margin: 0 10px;
+        position: relative;
+    }
+
+    .dropdown-menu {
+        top: 48px;
+        right: 0;
+    }
+
+    .dropdown-menu.show {
+        display: block;
     }
 }

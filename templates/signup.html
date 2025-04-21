@@ -4,26 +4,33 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block extra_head %}
-    <link rel="stylesheet" href="{% static 'auth.css' %}">
+<link rel="stylesheet" href="{% static 'auth.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="auth-container">
+<div class="auth-container d-flex justify-content-center align-items-center py-5">
     <div class="auth-card">
-        <h2 class="auth-title">Sign up</h2>
-        <p class="auth-subtitle">Create an account or <a href="{% url 'login' %}">Log in</a></p>
+        <h2 class="auth-title">Lighten your mental load</h2>
+        <p class="auth-subtitle">Get started with personalized meal plans</p>
+
+        <div class="auth-benefits">
+            <p>✨ Tottable does the planning for you</p>
+            <p>👶 Meals tailored to your baby’s age, tastes, and needs</p>
+            <p>📚 Explore over 100 delicious, baby-friendly recipes</p>
+            <p>🛒 Smart shopping list that saves time (and last-minute store runs)</p>
+        </div>
 
         <form method="post">
             {% csrf_token %}
 
             <div class="form-group">
-                <label for="id_email">Email address</label>
-                <input type="email" name="email" id="id_email" class="form-control" placeholder="Email address" required>
+                <label for="id_first_name">Name</label>
+                <input type="text" name="first_name" id="id_first_name" class="form-control" placeholder="Your name" required>
             </div>
 
             <div class="form-group">
-                <label for="id_first_name">Username</label>
-                <input type="text" name="first_name" id="id_first_name" class="form-control" placeholder="Username" required>
+                <label for="id_email">Email address</label>
+                <input type="email" name="email" id="id_email" class="form-control" placeholder="Your email" required>
             </div>
 
             <div class="form-group">
@@ -31,12 +38,11 @@
                 <input type="password" name="password" id="id_password" class="form-control" placeholder="Password" required>
             </div>
 
-            <div class="form-group checkbox-container">
-                <input type="checkbox" id="marketing_opt_out">
-                <label for="marketing_opt_out">I do not want to receive emails with advertising, news, and promotions.</label>
-            </div>
+            <button type="submit" class="btn btn-primary btn-block">Start 7-Day Free Trial</button>
 
-            <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+            <p class="trial-note text-center mt-2">
+                Then $49 for lifetime access — cancel anytime during your trial.
+            </p>
 
             <p class="terms-text">
                 By signing up, you accept our <a href="#">terms of service</a> and <a href="#">privacy policy</a>.

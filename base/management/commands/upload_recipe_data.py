@@ -9,9 +9,9 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         # Paths to your data files
         base_path = '/Users/benjaminrussell/Documents/Project Tottable/data'
-        ingredients_file = f'{base_path}/Ingredients.csv'
-        recipes_file = f'{base_path}/Recipes.csv'
-        recipe_ingredients_file = f'{base_path}/Recipe_Ingredients.csv'
+        ingredients_file = f'{base_path}/ingredients.csv'
+        recipes_file = f'{base_path}/recipes.csv'
+        recipe_ingredients_file = f'{base_path}/recipe_ingredients.csv'
 
         # Upload Ingredients
         self.stdout.write("Uploading ingredients...")

@@ -36,6 +36,13 @@
     <!-- Recipe Header -->
     <header class="recipe-header">
         <h1>{{ recipe.title }}</h1>
+
+        {% if child_age_months and recipe.min_age_months > child_age_months %}
+        <p class="age-note" style="color: #c58f00; font-style: italic; margin-top: 6px;">
+            This recipe is designed for little ones a bit older than {{ child_name }}.
+        </p>
+        {% endif %}
+
         <p>{{ recipe.description }}</p>
     </header>
 

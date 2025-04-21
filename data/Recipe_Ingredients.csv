@@ -1,329 +1,637 @@
-Recipe ID,Ingredient ID,Quantity,Unit
-REC-0000001,ING-0000001,0.25,Cup
-REC-0000001,ING-0000002,0.67,Cup
-REC-0000002,ING-0000003,0.25,Cup
-REC-0000002,ING-0000002,1,Cup
-REC-0000003,ING-0000004,1,Medium
-REC-0000003,ING-0000005,1,Leaf
-REC-0000003,ING-0000006,1,Cup
-REC-0000004,ING-0000007,1,Medium
-REC-0000005,ING-0000008,1.5,Pounds
-REC-0000005,ING-0000009,1.5,Pounds
-REC-0000006,ING-0000010,1,Medium
-REC-0000007,ING-0000011,2,Small
-REC-0000007,ING-0000012,0.5,Cup
-REC-0000007,ING-0000013,0.125,Teaspoon
-REC-0000008,ING-0000010,0.5,Medium
-REC-0000008,ING-0000015,0.5,Cup
-REC-0000008,ING-0000016,0.5,Cup
-REC-0000008,ING-0000017,0.5,Cup
-REC-0000008,ING-0000002,0.5,Cup
-REC-0000009,ING-0000007,1,Pound
-REC-0000009,ING-0000018,1.5,Tablespoons
-REC-0000009,ING-0000019,To taste,N/A
-REC-0000010,ING-0000002,2,Cups
-REC-0000010,ING-0000020,0.5,Cup
-REC-0000010,ING-0000021,0.25,Cup
-REC-0000010,ING-0000022,2,Teaspoons
-REC-0000011,ING-0000015,1,Cup
-REC-0000011,ING-0000023,2,Tablespoons
-REC-0000011,ING-0000014,2,Large
-REC-0000011,ING-0000017,0.33,Cup
-REC-0000011,ING-0000024,0.5,Teaspoon
-REC-0000011,ING-0000025,1,Teaspoon
-REC-0000011,ING-0000026,4,Slices
-REC-0000011,ING-0000022,1,Tablespoon
-REC-0000012,ING-0000018,2,Teaspoons
-REC-0000012,ING-0000027,0.5,Medium
-REC-0000012,ING-0000028,1,Clove
-REC-0000012,ING-0000029,1,Small
-REC-0000012,ING-0000030,2,Cups
-REC-0000012,ING-0000031,0.5,Cup
-REC-0000012,ING-0000032,15,Ounces
-REC-0000012,ING-0000024,0.25,Teaspoon
-REC-0000012,ING-0000033,0.25,Cup
-REC-0000013,ING-0000034,2,Medium
-REC-0000013,ING-0000012,15,Ounces
-REC-0000013,ING-0000018,2,Tablespoons
-REC-0000013,ING-0000024,1,Teaspoon
-REC-0000013,ING-0000020,0.25,Teaspoon
-REC-0000013,ING-0000035,0.25,Teaspoon
-REC-0000013,ING-0000036,1,Tablespoon
-REC-0000013,ING-0000011,1,Cup
-REC-0000014,ING-0000002,1.75,Cups
-REC-0000014,ING-0000023,1,Cup
-REC-0000014,ING-0000011,1,Medium
-REC-0000014,ING-0000030,1.5,Tablespoons
-REC-0000014,ING-0000036,1,Tablespoon
-REC-0000014,ING-0000037,1,Tablespoon
-REC-0000014,ING-0000038,1,Teaspoon
-REC-0000014,ING-0000039,1,Teaspoon
-REC-0000014,ING-0000018,2,Teaspoons
-REC-0000014,ING-0000014,2,Large
-REC-0000014,ING-0000040,0.5,Pounds
-REC-0000015,ING-0000040,1,Pound
-REC-0000015,ING-0000032,28,Ounces
-REC-0000015,ING-0000030,0.25,Cup
-REC-0000015,ING-0000041,1,Teaspoon
-REC-0000015,ING-0000042,0.125,Teaspoon
-REC-0000015,ING-0000043,8,Ounces
-REC-0000015,ING-0000024,0.33,Cup
-REC-0000016,ING-0000044,0.5,Slices
-REC-0000016,ING-0000017,1,Tablespoon
-REC-0000016,ING-0000045,0.5,Pounds
-REC-0000016,ING-0000020,0.25,Teaspoon
-REC-0000016,ING-0000024,0.25,Teaspoon
-REC-0000016,ING-0000042,0.25,Teaspoon
-REC-0000016,ING-0000046,1,Large
-REC-0000016,ING-0000015,1,Cup
-REC-0000016,ING-0000047,0.33,Cup
-REC-0000016,ING-0000005,2,Leaves
-REC-0000017,ING-0000018,1,Tablespoon
-REC-0000017,ING-0000027,0.5,Cup
-REC-0000017,ING-0000047,0.25,Teaspoon
-REC-0000017,ING-0000048,28,Ounces
-REC-0000017,ING-0000049,1,Cup
-REC-0000017,ING-0000050,2,Teaspoons
-REC-0000017,ING-0000051,3,Tablespoons
-REC-0000017,ING-0000052,1,Cup
-REC-0000018,ING-0000030,1,Tablespoon
-REC-0000018,ING-0000036,2,Tablespoons
-REC-0000018,ING-0000055,2,Tablespoons
-REC-0000018,ING-0000018,1,Tablespoon
-REC-0000018,ING-0000034,0.5,Medium
-REC-0000018,ING-0000053,2,Tablespoons
-REC-0000018,ING-0000054,6,Ounces
-REC-0000019,ING-0000056,0.5,Small
-REC-0000019,ING-0000057,0.5,Medium
-REC-0000019,ING-0000058,0.5,Cup
-REC-0000020,ING-0000056,0.5,Medium
-REC-0000020,ING-0000059,2,8-inch
-REC-0000020,ING-0000060,0.25,Cup
-REC-0000020,ING-0000061,0.25,Cup
-REC-0000020,ING-0000018,1,Teaspoon
-REC-0000021,ING-0000012,1.5,Cups
-REC-0000021,ING-0000045,1,Large
-REC-0000021,ING-0000053,0.25,Cup
-REC-0000021,ING-0000028,2,Cloves
-REC-0000021,ING-0000005,1,Cup
-REC-0000021,ING-0000036,1,Tablespoon
-REC-0000021,ING-0000062,2,Teaspoons
-REC-0000021,ING-0000063,2,Tablespoons
-REC-0000021,ING-0000064,2,Tablespoons
-REC-0000021,ING-0000065,1,Teaspoon
-REC-0000021,ING-0000024,1,Teaspoon
-REC-0000021,ING-0000020,0.5,Teaspoon
-REC-0000021,ING-0000018,2,Tablespoons
-REC-0000021,ING-0000066,6,Mini
-REC-0000022,ING-0000007,2,Small
-REC-0000022,ING-0000018,As needed,Tablespoons
-REC-0000022,ING-0000020,To taste,N/A
-REC-0000022,ING-0000067,0.25,To 0.33 Cups
-REC-0000022,ING-0000068,0.5,Cup
-REC-0000022,ING-0000015,3,Tablespoons
-REC-0000022,ING-0000069,2,Tablespoons
-REC-0000022,ING-0000070,0.25,Cup
-REC-0000023,ING-0000011,2,Small
-REC-0000023,ING-0000022,0.5,Tablespoons
-REC-0000023,ING-0000055,2,Teaspoons
-REC-0000023,ING-0000020,Pinch,N/A
-REC-0000024,ING-0000018,As needed,Tablespoons
-REC-0000024,ING-0000071,0.5,Pounds
-REC-0000024,ING-0000014,10,Large
-REC-0000024,ING-0000072,0.5,Cup
-REC-0000024,ING-0000017,0.33,Cup
-REC-0000024,ING-0000020,0.25,Teaspoon
-REC-0000025,ING-0000073,1.5,Cups
-REC-0000025,ING-0000001,0.75,Cup
-REC-0000025,ING-0000023,2,Teaspoons
-REC-0000025,ING-0000074,0.5,Teaspoons
-REC-0000025,ING-0000024,0.75,Teaspoons
-REC-0000025,ING-0000020,0.5,Teaspoons
-REC-0000025,ING-0000075,1,Cup
-REC-0000025,ING-0000076,0.66,Cup
-REC-0000025,ING-0000077,0.33,Cup
-REC-0000025,ING-0000014,1,Large
-REC-0000026,ING-0000079,1,Medium
-REC-0000026,ING-0000078,2,Large
-REC-0000027,ING-0000080,0.75,Cup
-REC-0000027,ING-0000002,1.25,Cups
-REC-0000027,ING-0000081,2,Teaspoons
-REC-0000027,ING-0000082,0.25,Cup
-REC-0000027,ING-0000083,As needed,For dipping
-REC-0000028,ING-0000084,0.75,Pounds
-REC-0000028,ING-0000037,3,Tablespoons
-REC-0000028,ING-0000083,2,Tablespoons
-REC-0000028,ING-0000036,1.5,Tablespoons
-REC-0000028,ING-0000062,2,Teaspoons
-REC-0000028,ING-0000085,8,Ounces
-REC-0000028,ING-0000018,1,Tablespoon
-REC-0000028,ING-0000039,1,Tablespoon
-REC-0000028,ING-0000028,1,Clove
-REC-0000029,ING-0000086,0.75,Cup
-REC-0000029,ING-0000020,Pinch,N/A
-REC-0000029,ING-0000002,1.5,Cups
-REC-0000029,ING-0000022,0.5,Tablespoons
-REC-0000029,ING-0000087,1,Teaspoon
-REC-0000029,ING-0000088,1,Teaspoon
-REC-0000029,ING-0000089,1,Teaspoon
-REC-0000030,ING-0000059,1,8-inch
-REC-0000030,ING-0000090,2,Tablespoons
-REC-0000030,ING-0000091,1.75,Tablespoons
-REC-0000031,ING-0000015,0.75,Cup
-REC-0000031,ING-0000036,1.5,Tablespoons
-REC-0000031,ING-0000028,1,Clove
-REC-0000031,ING-0000039,1,Teaspoon
-REC-0000031,ING-0000035,2,Tablespoons
-REC-0000031,ING-0000024,1,Teaspoon
-REC-0000031,ING-0000092,1,Teaspoon
-REC-0000031,ING-0000019,0.5,Teaspoon
-REC-0000031,ING-0000054,0.75,Pounds
-REC-0000032,ING-0000085,0.5,Cup
-REC-0000032,ING-0000014,1,Large
-REC-0000032,ING-0000093,4,Ounces
-REC-0000032,ING-0000030,3.5,Cups
-REC-0000032,ING-0000054,1,Cup
-REC-0000032,ING-0000083,1,Teaspoon
-REC-0000033,ING-0000018,1,Tablespoon
-REC-0000033,ING-0000027,0.5,Cup
-REC-0000033,ING-0000028,1,Clove
-REC-0000033,ING-0000040,1,Pound
-REC-0000033,ING-0000094,1,Tablespoon
-REC-0000033,ING-0000024,0.5,Teaspoon
-REC-0000033,ING-0000041,0.25,Teaspoon
-REC-0000033,ING-0000019,0.25,Teaspoon
-REC-0000033,ING-0000032,15,Ounces
-REC-0000033,ING-0000060,1.5,Cups
-REC-0000033,ING-0000068,0.5,Cup
-REC-0000034,ING-0000096,1.5,Tablespoons
-REC-0000034,ING-0000095,2,Slices
-REC-0000034,ING-0000097,1.5,Tablespoons
-REC-0000034,ING-0000022,As needed,For grilling
-REC-0000035,ING-0000015,0.5,Cup
-REC-0000035,ING-0000036,1,Lime
-REC-0000035,ING-0000019,Pinch,N/A
-REC-0000035,ING-0000054,2,Cups
-REC-0000035,ING-0000098,1,Large
-REC-0000035,ING-0000034,0.5,Red
-REC-0000035,ING-0000066,6,Mini
-REC-0000036,ING-0000100,2,Cups
-REC-0000036,ING-0000099,1,Cup
-REC-0000036,ING-0000049,3.25,Cups
-REC-0000036,ING-0000018,1,Tablespoon
-REC-0000036,ING-0000021,0.25,Cup
-REC-0000036,ING-0000019,To taste,N/A
-REC-0000038,ING-0000022,0.5,Cup
-REC-0000038,ING-0000076,0.66,Cup
-REC-0000038,ING-0000014,1,Large
-REC-0000038,ING-0000025,1,Teaspoon
-REC-0000038,ING-0000063,1.5,Cups
-REC-0000038,ING-0000001,0.5,Cup
-REC-0000038,ING-0000065,1,Teaspoon
-REC-0000038,ING-0000019,0.25,Teaspoon
-REC-0000038,ING-0000002,0.5,Cup
-REC-0000038,ING-0000055,2,Tablespoons
-REC-0000038,ING-0000036,2,Teaspoons
-REC-0000038,ING-0000101,8,Ounces
-REC-0000038,ING-0000025,0.5,Teaspoon
-REC-0000039,ING-0000018,As needed,For brushing
-REC-0000039,ING-0000102,0.5,Pounds
-REC-0000039,ING-0000028,1,Clove
-REC-0000039,ING-0000093,0.5,Bunch
-REC-0000039,ING-0000019,To taste,N/A
-REC-0000039,ING-0000103,0.5,Cup
-REC-0000039,ING-0000068,0.5,Cup
-REC-0000040,ING-0000104,0.5,Cup
-REC-0000040,ING-0000067,0.25,Cup
-REC-0000040,ING-0000054,0.25,To 0.5 Cups
-REC-0000040,ING-0000068,1,To 2 Tablespoons
-REC-0000040,ING-0000056,0.25,Ripe
-REC-0000040,ING-0000034,1,To 2 Tablespoons
-REC-0000041,ING-0000014,1,Large
-REC-0000041,ING-0000002,1,Teaspoon
-REC-0000041,ING-0000082,0.5,Pounds
-REC-0000041,ING-0000019,To taste,N/A
-REC-0000041,ING-0000105,1,Cup
-REC-0000041,ING-0000018,1,Tablespoon
-REC-0000043,ING-0000106,4,Ounces
-REC-0000043,ING-0000051,0.5,Cup
-REC-0000043,ING-0000107,1,To 2 Scoops
-REC-0000043,ING-0000010,0.5,Ripe
-REC-0000044,ING-0000109,1,Ripe
-REC-0000044,ING-0000108,1,Cup
-REC-0000045,ING-0000098,0.5,Ripe
-REC-0000045,ING-0000010,0.5,Ripe
-REC-0000046,ING-0000103,1,About 1.5 Pounds
-REC-0000047,ING-0000103,1,Small
-REC-0000047,ING-0000008,1.5,Pounds
-REC-0000047,ING-0000024,0.125,Teaspoon
-REC-0000048,ING-0000110,1,Ripe
-REC-0000048,ING-0000015,0.5,Cup
-REC-0000048,ING-0000025,A few drops,Optional
-REC-0000049,ING-0000111,0.5,Medium
-REC-0000049,ING-0000002,As needed,Optional
-REC-0000050,ING-0000018,1,Tablespoon
-REC-0000050,ING-0000027,0.5,Cup
-REC-0000050,ING-0000019,Pinch,N/A
-REC-0000050,ING-0000049,4,Cups
-REC-0000050,ING-0000111,0.75,Pounds
-REC-0000050,ING-0000071,0.75,Pounds
-REC-0000050,ING-0000112,0.25,Cup
-REC-0000051,ING-0000113,4,Small
-REC-0000051,ING-0000009,2,Medium
-REC-0000051,ING-0000039,0.25,Teaspoon
-REC-0000052,ING-0000114,2,Cups
-REC-0000052,ING-0000018,0.25,Cup
-REC-0000052,ING-0000002,3,Tablespoons
-REC-0000052,ING-0000036,2,Tablespoons
-REC-0000052,ING-0000028,1,Small Clove
-REC-0000052,ING-0000019,Pinch,N/A
-REC-0000052,ING-0000004,3,Pounds
-REC-0000052,ING-0000021,0.25,Cup
-REC-0000053,ING-0000002,1,Cup
-REC-0000053,ING-0000099,0.33,Cup
-REC-0000053,ING-0000115,1.5,Cups
-REC-0000053,ING-0000050,2.5,Tablespoons
-REC-0000053,ING-0000045,1,Large
-REC-0000053,ING-0000116,2,Teaspoons
-REC-0000053,ING-0000025,0.125,Teaspoon
-REC-0000053,ING-0000016,0.25,Cup
-REC-0000054,ING-0000116,1,Cup
-REC-0000054,ING-0000111,0.5,Ripe
-REC-0000054,ING-0000002,As needed,Optional
-REC-0000055,ING-0000040,0.5,Pounds
-REC-0000055,ING-0000002,3,Tablespoons
-REC-0000055,ING-0000075,0.33,Cup
-REC-0000055,ING-0000041,0.5,Pounds
-REC-0000055,ING-0000002,3,Tablespoons
-REC-0000055,ING-0000076,0.33,Cup
-REC-0000056,ING-0000055,1,5–6 Ounces
-REC-0000056,ING-0000018,1,Teaspoon
-REC-0000056,ING-0000117,1,Cup
-REC-0000056,ING-0000050,0.5,Cup
-REC-0000056,ING-0000114,1,Leaf
-REC-0000057,ING-0000118,0.75,Pounds
-REC-0000057,ING-0000055,0.25,Pounds
-REC-0000057,ING-0000094,0.25,Teaspoon
-REC-0000058,ING-0000059,1,Pound
-REC-0000058,ING-0000022,1.5,Tablespoons
-REC-0000058,ING-0000063,2,Tablespoons
-REC-0000058,ING-0000017,1.5,Cups
-REC-0000058,ING-0000068,1,Cup
-REC-0000058,ING-0000103,0.33,Cup
-REC-0000058,ING-0000019,0.5,Teaspoon
-REC-0000058,ING-0000042,0.125,Teaspoon
-REC-0000059,ING-0000063,1.5,Cups
-REC-0000059,ING-0000065,1,Teaspoon
-REC-0000059,ING-0000074,0.5,Teaspoon
-REC-0000059,ING-0000019,0.5,Teaspoon
-REC-0000059,ING-0000024,0.5,Teaspoon
-REC-0000059,ING-0000011,0.5,Pounds
-REC-0000059,ING-0000014,2,Large
-REC-0000059,ING-0000100,0.25,Cup
-REC-0000059,ING-0000076,0.66,Cup
-REC-0000059,ING-0000077,0.75,Cup
-REC-0000059,ING-0000025,1,Tablespoon
-REC-0000060,ING-0000096,8,Ounces
-REC-0000060,ING-0000119,0.75,Cup
-REC-0000060,ING-0000025,0.5,Teaspoon
-REC-0000060,ING-0000022,2,Tablespoons
+Recipe ID,Ingredient ID,Ingredient Name,Quantity,Unit
+REC-0000001,ING-0000001,Rolled oats,1/4,cup
+REC-0000001,ING-0000115,Water,2/3,cup
+REC-0000002,ING-0000002,Pearled barley,1/4,cup
+REC-0000002,ING-0000115,Water,1,cup
+REC-0000003,ING-0000003,Zucchini,1,medium
+REC-0000003,ING-0000004,Mint leaf,1,leaf
+REC-0000003,ING-0000005,Sweet green peas,1,cup
+REC-0000004,ING-0000006,Sweet potato,1,medium
+REC-0000005,ING-0000008,Apples,1.5,pounds
+REC-0000005,ING-0000007,Pears,1.5,pounds
+REC-0000006,ING-0000009,Banana,1,
+REC-0000007,ING-0000026,Carrot,2,small
+REC-0000007,ING-0000010,Chickpeas,1/2,cup
+REC-0000007,ING-0000011,Cumin,1/8,teaspoon
+REC-0000008,ING-0000009,Banana,1/2,
+REC-0000008,ING-0000012,Whole-milk yogurt,1/2,cup
+REC-0000008,ING-0000013,Blueberries,1/2,cup
+REC-0000008,ING-0000014,Milk,1/2,cup
+REC-0000008,ING-0000115,Water,1/2,cup
+REC-0000009,ING-0000006,Sweet potato,1,pound
+REC-0000009,ING-0000015,Olive oil,1.5,tablespoons
+REC-0000009,ING-0000016,Sea salt,,
+REC-0000010,ING-0000115,Water,2,cups
+REC-0000010,ING-0000017,Instant polenta,1/2,cups
+REC-0000010,ING-0000018,Parmesan cheese,1/4,cups
+REC-0000010,ING-0000019,Butter,2,teaspoons
+REC-0000011,ING-0000012,Greek whole-milk yogurt,1,cup
+REC-0000011,ING-0000020,Maple syrup,2,tablespoons
+REC-0000011,ING-0000014,Milk,1/3,cup
+REC-0000011,ING-0000021,Ground cinnamon,1/2,teaspoon
+REC-0000011,ING-0000022,Vanilla extract,1,teaspoon
+REC-0000011,ING-0000023,Whole-grain bread,4,slices
+REC-0000011,ING-0000019,Butter,1,tablespoon
+REC-0000012,ING-0000015,Olive oil,2,teaspoons
+REC-0000012,ING-0000024,Yellow onion,1/2,
+REC-0000012,ING-0000025,Garlic,1,clove
+REC-0000012,ING-0000026,Carrot,1,small
+REC-0000012,ING-0000027,Chicken broth,2,cups
+REC-0000012,ING-0000028,Dried brown lentils,1/2,cup
+REC-0000012,ING-0000029,Crushed tomatoes,15,ounces
+REC-0000012,ING-0000021,Ground cinnamon,1/4,teaspoon
+REC-0000012,ING-0000030,Goat cheese,1/4,cup
+REC-0000013,ING-0000031,Red bell peppers,2,medium
+REC-0000013,ING-0000010,Chickpeas,15,ounces
+REC-0000013,ING-0000015,Olive oil,2,tablespoons
+REC-0000013,ING-0000011,Cumin,1,teaspoon
+REC-0000013,ING-0000032,Paprika,1/4,teaspoon
+REC-0000013,ING-0000033,Lemon juice,1,tablespoon
+REC-0000013,ING-0000116,Baby carrots,1,cup
+REC-0000014,ING-0000115,Water,1.75,cups
+REC-0000014,ING-0000026,Carrot,1,
+REC-0000014,ING-0000117,Lime juice,1,tablespoon
+REC-0000014,ING-0000034,Toasted sesame oil,1,tablespoon
+REC-0000014,ING-0000035,Brown sugar,1,teaspoon
+REC-0000014,ING-0000036,Fresh ginger,1,teaspoon
+REC-0000014,ING-0000015,Olive oil,2,teaspoons
+REC-0000014,ING-0000037,Pork loin,1/2,pound
+REC-0000014,ING-0000118,Eggs,2,
+REC-0000014,ING-0000119,Long-grain rice,1,cup
+REC-0000014,ING-0000120,Frozen peas,1/2,cup
+REC-0000014,ING-0000079,Soy sauce,1.5,tablespoons
+REC-0000015,ING-0000015,Olive oil,2,tablespoons
+REC-0000015,ING-0000024,Yellow onion,1,
+REC-0000015,ING-0000025,Garlic,2,cloves
+REC-0000015,ING-0000029,Crushed tomatoes,28,ounces
+REC-0000015,ING-0000027,Chicken broth,1/4,cup
+REC-0000015,ING-0000039,Dried oregano,1,teaspoon
+REC-0000015,ING-0000016,Sea salt,1/2,teaspoon
+REC-0000015,ING-0000040,Ground nutmeg,1/8,teaspoon
+REC-0000015,ING-0000041,Dried whole-wheat orzo,8,ounces
+REC-0000015,ING-0000018,Parmesan cheese,1/3,cup
+REC-0000015,ING-0000038,Ground turkey leg and thigh meat,1,pound
+REC-0000016,ING-0000023,Whole-grain bread,1/2,slice
+REC-0000016,ING-0000014,Milk,1,tablespoon
+REC-0000016,ING-0000042,Ground lamb,1/2,pound
+REC-0000016,ING-0000016,Sea salt,,
+REC-0000016,ING-0000011,Cumin,1/4,teaspoon
+REC-0000016,ING-0000021,Ground cinnamon,1/4,teaspoon
+REC-0000016,ING-0000043,Egg yolk,1,
+REC-0000016,ING-0000012,Whole-milk yogurt,1,cup
+REC-0000016,ING-0000044,Cucumber,1/3,cup
+REC-0000016,ING-0000004,Mint leaf,2,leaves
+REC-0000017,ING-0000015,Olive oil,1,tablespoon
+REC-0000017,ING-0000024,Yellow onion,1/2,cup
+REC-0000017,ING-0000045,Fresh thyme,1/4,teaspoon
+REC-0000017,ING-0000046,Whole tomatoes,28,ounces
+REC-0000017,ING-0000047,Chicken or vegetable broth,1,cup
+REC-0000017,ING-0000048,Sugar,2,teaspoons
+REC-0000017,ING-0000049,Whipping cream,3,tablespoons
+REC-0000017,ING-0000050,Cooked rice,1,cup
+REC-0000018,ING-0000117,Lime juice,1,tablespoons
+REC-0000018,ING-0000079,Soy sauce,1,tablespoon
+REC-0000018,ING-0000053,Honey,2,tablespoons
+REC-0000018,ING-0000015,Olive oil,1,tablespoon
+REC-0000018,ING-0000031,Red bell peppers,1/2,
+REC-0000018,ING-0000051,Shallots,2,tablespoons
+REC-0000018,ING-0000052,Chicken breast,6,ounces
+REC-0000019,ING-0000054,Papaya,1/2,small
+REC-0000019,ING-0000055,Kiwi,1/2,
+REC-0000019,ING-0000056,Strawberries,1/2,cup
+REC-0000020,ING-0000107,Avocado,1/2,
+REC-0000020,ING-0000057,Whole-wheat flour tortillas,2,
+REC-0000020,ING-0000058,Pinto beans,1/4,cup
+REC-0000020,ING-0000059,Monterey Jack cheese,1/4,cup
+REC-0000020,ING-0000015,Olive oil,1,teaspoon
+REC-0000020,ING-0000121,Sour cream,,
+REC-0000021,ING-0000010,Chickpeas,1.5,cups
+REC-0000021,ING-0000043,Egg yolk,1,
+REC-0000021,ING-0000067,Red onion,1/4,cup
+REC-0000021,ING-0000025,Garlic,2,cloves
+REC-0000021,ING-0000085,Fresh parsley,1,cup
+REC-0000021,ING-0000033,Lemon juice,1,tablespoon
+REC-0000021,ING-0000060,Dijon mustard,2,teaspoons
+REC-0000021,ING-0000061,All-purpose flour,2,tablespoons
+REC-0000021,ING-0000062,White sesame seeds,2,tablespoons
+REC-0000021,ING-0000063,Baking powder,1,teaspoon
+REC-0000021,ING-0000011,Cumin,1,teaspoon
+REC-0000021,ING-0000016,Sea salt,1/2,teaspoon
+REC-0000021,ING-0000015,Olive oil,2,tablespoons
+REC-0000021,ING-0000064,Mini pitas or slider buns,6,
+REC-0000022,ING-0000006,Sweet potato,2,
+REC-0000022,ING-0000015,Olive oil,,
+REC-0000022,ING-0000065,Black beans,1/4,cup
+REC-0000022,ING-0000066,Cheddar cheese,1/2,cup
+REC-0000022,ING-0000067,Green onions,2,tablespoons
+REC-0000022,ING-0000012,Greek whole-milk yogurt,3,tablespoons
+REC-0000022,ING-0000068,Tomato salsa,1/4 cup,
+REC-0000022,ING-0000016,Sea salt,,
+REC-0000023,ING-0000026,Carrot,2,
+REC-0000023,ING-0000019,Butter,1/2,tablespoon
+REC-0000023,ING-0000053,Honey,2,teaspoons
+REC-0000023,ING-0000016,Sea salt,,
+REC-0000024,ING-0000015,Olive oil,,
+REC-0000024,ING-0000108,Sharp white cheddar cheese,1/2,cup
+REC-0000024,ING-0000014,Milk,1/3,cup
+REC-0000024,ING-0000118,Eggs,10,
+REC-0000024,ING-0000069,Broccoli florets,1/2,pound
+REC-0000024,ING-0000016,Sea salt,1/4,teaspoon
+REC-0000025,ING-0000070,Whole-wheat flour,1.5,cups
+REC-0000025,ING-0000001,Rolled oats,3/4,cups
+REC-0000025,ING-0000063,Baking powder,2,teaspoons
+REC-0000025,ING-0000071,Baking soda,1/2,teaspoon
+REC-0000025,ING-0000072,Applesauce,1,cup
+REC-0000025,ING-0000035,Brown sugar,2/3,cup
+REC-0000025,ING-0000015,Olive oil,1/3,cup
+REC-0000025,ING-0000118,Eggs,1,
+REC-0000025,ING-0000021,Ground cinnamon,3/4,teaspoon
+REC-0000026,ING-0000075,Orange,1,
+REC-0000026,ING-0000074,Medjool dates,2,
+REC-0000027,ING-0000076,Short-grain rice,3/4,cup
+REC-0000027,ING-0000115,Water,1.25,cups
+REC-0000027,ING-0000077,Rice vinegar,2,teaspoons
+REC-0000027,ING-0000078,Salmon,1/4,cup
+REC-0000027,ING-0000079,Soy sauce,,
+REC-0000028,ING-0000080,Asparagus,3/4,pound
+REC-0000028,ING-0000034,Toasted sesame oil,3,tablespoons
+REC-0000028,ING-0000033,Lemon juice,1.5,tablespoons
+REC-0000028,ING-0000081,Soba noodles,8,ounces
+REC-0000028,ING-0000015,Olive oil,1,tablespoon
+REC-0000028,ING-0000036,Fresh ginger,1,tablespoon
+REC-0000028,ING-0000025,Garlic,1,clove
+REC-0000028,ING-0000079,Soy sauce,2,tablespoons
+REC-0000028,ING-0000122,Tahini,2,teaspoons
+REC-0000029,ING-0000082,Brown basmati rice,3/4,cup
+REC-0000029,ING-0000115,Water,1.5,cups
+REC-0000029,ING-0000019,Butter,1/2,tablespoon
+REC-0000029,ING-0000083,Fresh cilantro,1,teaspoon
+REC-0000029,ING-0000016,Sea salt,,pinch
+REC-0000030,ING-0000057,Whole-wheat flour tortillas,1,
+REC-0000030,ING-0000086,Almond butter,2,tablespoons
+REC-0000030,ING-0000087,Raspberry preserves,1.5,tablespoons
+REC-0000031,ING-0000012,Whole-milk yogurt,3/4,cup
+REC-0000031,ING-0000033,Lemon juice,1/2,lemon
+REC-0000031,ING-0000025,Garlic,1,clove
+REC-0000031,ING-0000032,Paprika,2,tablespoons
+REC-0000031,ING-0000011,Cumin,1,teaspoon
+REC-0000031,ING-0000088,Ground coriander,1,teaspoon
+REC-0000031,ING-0000052,Chicken breast,1/2,pound
+REC-0000031,ING-0000036,Fresh ginger,1,teaspoon
+REC-0000032,ING-0000089,Baby bok choy,4,ounces
+REC-0000032,ING-0000027,Chicken broth,3.5,cups
+REC-0000032,ING-0000123,Cooked chicken,1,cup
+REC-0000032,ING-0000079,Soy sauce,1,teaspoon
+REC-0000032,ING-0000118,Eggs,1,
+REC-0000032,ING-0000041,Dried whole-wheat orzo,1/5,cup
+REC-0000033,ING-0000015,Olive oil,1,tablespoon
+REC-0000033,ING-0000024,Yellow onion,1/2,cup
+REC-0000033,ING-0000025,Garlic,1,clove
+REC-0000033,ING-0000090,Mild chili powder,1,tablespoon
+REC-0000033,ING-0000011,Cumin,1/2,teaspoon
+REC-0000033,ING-0000039,Dried oregano,1/4,teaspoon
+REC-0000033,ING-0000016,Sea salt,1/4,teaspoon
+REC-0000033,ING-0000029,Crushed tomatoes,15,ounces
+REC-0000033,ING-0000058,Pinto beans,1.5,cups
+REC-0000033,ING-0000066,Cheddar cheese,1/2,cup
+REC-0000033,ING-0000038,Ground turkey leg and thigh meat,1,pound
+REC-0000034,ING-0000092,Cream cheese,1.5,tablespoons
+REC-0000034,ING-0000091,Soft bread,2,slices
+REC-0000034,ING-0000093,Fruit preserves,1.5,tablespoons
+REC-0000034,ING-0000019,Butter,,
+REC-0000035,ING-0000117,Lime juice,1,lime
+REC-0000035,ING-0000123,Cooked chicken,2,cup
+REC-0000035,ING-0000094,Mango,1,
+REC-0000035,ING-0000031,Red bell peppers,1/2,
+REC-0000035,ING-0000012,Greek whole-milk yogurt,1/2,cup
+REC-0000035,ING-0000016,Sea salt,1,pinch
+REC-0000035,ING-0000124,Mini pitas,6,
+REC-0000036,ING-0000096,Baby spinach,2,cups
+REC-0000036,ING-0000095,Arborio rice,1,cups
+REC-0000036,ING-0000047,Chicken or vegetable broth,3,cups
+REC-0000036,ING-0000015,Olive oil,1,tablespoon
+REC-0000036,ING-0000018,Parmesan cheese,1/4,cup
+REC-0000036,ING-0000016,Sea salt,,
+REC-0000037,ING-0000125,Russet potato,1,
+REC-0000037,ING-0000096,Baby spinach,1,cup
+REC-0000037,ING-0000016,Sea salt,,
+REC-0000037,ING-0000047,Chicken or vegetable broth,1,cup
+REC-0000037,ING-0000015,Olive oil,,
+REC-0000037,ING-0000018,Parmesan cheese,,
+REC-0000038,ING-0000086,Almond butter,,
+REC-0000038,ING-0000035,Brown sugar,,
+REC-0000038,ING-0000061,All-purpose flour,,
+REC-0000038,ING-0000001,Rolled oats,,
+REC-0000038,ING-0000063,Baking powder,,
+REC-0000038,ING-0000115,Water,,
+REC-0000038,ING-0000033,Lemon juice,,
+REC-0000038,ING-0000097,Dried apricots,,
+REC-0000039,ING-0000015,Olive oil,2,teaspoons
+REC-0000039,ING-0000098,Whole-wheat pizza dough,1/2,pound
+REC-0000039,ING-0000025,Garlic,1,clove
+REC-0000039,ING-0000016,Sea salt,,
+REC-0000039,ING-0000099,Butternut squash,1/2,cup
+REC-0000040,ING-0000100,Cooked quinoa,1/2,cup
+REC-0000040,ING-0000065,Black beans,1/4,cup
+REC-0000040,ING-0000123,Cooked chicken,1/4,cup
+REC-0000040,ING-0000066,Cheddar cheese,1,tablespoon
+REC-0000040,ING-0000107,Avocado,1/4,
+REC-0000040,ING-0000031,Red bell peppers,2,tablespoons
+REC-0000041,ING-0000115,Water,1,teaspoon
+REC-0000041,ING-0000078,Salmon,1/2,pound
+REC-0000041,ING-0000016,Sea salt,,
+REC-0000041,ING-0000101,Panko bread crumbs,1,cup
+REC-0000041,ING-0000015,Olive oil,1,tablespoon
+REC-0000041,ING-0000118,Eggs,1,
+REC-0000042,ING-0000102,Dark chocolate,4,ounces
+REC-0000042,ING-0000103,Vanilla ice cream,2,scoops
+REC-0000042,ING-0000009,Banana,1/2,
+REC-0000042,ING-0000126,Heavy cream,1/2,cup
+REC-0000044,ING-0000105,Nectarine,1,
+REC-0000044,ING-0000104,Cantaloupe,1,cup
+REC-0000045,ING-0000094,Mango,1/2,
+REC-0000045,ING-0000009,Banana,1/2,
+REC-0000046,ING-0000099,Butternut squash,1.5,pounds
+REC-0000047,ING-0000007,Pears,1.5,pounds
+REC-0000047,ING-0000021,Ground cinnamon,1/8,teaspoon
+REC-0000047,ING-0000127,Kabocha squash,1,
+REC-0000048,ING-0000106,Peach,1,
+REC-0000048,ING-0000012,Whole-milk yogurt,1/2,cup
+REC-0000048,ING-0000022,Vanilla extract,,
+REC-0000049,ING-0000107,Avocado,1/2,
+REC-0000049,ING-0000115,Water,,
+REC-0000050,ING-0000015,Olive oil,1,tablespoon
+REC-0000050,ING-0000024,Yellow onion,1/2,cup
+REC-0000050,ING-0000016,Sea salt,,
+REC-0000050,ING-0000047,Chicken or vegetable broth,4,cups
+REC-0000050,ING-0000069,Broccoli florets,3/4,pound
+REC-0000050,ING-0000108,Sharp white cheddar cheese,1/4,cups
+REC-0000050,ING-0000128,Yellow potato,3/4,pound
+REC-0000051,ING-0000109,Baby beets,4,
+REC-0000051,ING-0000008,Apples,2,
+REC-0000051,ING-0000036,Fresh ginger,1/4,teaspoon
+REC-0000052,ING-0000084,Fresh basil,2,cups
+REC-0000052,ING-0000015,Olive oil,1/4,cup
+REC-0000052,ING-0000115,Water,3,tablespoons
+REC-0000052,ING-0000033,Lemon juice,2,tablespoons
+REC-0000052,ING-0000025,Garlic,1,clove
+REC-0000052,ING-0000016,Sea salt,,
+REC-0000052,ING-0000003,Zucchini,3,pounds
+REC-0000052,ING-0000018,Parmesan cheese,1/4,cup
+REC-0000054,ING-0000111,Edamame,1,cup
+REC-0000054,ING-0000107,Avocado,1/2,
+REC-0000055,ING-0000115,Water,3,tablespoons
+REC-0000055,ING-0000072,Applesauce,1/3,cup
+REC-0000055,ING-0000038,Ground turkey leg and thigh meat,1/2,pound
+REC-0000056,ING-0000052,Chicken breast,5,ounces
+REC-0000056,ING-0000015,Olive oil,1,teaspoon
+REC-0000056,ING-0000112,White (cannellini) beans,1,cup
+REC-0000056,ING-0000027,Chicken broth,1/2,cup
+REC-0000056,ING-0000084,Fresh basil,1,
+REC-0000057,ING-0000113,Cauliflower florets,3/4,pound
+REC-0000057,ING-0000090,Mild curry powder,1/4,teaspoon
+REC-0000058,ING-0000128,Yellow potato,1/4,pound
+REC-0000058,ING-0000061,All-purpose flour,2,tablespoons
+REC-0000058,ING-0000014,Milk,1.5,cups
+REC-0000058,ING-0000108,Sharp white cheddar cheese,1,cups
+REC-0000058,ING-0000129,Whole-wheat pasta shells,1,pound
+REC-0000058,ING-0000019,Butter,1.5,tablespoons
+REC-0000058,ING-0000016,Sea salt,1/2,teaspoon
+REC-0000058,ING-0000040,Ground nutmeg,1/8,teaspoon
+REC-0000059,ING-0000061,All-purpose flour,1.5,cups
+REC-0000059,ING-0000063,Baking powder,1,teaspoon
+REC-0000059,ING-0000071,Baking soda,1/2,teaspoon
+REC-0000059,ING-0000021,Ground cinnamon,1/2,teaspoon
+REC-0000059,ING-0000026,Carrot,1/2,pound
+REC-0000059,ING-0000130,Buttermilk,1/4,cups
+REC-0000059,ING-0000035,Brown sugar,2/3,cup
+REC-0000059,ING-0000022,Vanilla extract,1,tablespoon
+REC-0000059,ING-0000016,Sea salt,1/2,teaspoon
+REC-0000059,ING-0000118,Eggs,2,
+REC-0000059,ING-0000131,Vegetable oil,3/4,cup
+REC-0000060,ING-0000092,Cream cheese,8,ounces
+REC-0000060,ING-0000114,Powdered sugar,3/4,cup
+REC-0000060,ING-0000022,Vanilla extract,1/2,teaspoon
+REC-0000060,ING-0000019,Butter,2,tablespoons
+REC-0000061,ING-0000132,Pitted prunes,12,pieces
+REC-0000061,ING-0000115,Water,3/4,cup
+REC-0000062,ING-0000133,Fresh mango,1,cup
+REC-0000062,ING-0000134,Fresh apricot,½,cup
+REC-0000062,ING-0000115,Water,¼,cup
+REC-0000063,ING-0000135,Fresh peaches,2,medium
+REC-0000063,ING-0000007,Pears,2,medium
+REC-0000063,ING-0000115,Water,as needed,
+REC-0000063,ING-0000136,Iron-fortified oatmeal cereal,1,tablespoon
+REC-0000063,ING-0000137,Breast milk or formula,4–5,tablespoons
+REC-0000064,ING-0000099,Butternut squash,1,medium (or 32 oz pre-cut)
+REC-0000064,ING-0000115,Water,¼ cup (plus more as needed),
+REC-0000065,ING-0000003,Zucchini,2 cups (approx. 2 zucchinis),chopped
+REC-0000065,ING-0000026,Carrot,2 cups (approx. 5 carrots),chopped
+REC-0000065,ING-0000115,Water,as needed,
+REC-0000066,ING-0000009,Banana,1 ripe,sliced
+REC-0000066,ING-0000012,Greek whole-milk yogurt,1,tablespoon
+REC-0000066,ING-0000115,Water,as needed,
+REC-0000067,ING-0000138,Fresh spinach leaves,1,cup packed
+REC-0000067,ING-0000139,Frozen peas,½,cup
+REC-0000067,ING-0000140,Fresh pineapple,1½,cups cubed (½ medium)
+REC-0000067,ING-0000007,Pears,2,medium
+REC-0000067,ING-0000115,Water,½,cup (plus more as needed)
+REC-0000068,ING-0000012,Greek whole-milk yogurt,¾,cup
+REC-0000068,ING-0000009,Banana,½,medium
+REC-0000068,ING-0000107,Avocado,½,medium
+REC-0000068,ING-0000141,Mixed berries,½,cup
+REC-0000068,ING-0000115,Water,as needed,
+REC-0000069,ING-0000007,Pears,2,medium
+REC-0000069,ING-0000013,Blueberries,1,cup
+REC-0000069,ING-0000142,Cooked quinoa,½,cup
+REC-0000069,ING-0000115,Water,as needed,
+REC-0000070,ING-0000006,Sweet potato,2½,medium
+REC-0000070,ING-0000143,Silken tofu,½,pound
+REC-0000070,ING-0000074,Medjool dates,¼,cup
+REC-0000070,ING-0000021,Ground cinnamon,1,teaspoon
+REC-0000070,ING-0000115,Water,as needed,
+REC-0000071,ING-0000015,Olive oil,1,tablespoon
+REC-0000071,ING-0000024,Yellow onion,1,medium (finely chopped)
+REC-0000071,ING-0000026,Carrot,2,medium (finely chopped)
+REC-0000071,ING-0000144,Celery,2,stalks (finely chopped)
+REC-0000071,ING-0000028,Dried brown lentils,1½,cups
+REC-0000071,ING-0000029,Crushed tomatoes,15,ounce can
+REC-0000071,ING-0000069,Broccoli florets,3½,cups
+REC-0000071,ING-0000027,Chicken broth,2,quarts
+REC-0000071,ING-0000011,Cumin,½,teaspoon
+REC-0000073,ING-0000006,Sweet potato,1 medium,peeled and cubed
+REC-0000073,ING-0000118,Eggs,3,whole
+REC-0000073,ING-0000014,Milk,2,tablespoons
+REC-0000073,ING-0000078,Salmon,½,"pound (baked, shredded)"
+REC-0000073,ING-0000019,Butter,1,tablespoon (unsalted)
+REC-0000074,ING-0000052,Chicken breast,2½ pounds,about 6 breasts
+REC-0000074,ING-0000015,Olive oil,2,tablespoons
+REC-0000074,ING-0000147,Orange juice,½,cup
+REC-0000074,ING-0000148,Dried apricots,10,chopped
+REC-0000074,ING-0000149,Raisins,¼,cup chopped
+REC-0000074,ING-0000027,Chicken broth,1½,cups (low sodium)
+REC-0000075,ING-0000142,Cooked quinoa,¼,"cup (dry, cooked per instructions)"
+REC-0000075,ING-0000015,Olive oil,1,teaspoon
+REC-0000075,ING-0000138,Fresh spinach leaves,2,cups
+REC-0000075,ING-0000031,Red bell peppers,½,pepper (finely diced)
+REC-0000075,ING-0000150,Russet potato,1 large,"peeled, cooked, mashed"
+REC-0000075,ING-0000118,Eggs,1,"large, beaten"
+REC-0000075,ING-0000151,Mozzarella cheese,1,cup (shredded)
+REC-0000075,ING-0000018,Parmesan cheese,⅔,"cup (shredded, optional)"
+REC-0000076,ING-0000107,Avocado,3,"medium (peeled, pitted)"
+REC-0000076,ING-0000115,Water,as needed,
+REC-0000076,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000077,ING-0000006,Sweet potato,1½ pounds,peeled and diced
+REC-0000077,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000077,ING-0000115,Water,as needed,
+REC-0000078,ING-0000009,Banana,1½ pounds (about 3 bananas),peeled
+REC-0000078,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000078,ING-0000115,Water,as needed,
+REC-0000079,ING-0000008,Apples,1½ pounds (about 4 medium),"peeled, cored, diced"
+REC-0000079,ING-0000007,Pears,1½ pounds (about 4 medium),"peeled, cored, diced"
+REC-0000079,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000079,ING-0000115,Water,as needed,
+REC-0000080,ING-0000026,Carrot,1½ pounds (about 5 medium),"peeled, diced"
+REC-0000080,ING-0000152,Parsnip,1½ pounds (about 5 medium),"peeled, diced"
+REC-0000080,ING-0000153,Turnip,1½ pounds (about 5 medium),"peeled, diced"
+REC-0000080,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000080,ING-0000115,Water,as needed,
+REC-0000081,ING-0000154,Dark leafy greens,1½,pounds (stemmed and chopped)
+REC-0000081,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000081,ING-0000115,Water,as needed,
+REC-0000082,ING-0000155,Green beans,1½ pounds (about 5 cups),"strings removed, chopped"
+REC-0000082,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000082,ING-0000115,Water,as needed,
+REC-0000083,ING-0000156,Summer squash,1½ pounds,"peeled, diced"
+REC-0000083,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000083,ING-0000115,Water,as needed,
+REC-0000084,ING-0000157,Winter squash,1½ pounds (about 1 small squash),"rind, seeds, and pulp removed; diced"
+REC-0000084,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000084,ING-0000115,Water,as needed,
+REC-0000085,ING-0000158,Broccoli,1½ pounds (about 1 head),cut into small pieces
+REC-0000085,ING-0000159,Cauliflower,1½ pounds (about 1 head),cut into small pieces
+REC-0000085,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000085,ING-0000115,Water,as needed,
+REC-0000086,ING-0000160,Pumpkin,1½ pounds,"rind, seeds, and pulp removed; diced"
+REC-0000086,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000086,ING-0000115,Water,as needed,
+REC-0000087,ING-0000120,Frozen peas,1½ pounds,"(fresh or frozen, not canned)"
+REC-0000087,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000087,ING-0000115,Water,as needed,
+REC-0000088,ING-0000080,Asparagus,1½ pounds,"trimmed, cut into ½-inch pieces"
+REC-0000088,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000088,ING-0000115,Water,as needed,
+REC-0000089,ING-0000161,Berries (mixed),1½ pounds (about 2 cups),hulled and chopped if needed
+REC-0000089,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000089,ING-0000115,Water,as needed,
+REC-0000090,ING-0000162,"Stone fruits (peaches, nectarines, plums, cherries)",1½ pounds (about 5 fruits or 3 cups of cherries),"peeled, pitted, chopped"
+REC-0000090,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000090,ING-0000115,Water,as needed,
+REC-0000091,ING-0000163,"Dried fruit (e.g., prunes, apricots, dates)",12 ounces (about 2 cups),"soaked, drained"
+REC-0000091,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000091,ING-0000115,Water,as needed,
+REC-0000092,ING-0000164,Mango or papaya,1½ pounds (about 2 mangos or 1 papaya),"peeled, pitted, and chopped"
+REC-0000092,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000092,ING-0000115,Water,as needed,
+REC-0000093,ING-0000165,"Melon (e.g., cantaloupe, honeydew, watermelon)",1½ pounds (about 1 small melon),"rind, seeds, and pulp removed; cut into chunks"
+REC-0000093,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000093,ING-0000115,Water,as needed,
+REC-0000094,ING-0000166,Cranberries (fresh),1½ pounds (about 6 cups),
+REC-0000094,ING-0000115,Water,1,cup
+REC-0000094,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000095,ING-0000167,Beets,1½ pounds (about 4 or 5),peeled and chopped into ½-inch cubes
+REC-0000095,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000095,ING-0000115,Water,as needed,
+REC-0000096,ING-0000168,Bell peppers,1½ pounds (about 6),seeded and chopped
+REC-0000096,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000096,ING-0000115,Water,as needed,
+REC-0000097,ING-0000169,Beans or lentils (dried),1,cup
+REC-0000097,ING-0000115,Water,as needed,
+REC-0000097,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000098,ING-0000170,Silken tofu,12,ounces
+REC-0000098,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000098,ING-0000115,Water,as needed,
+REC-0000099,ING-0000171,"Fish (boneless, skinless)",1½,pounds
+REC-0000099,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000099,ING-0000115,Water,as needed,
+REC-0000100,ING-0000172,"Boneless, skinless poultry",1½,pounds
+REC-0000100,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000100,ING-0000115,Water,as needed,
+REC-0000101,ING-0000173,Boneless lean meat,1½,pounds
+REC-0000101,ING-0000137,Breast milk or formula,as needed (optional),
+REC-0000101,ING-0000115,Water,as needed,
+REC-0000102,ING-0000107,Avocado,3,1-ounce cubes (thawed)
+REC-0000102,ING-0000009,Banana,1,1-ounce cube (thawed)
+REC-0000102,ING-0000040,Ground nutmeg,1,"pinch (or clove, cinnamon, ginger)"
+REC-0000102,ING-0000137,Breast milk or formula,as needed,
+REC-0000102,ING-0000115,Water,as needed,
+REC-0000103,ING-0000006,Sweet potato,3,1-ounce cubes
+REC-0000103,ING-0000138,Fresh spinach leaves,1,1-ounce cube
+REC-0000103,ING-0000040,Ground nutmeg,1,pinch
+REC-0000103,ING-0000137,Breast milk or formula,as needed,optional
+REC-0000103,ING-0000115,Water,as needed,optional
+REC-0000104,ING-0000160,Pumpkin,2,ounce
+REC-0000104,ING-0000008,Apples,2,ounce
+REC-0000104,ING-0000040,Ground nutmeg,1,pinch
+REC-0000104,ING-0000137,Breast milk or formula,as needed,
+REC-0000104,ING-0000115,Water,as needed,
+REC-0000105,ING-0000080,Asparagus,2,ounce
+REC-0000105,ING-0000170,Silken tofu,2,ounce
+REC-0000105,ING-0000088,Ground coriander,1,pinch
+REC-0000105,ING-0000137,Breast milk or formula,as needed,
+REC-0000105,ING-0000115,Water,as needed,
+REC-0000106,ING-0000155,Green beans,2,ounce
+REC-0000106,ING-0000006,Sweet potato,2,ounce
+REC-0000106,ING-0000137,Breast milk or formula,as needed,
+REC-0000106,ING-0000115,Water,as needed,
+REC-0000107,ING-0000065,Black beans,3,ounce
+REC-0000107,ING-0000094,Mango,1,ounce
+REC-0000107,ING-0000011,Cumin,pinch,
+REC-0000107,ING-0000137,Breast milk or formula,as needed,
+REC-0000107,ING-0000115,Water,as needed,
+REC-0000108,ING-0000013,Blueberries,1,ounce
+REC-0000108,ING-0000012,Greek whole-milk yogurt,3,ounces
+REC-0000108,ING-0000137,Breast milk or formula,as needed,
+REC-0000108,ING-0000115,Water,as needed,
+REC-0000109,ING-0000099,Butternut squash,3,ounces (thawed puree)
+REC-0000109,ING-0000154,"Dark leafy greens (spinach, kale, chard, etc.)",1,ounce (thawed puree)
+REC-0000109,ING-0000040,Ground nutmeg,pinch,
+REC-0000110,ING-0000137,Breast milk or formula,1,cup
+REC-0000110,ING-0000009,Banana,1/2,frozen
+REC-0000110,ING-0000026,Carrot,1/2,cup sliced
+REC-0000110,ING-0000074,Medjool dates,1,pitted
+REC-0000110,ING-0000086,Almond butter,1,tablespoon
+REC-0000110,ING-0000021,Ground cinnamon,1,teaspoon
+REC-0000111,ING-0000174,Crushed ice,3/4,cup
+REC-0000111,ING-0000137,Breast milk or formula,2,ounces
+REC-0000111,ING-0000013,Blueberries,1/2,cup
+REC-0000111,ING-0000141,Mixed berries,1/2,cup
+REC-0000111,ING-0000012,Greek whole-milk yogurt,1,cup
+REC-0000111,ING-0000013,Blueberries,4-5,"whole (for topping, quartered)"
+REC-0000111,ING-0000056,Strawberries,2,"whole (for topping, diced)"
+REC-0000111,ING-0000094,Mango,2,"slices (for topping, diced)"
+REC-0000111,ING-0000175,Chia seeds,1/2,tablespoon
+REC-0000111,ING-0000013,Blueberries,2-3,"whole (for topping, quartered)"
+REC-0000112,ING-0000137,Breast milk or formula,4,ounces
+REC-0000112,ING-0000012,Greek whole-milk yogurt,3/4,cup
+REC-0000112,ING-0000056,Strawberries,1/2,cup
+REC-0000112,ING-0000176,Persian cucumber or English cucumber,1,medium
+REC-0000112,ING-0000074,Medjool dates,2,
+REC-0000112,ING-0000036,Fresh ginger,1/2,teaspoon
+REC-0000113,ING-0000069,Broccoli florets,1,cup
+REC-0000113,ING-0000118,Eggs,1,
+REC-0000113,ING-0000024,Yellow onion,1,tablespoon (minced)
+REC-0000113,ING-0000066,Cheddar cheese,1/3,cup (grated)
+REC-0000113,ING-0000177,Wheat germ,1/4,cup
+REC-0000113,ING-0000178,Cottage cheese,1/2,cup
+REC-0000113,ING-0000012,Greek whole-milk yogurt,2,tablespoons
+REC-0000113,ING-0000179,Onion powder,1/8,teaspoon
+REC-0000113,ING-0000180,Garlic powder,1/4,teaspoon
+REC-0000113,ING-0000085,Fresh chives,1,teaspoon (chopped)
+REC-0000114,ING-0000099,Butternut squash,1,cup
+REC-0000114,ING-0000015,Olive oil,1,tablespoon
+REC-0000114,ING-0000022,Vanilla extract,1/4,teaspoon
+REC-0000114,ING-0000040,Ground nutmeg,1/8,teaspoon
+REC-0000115,ING-0000181,Flaxseed,3/4,cup
+REC-0000115,ING-0000021,Ground cinnamon,1/2,teaspoon
+REC-0000115,ING-0000036,Fresh ginger,1,pinch
+REC-0000115,ING-0000008,Apple,1,whole
+REC-0000115,ING-0000118,Eggs,1,
+REC-0000116,ING-0000094,Mango,1/4,cup
+REC-0000116,ING-0000054,Papaya,1/4,cup
+REC-0000116,ING-0000106,Peach,1/4,cup
+REC-0000116,ING-0000065,Black beans,1/4,cup
+REC-0000116,ING-0000083,Fresh cilantro,1/2,teaspoon
+REC-0000117,ING-0000150,Russet potato,1,whole
+REC-0000117,ING-0000015,Olive oil,1,tablespoon
+REC-0000117,ING-0000182,Garlic powder,1/8,teaspoon
+REC-0000117,ING-0000183,Onion powder,1/4,teaspoon
+REC-0000117,ING-0000045,Fresh thyme,1/4,teaspoon (dried thyme equivalent)
+REC-0000118,ING-0000184,Acorn squash,1,cup
+REC-0000118,ING-0000015,Olive oil,1,tablespoon
+REC-0000118,ING-0000182,Garlic powder,1/2,teaspoon
+REC-0000118,ING-0000185,Sweet paprika,1/4,teaspoon
+REC-0000118,ING-0000010,Chickpeas,1,cup
+REC-0000118,ING-0000186,Tahini,1,tablespoon
+REC-0000118,ING-0000015,Olive oil,1,teaspoon
+REC-0000118,ING-0000187,Lemon zest,2,teaspoons
+REC-0000118,ING-0000025,Garlic,1,clove
+REC-0000119,ING-0000015,Olive oil,1,tablespoon
+REC-0000119,ING-0000188,Asparagus tips,1,cup
+REC-0000119,ING-0000190,Orange zest,1/2,teaspoon
+REC-0000119,ING-0000189,Tarragon,1/2,teaspoon
+REC-0000120,ING-0000018,Parmesan cheese,2,tablespoons
+REC-0000120,ING-0000191,Wheat germ or almond flour,2,tablespoons
+REC-0000120,ING-0000025,Garlic,1/2,teaspoon
+REC-0000120,ING-0000155,Green beans,1,cup (cut into 1-inch pieces)
+REC-0000120,ING-0000118,Eggs,1,beaten
+REC-0000121,ING-0000010,Chickpeas,1,"cup (canned, drained)"
+REC-0000121,ING-0000024,Yellow onion,1/2,finely chopped
+REC-0000121,ING-0000085,Fresh parsley,2,tablespoons
+REC-0000121,ING-0000011,Cumin,1/2,teaspoon
+REC-0000121,ING-0000025,Garlic,1/2,teaspoon
+REC-0000121,ING-0000192,Whole wheat flour or oat flour,1/2,cup
+REC-0000121,ING-0000015,Olive oil,1,tablespoon
+REC-0000121,ING-0000012,Greek whole-milk yogurt,1/2,cup
+REC-0000121,ING-0000122,Tahini,1,tablespoon
+REC-0000121,ING-0000033,Lemon zest,1/4,teaspoon
+REC-0000121,ING-0000025,Garlic,1/2,teaspoon
+REC-0000122,ING-0000118,Eggs,1,beaten
+REC-0000122,ING-0000113,Cauliflower florets,1,cup (grated)
+REC-0000122,ING-0000025,Garlic,1/2,teaspoon (minced)
+REC-0000122,ING-0000011,Cumin,(optional),
+REC-0000122,ING-0000192,Whole wheat flour or oat flour,1,teaspoon
+REC-0000122,ING-0000107,Avocado,2,
+REC-0000122,ING-0000117,Lime juice,1,teaspoon
+REC-0000123,ING-0000192,Almond flour,2,cups
+REC-0000123,ING-0000086,Almond butter,2,tablespoons
+REC-0000123,ING-0000063,Baking powder,1/2,teaspoon
+REC-0000123,ING-0000016,Sea salt,1/2,teaspoon
+REC-0000123,ING-0000193,Honey,1/4,cup
+REC-0000123,ING-0000019,Butter,2,tablespoons
+REC-0000123,ING-0000118,Eggs,2,
+REC-0000123,ING-0000014,Milk,1,cup
+REC-0000123,ING-0000013,Blueberries,1/2,cup
+REC-0000124,ING-0000069,Black beans,1,cup
+REC-0000124,ING-0000017,Sweet potato,1/2,cup
+REC-0000124,ING-0000049,Onion powder,1/8,teaspoon
+REC-0000124,ING-0000043,Cumin,1/4,teaspoon
+REC-0000124,ING-0000182,Almond flour,1/4,cup
+REC-0000124,ING-0000118,Eggs,1,
+REC-0000124,ING-0000012,Yogurt,1/4,cup
+REC-0000124,ING-0000195,Lime zest,1/2,teaspoon
+REC-0000124,ING-0000190,Lime juice,1,teaspoon
+REC-0000124,ING-0000087,Cilantro,1,teaspoon
+REC-0000125,ING-0000118,Eggs,1,
+REC-0000125,ING-0000182,Almond flour,1,cup
+REC-0000125,ING-0000196,Coconut flour,1,tablespoon
+REC-0000125,ING-0000049,Onion powder,1/4,teaspoon
+REC-0000125,ING-0000043,Cumin,1/4,teaspoon
+REC-0000125,ING-0000052,Paprika,1,pinch
+REC-0000125,ING-0000197,Chicken tenders,8,ounces
+REC-0000126,ING-0000018,Olive oil,1,tablespoon
+REC-0000126,ING-0000049,Zucchini,0.5,small
+REC-0000126,ING-0000072,Crushed tomatoes,0.5,cup
+REC-0000126,ING-0000023,Garlic powder,0.25,teaspoon
+REC-0000126,ING-0000035,Dried oregano,0.25,teaspoon
+REC-0000126,ING-0000061,Mozzarella cheese,0.25,cup
+REC-0000127,ING-0000044,Ground beef,8,ounces
+REC-0000127,ING-0000014,Onion,0.5,unit
+REC-0000127,ING-0000003,Egg,1,unit
+REC-0000127,ING-0000006,Sweet potato,0.5,cup
+REC-0000127,ING-0000033,Dried thyme,0.5,teaspoon
+REC-0000127,ING-0000198,Mustard powder,0.25,teaspoon
+REC-0000127,ING-0000180,Garlic powder,0.5,teaspoon
+REC-0000130,ING-0000115,Water,1,cup
+REC-0000130,ING-0000147,Orange juice,1,cup
+REC-0000130,ING-0000014,Milk,1,cup
+REC-0000130,ING-0000136,Steel-cut oats,1,cup
+REC-0000130,ING-0000166,Cranberries (fresh),0.5,cup
+REC-0000130,ING-0000200,Orange zest,0.5,teaspoon
+REC-0000130,ING-0000204,Ground ginger,0.5,teaspoon
+REC-0000130,ING-0000012,Greek whole-milk yogurt,1,cup
+REC-0000131,ING-0000023,Whole wheat bread,2,slices
+REC-0000131,ING-0000107,Avocado,0.5,avocado
+REC-0000131,ING-0000033,Lemon juice,1,teaspoon
+REC-0000131,ING-0000016,Sea salt,Pinch,
+REC-0000131,ING-0000032,Paprika,Pinch,

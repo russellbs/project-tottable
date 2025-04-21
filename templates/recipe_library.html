@@ -87,43 +87,53 @@
                 <input type="checkbox" name="vegan" value="1" {% if request.GET.vegan == "1" %}checked{% endif %}> Vegan
             </label>-->
     
-            <!-- Exclude Allergens Multi-select -->
+            <!-- Exclude Allergens Multi-select (Dynamic) -->
             <div class="custom-multi-select-container">
                 <label for="exclude_allergens" class="multi-select-label">Exclude Allergens:</label>
                 <div class="custom-multi-select-options">
+                    {% for allergen in allergens %}
                     <div class="custom-option">
-                        <input type="checkbox" id="allergen-nuts" name="exclude_allergens" value="nuts" {% if "nuts" in request.GET.exclude_allergens %}checked{% endif %}>
-                        <label for="allergen-nuts">Nuts</label>
+                        <input 
+                            type="checkbox" 
+                            id="allergen-{{ allergen|slugify }}" 
+                            name="exclude_allergens" 
+                            value="{{ allergen }}" 
+                            {% if allergen in request.GET.exclude_allergens %}checked{% endif %}
+                        >
+                        <label for="allergen-{{ allergen|slugify }}">{{ allergen }}</label>
                     </div>
-                    <div class="custom-option">
-                        <input type="checkbox" id="allergen-dairy" name="exclude_allergens" value="dairy" {% if "dairy" in request.GET.exclude_allergens %}checked{% endif %}>
-                        <label for="allergen-dairy">Dairy</label>
-                    </div>
-                    <div class="custom-option">
-                        <input type="checkbox" id="allergen-gluten" name="exclude_allergens" value="gluten" {% if "gluten" in request.GET.exclude_allergens %}checked{% endif %}>
-                        <label for="allergen-gluten">Gluten</label>
-                    </div>
-                    <div class="custom-option">
-                        <input type="checkbox" id="allergen-soy" name="exclude_allergens" value="soy" {% if "soy" in request.GET.exclude_allergens %}checked{% endif %}>
-                        <label for="allergen-soy">Soy</label>
-                    </div>
-                    <div class="custom-option">
-                        <input type="checkbox" id="allergen-shellfish" name="exclude_allergens" value="shellfish" {% if "shellfish" in request.GET.exclude_allergens %}checked{% endif %}>
-                        <label for="allergen-shellfish">Shellfish</label>
-                    </div>
+                    {% endfor %}
                 </div>
-            </div>            
+            </div>
         </div>
     </form>
 </div>    
 
-    <!-- Recipe Grid -->
+{% if exclude_allergens %}
+<div class="alert alert-warning mb-3" role="alert" style="background-color: #fff8e1; border-left: 6px solid #f0ad4e;">
+    <strong>Note:</strong>
+    {% for allergen in exclude_allergens %}
+        {{ allergen }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    excluded from results.
+</div>
+{% endif %}
+    
+
+<!-- Recipe Grid -->
     <section class="recipe-list">
         <div class="recipe-grid">
             {% for recipe in page_obj %}
             <div class="recipe-card">
                 <h3 class="recipe-title">{{ recipe.title }}</h3>
                 <p class="recipe-description">{{ recipe.description }}</p>
+
+                {% if child_age_months and recipe.min_age_months > child_age_months %}
+                    <p class="age-warning" style="color: #c58f00; font-weight: bold;">
+                        Suitable for {{ recipe.min_age_months }}+ months
+                    </p>
+                {% endif %}
+
                 <a href="{% url 'recipe_detail' recipe.id %}?swap={{ swap_mode|yesno:'1,' }}&meal_type={{ meal_type }}&day={{ day }}" 
                    class="view-recipe-button">
                     View Recipe

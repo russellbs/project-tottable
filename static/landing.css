@@ -4,28 +4,90 @@ body {
     line-height: 1.6;
 }
 
+section h2 {
+    font-size: 38px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+
 /* === HERO SECTION (UNCHANGED) === */
 .hero {
-    background-color: #f8f9fa; /* Light background */
-    text-align: left;
+    background-color: #FCEAE4; /* Tottable coral */
     display: flex;
     align-items: center;
-    height: 90vh;
-    padding-left: 10%;
-    padding-right: 5%;
+    justify-content: center;
+    padding: 100px 10% 80px; /* Push content down to avoid overlap */
+    padding-top: 70px;
 }
+
 
 .hero-heading {
     font-size: 56px;
     font-weight: 600;
     line-height: 1.2;
+    max-width: 500px;
 }
 
 .hero-subtext {
     font-size: 28px;
     font-weight: 400;
     margin-top: 15px;
+    max-width: 500px;
 }
+
+.hero .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.hero .col-left {
+    flex: 1;
+    text-align: left;
+}
+
+.hero .col-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 120px 5% 60px;
+    }
+
+    .hero .row {
+        flex-direction: column;
+    }
+
+    .hero .col-left,
+    .hero .col-right {
+        flex: none;
+        width: 100%;
+    }
+
+    .hero-heading {
+        font-size: 42px;
+        max-width: 100%;
+    }
+
+    .hero-subtext {
+        font-size: 20px;
+        max-width: 100%;
+    }
+
+    .auth-card {
+        width: 100%;
+        max-width: 350px;
+    }
+}
+
 
 /* === FEATURES SECTION (WHITE) === */
 #features {
@@ -94,11 +156,18 @@ body {
     font-size: 24px;
 }
 
+
+#problem {
+    background-color: #FCEAE4; /* Tottable coral */
+    padding: 80px 0;
+}
+
+
 /* === EMAIL SIGNUP SECTION (TOTTABLE CORAL) === */
 .email-signup {
-    background: #FCEAE4; /* Tottable coral */
+    background: #FFF; /* Tottable coral */
     padding: 80px 0;
-    color: white;
+    color: #333;
 }
 
 .email-signup input {
@@ -153,3 +222,91 @@ footer a:hover {
         font-size: 20px;
     }
 }
+
+.auth-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+.auth-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.auth-subtitle {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.terms-text {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.full-height {
+    min-height: auto !important; /* override fixed viewport height */
+    height: auto !important;
+}
+
+.auth-benefits {
+    margin-top: 1rem;
+    padding-left: 1rem;
+    list-style: none;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.auth-benefits li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.trial-note {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+
+.screenshot-box {
+    padding: 10px;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.screenshot-box h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    min-height: 2.6em; /* Force two-line height even if one line */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.screenshot-box img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    object-position: top;  /* 👈 Ensures cropping starts from the top */
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+

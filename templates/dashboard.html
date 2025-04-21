@@ -42,19 +42,17 @@
         </span>
     
         <!-- Next Week Button -->
-        {% if next_week_start > next_week_available_date %}
-            <button id="next-week" class="btn btn-secondary mx-2" disabled
-                    data-bs-toggle="tooltip" title="Available on {{ next_week_available_date|date:'F d, Y' }}">
+        {% if week_offset >= 2 %}
+            <button id="next-week" class="btn btn-secondary mx-2" disabled>
                 Next Week &raquo;
             </button>
         {% else %}
-            <a href="?week={{ week_offset|add:'1' }}" id="next-week" class="btn btn-primary mx-2"
-               data-bs-toggle="tooltip" title="Go to the week starting {{ next_week_start|date:'F d, Y' }}">
+            <a href="?week={{ week_offset|add:'1' }}" id="next-week" class="btn btn-primary mx-2">
                 Next Week &raquo;
             </a>
         {% endif %}
     </div>    
-                             
+                            
     
     <!-- Weekly Meal Plan Section -->
     <section class="meal-plan-section mx-auto my-5">
@@ -87,10 +85,10 @@
                                         </a><br>
                                         <!--<small>{{ meal.breakfast.description }}</small>-->
                                         <div class="quick-actions">
-                                            <a href="{% url 'recipe_detail' meal.breakfast.id %}?from=dashboard" class="view-recipe-link">
+                                            <!--<a href="{% url 'recipe_detail' meal.breakfast.id %}?from=dashboard" class="view-recipe-link">
                                                 View Recipe
                                                 <i class="bi bi-box-arrow-up-right"></i>
-                                            </a>
+                                            </a>-->
                                             <a href="{% url 'recipe_library' %}?meal_type=breakfast&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
                                             class="swap-meal-link">
                                                 Swap Meal
@@ -104,10 +102,10 @@
                                         </a><br>
                                         <!--<small>{{ meal.lunch.description }}</small>-->
                                         <div class="quick-actions">
-                                            <a href="{% url 'recipe_detail' meal.lunch.id %}?from=dashboard" class="view-recipe-link">
+                                            <!--<a href="{% url 'recipe_detail' meal.lunch.id %}?from=dashboard" class="view-recipe-link">
                                                 View Recipe
                                                 <i class="bi bi-box-arrow-up-right"></i>
-                                            </a>
+                                            </a>-->
                                             <a href="{% url 'recipe_library' %}?meal_type=lunch&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
                                             class="swap-meal-link">
                                                 Swap Meal
@@ -121,10 +119,10 @@
                                         </a><br>
                                         <!--<small>{{ meal.dinner.description }}</small>-->
                                         <div class="quick-actions">
-                                            <a href="{% url 'recipe_detail' meal.dinner.id %}?from=dashboard" class="view-recipe-link">
+                                            <!--<a href="{% url 'recipe_detail' meal.dinner.id %}?from=dashboard" class="view-recipe-link">
                                                 View Recipe
                                                 <i class="bi bi-box-arrow-up-right"></i>
-                                            </a>
+                                            </a>-->
                                             <a href="{% url 'recipe_library' %}?meal_type=dinner&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
                                             class="swap-meal-link">
                                                 Swap Meal
@@ -139,10 +137,10 @@
                                             </a><br>
                                             <!--<small>{{ meal.snack.description }}</small>-->
                                             <div class="quick-actions">
-                                                <a href="{% url 'recipe_detail' meal.snack.id %}?from=dashboard" class="view-recipe-link">
+                                                <!--<a href="{% url 'recipe_detail' meal.snack.id %}?from=dashboard" class="view-recipe-link">
                                                     View Recipe
                                                     <i class="bi bi-box-arrow-up-right"></i>
-                                                </a>
+                                                </a>-->
                                                 <a href="{% url 'recipe_library' %}?meal_type=snack&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
                                                 class="swap-meal-link">
                                                     Swap Meal
@@ -175,9 +173,9 @@
                                 {{ meal.breakfast.title }}
                             </a>
                             <div class="quick-actions">
-                                <a href="{% url 'recipe_detail' meal.breakfast.id %}?from=dashboard" class="view-recipe-link">
+                                <!--<a href="{% url 'recipe_detail' meal.breakfast.id %}?from=dashboard" class="view-recipe-link">
                                     View Recipe
-                                </a>
+                                </a>-->
                                 <a href="{% url 'recipe_library' %}?meal_type=breakfast&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
                                    class="swap-meal-link">
                                     Swap Meal
@@ -191,9 +189,9 @@
                                 {{ meal.lunch.title }}
                             </a>
                             <div class="quick-actions">
-                                <a href="{% url 'recipe_detail' meal.lunch.id %}?from=dashboard" class="view-recipe-link">
+                                <!--<a href="{% url 'recipe_detail' meal.lunch.id %}?from=dashboard" class="view-recipe-link">
                                     View Recipe
-                                </a>
+                                </a>-->
                                 <a href="{% url 'recipe_library' %}?meal_type=lunch&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
                                    class="swap-meal-link">
                                     Swap Meal
@@ -207,9 +205,9 @@
                                 {{ meal.dinner.title }}
                             </a>
                             <div class="quick-actions">
-                                <a href="{% url 'recipe_detail' meal.dinner.id %}?from=dashboard" class="view-recipe-link">
+                                <!--<a href="{% url 'recipe_detail' meal.dinner.id %}?from=dashboard" class="view-recipe-link">
                                     View Recipe
-                                </a>
+                                </a>-->
                                 <a href="{% url 'recipe_library' %}?meal_type=dinner&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
                                    class="swap-meal-link">
                                     Swap Meal
@@ -224,9 +222,9 @@
                                 {{ meal.snack.title }}
                             </a>
                             <div class="quick-actions">
-                                <a href="{% url 'recipe_detail' meal.snack.id %}?from=dashboard" class="view-recipe-link">
+                                <!--<a href="{% url 'recipe_detail' meal.snack.id %}?from=dashboard" class="view-recipe-link">
                                     View Recipe
-                                </a>
+                                </a>-->
                                 <a href="{% url 'recipe_library' %}?meal_type=snack&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
                                    class="swap-meal-link">
                                     Swap Meal

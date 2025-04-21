@@ -1,3 +1,4 @@
+
 /* Container */
 .shopping-list-container {
     max-width: 600px;
@@ -53,34 +54,59 @@
     padding: 0;
     margin: 0;
 }
-
 #shopping-list li {
-    background-color: #fff;               /* Clean white background */
-    padding: 16px 20px;                   /* More padding for internal space */
-    margin-bottom: 15px;                  /* Space between items */
-    border: 1px solid #e0e0e0;            /* Light border for separation */
-    border-radius: 6px;                   /* Rounded corners */
+    background-color: #fff;
+    padding: 10px 16px;
+    margin-bottom: 6px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
     display: flex;
     align-items: center;
-    gap: 15px;                          /* Gap between flex children (text and button) */
+    justify-content: space-between; /* 👈 Keeps the text and button on same line */
     transition: transform 0.2s ease;
-}
-
-#shopping-list li:last-child {
-    border-bottom: none;
-}
-
-#shopping-list li:hover {
-    transform: translateY(-2px);
 }
 
 #shopping-list li span {
     font-size: 16px;
     color: #333;
     flex: 1;
-    padding-right: 10px;
-    word-wrap: break-word;
+    margin-right: 10px; /* 👈 Creates small space between text and button */
+    white-space: nowrap; /* 👈 Prevents wrapping */
 }
+
+#shopping-list li button {
+    padding: 4px 10px;
+    font-size: 16px;
+    background-color: #f9a8a8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+#shopping-list li button:hover {
+    background-color: #f48383;
+}
+
+@media (max-width: 600px) {
+    #shopping-list li {
+        flex-wrap: nowrap; /* 👈 Prevent button from dropping down */
+    }
+
+    #shopping-list li span {
+        font-size: 15px;
+        white-space: normal; /* 👈 Allows wrapping on very long names if needed */
+    }
+
+    #shopping-list li button {
+        font-size: 14px;
+        padding: 4px 10px;
+    }
+}
+
 
 .text-decoration-line-through {
     color: #a0a0a0;
@@ -119,7 +145,7 @@ button:hover {
     font-size: 16px;
     border-radius: 6px;
     transition: background-color 0.3s ease, transform 0.1s ease;
-    background-color: #4caf50;
+    background-color: #f9a8a8;
     color: white;
     text-align: center;
     border: none;
@@ -127,7 +153,7 @@ button:hover {
 
 #email-list-btn:hover,
 #export-notes-btn:hover {
-    background-color: #43a047;
+    background-color: #f48383;
     transform: translateY(-2px);
 }
 
@@ -148,15 +174,6 @@ button:hover {
     #export-notes-btn {
         width: 100%;
         margin: 5px 0;
-    }
-
-    #shopping-list li {
-        flex-wrap: wrap;
-    }
-
-    #shopping-list li span {
-        flex: 1 1 100%;
-        padding-bottom: 8px;
     }
 
     button {

@@ -1,3 +1,7 @@
+function getCsrfToken() {
+    return document.querySelector("[name=csrfmiddlewaretoken]").value;
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     // Within-Week Preferences Elements
     const editWithinWeekBtn = document.getElementById("edit-within-week-preferences-btn");
@@ -80,9 +84,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             fetch(withinWeekForm.action, {
                 method: "POST",
-                headers: { "X-Requested-With": "XMLHttpRequest" },
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRFToken": getCsrfToken(),
+                },
                 body: formData,
-            })
+            })            
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error(`Failed to save preferences: ${response.statusText}`);
@@ -179,7 +186,5 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    function getCsrfToken() {
-        return document.querySelector("[name=csrfmiddlewaretoken]").value;
-    }
+    
 });

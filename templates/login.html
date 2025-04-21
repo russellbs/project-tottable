@@ -26,6 +26,11 @@
                 <input type="password" name="password" id="id_password" class="form-control" placeholder="Password" required>
             </div>
 
+            <!-- 👇 Forgot password link -->
+            <p class="forgot-password text-end">
+                <a href="{% url 'password_reset' %}">Forgot your password?</a>
+            </p>
+
             <div class="form-group checkbox-container">
                 <input type="checkbox" id="remember_me">
                 <label for="remember_me">Remember me</label>

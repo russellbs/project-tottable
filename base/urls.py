@@ -4,6 +4,8 @@ from .views import test_meal_plan_email, signup
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView, LoginView
+from django.contrib.auth import views as auth_views
+
 
 
 urlpatterns = [
@@ -26,6 +28,10 @@ urlpatterns = [
     path("logout/", LogoutView.as_view(next_page="landing_page"), name="logout"),
     path("signup/", signup, name="signup"),
     path("login/", LoginView.as_view(template_name="login.html"), name="login"),
+    path('password_reset/', auth_views.PasswordResetView.as_view(template_name='password_reset.html'), name='password_reset'),
+    path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name='password_reset_complete'),
 ]
 
 # Serve media files only during development

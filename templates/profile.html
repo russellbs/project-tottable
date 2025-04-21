@@ -89,6 +89,7 @@
                 <div class="child-display">
                     <h3>{{ child.name }}</h3>
                     <p><strong>Date of Birth:</strong> {{ child.dob }}</p>
+                    <p><strong>Age:</strong> {{ child.age_display }}</p>
                     <p><strong>Likes Ingredients:</strong> {{ child.likes_ingredients.all|join:", " }}</p>
                     <p><strong>Dislikes Ingredients:</strong> {{ child.dislikes_ingredients.all|join:", " }}</p>
                     <p><strong>Allergies:</strong> {{ child.allergies|default:"None" }}</p>
@@ -143,16 +144,17 @@
 
                         <div class="form-group">
                             <label for="allergies-{{ child.id }}">Allergies</label>
+                            <input type="text" class="ingredient-search" placeholder="Search allergies..." data-target="allergies-{{ child.id }}">
                             <div class="custom-multi-select" id="allergies-{{ child.id }}">
                                 {% for allergen in allergens %}
-                                <div>
-                                    <input type="checkbox" id="allergies-{{ child.id }}-{{ allergen }}" name="allergies" value="{{ allergen }}" 
+                                <div class="ingredient-option">
+                                    <input type="checkbox" id="allergies-{{ child.id }}-{{ allergen }}" name="allergies" value="{{ allergen }}"
                                            {% if allergen in child.allergies %}checked{% endif %}>
                                     <label for="allergies-{{ child.id }}-{{ allergen }}">{{ allergen }}</label>
                                 </div>
                                 {% endfor %}
                             </div>
-                        </div>
+                        </div>                        
 
                         <button type="submit" class="btn btn-success save-child-btn">Save Changes</button>
                         <button type="button" class="btn btn-danger delete-child-btn" data-child-id="{{ child.id }}">Delete</button>
@@ -221,7 +223,7 @@
                     </div>
                     {% endfor %}
                 </div>
-            </div>                  
+            </div>                              
 
             <button type="submit" class="btn btn-primary">Save Munchkin</button>
             <button type="button" id="cancel-add-child-btn" class="btn btn-secondary">Cancel</button>

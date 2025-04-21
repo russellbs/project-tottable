@@ -9,18 +9,68 @@
 {% endblock %}
 
 {% block content %}
-<!-- Hero Section with Background Image -->
-<section class="hero" style="background: url('/media/Tottable_Hero.jpg') no-repeat center center; background-size: cover;">
+<section class="hero">
     <div class="container">
-        <h1 class="hero-heading">
-            Take meal planning <br> off your plate
-        </h1>
-        <p class="hero-subtext">
-            Personalized meal plans for your <br> baby's development
-        </p>
-        <a href="#features" class="btn btn-primary btn-lg mt-3">Reduce your mental load</a>
+        <div class="row">
+            <!-- Left Side: Hero Text -->
+            <div class="col-left">
+                <h1 class="hero-heading">
+                    Take meal planning <br> off your plate
+                </h1>
+                <p class="hero-subtext">
+                    Personalized meal plans for your <br> baby's development
+                </p>
+                <!--<a href="#features" class="btn btn-primary btn-lg mt-3">Reduce your mental load</a>-->
+            </div>
+
+            <!-- Right Side: Sign-Up Box -->
+            <div class="col-right">
+                <div class="auth-card">
+                    <h2 class="auth-title">Lighten your mental load</h2>
+                    <p class="auth-subtitle">Get started with personalized meal plans</p>
+                    <ul class="auth-benefits">
+                        <li>✨ Tottable does the planning for you</li>
+                        <li>👶 Meals tailored to your baby’s age, tastes, and needs</li>
+                        <li>📚 Explore over 100 delicious, baby-friendly recipes</li>
+                        <li>🛒 Smart shopping list that saves time (and last-minute store runs)</li>
+                    </ul>
+                    <form method="post" action="{% url 'signup' %}">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="id_first_name">Name</label>
+                            <input type="text" name="first_name" id="id_first_name" class="form-control" placeholder="Your name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_email">Email address</label>
+                            <input type="email" name="email" id="id_email" class="form-control" placeholder="Your email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_password">Password</label>
+                            <input type="password" name="password" id="id_password" class="form-control" placeholder="Password" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Start 7-Day Free Trial
+                        </button>
+                        <p class="trial-note text-center mt-2">
+                            Then $49 for lifetime access — cancel anytime during your trial.
+                        </p>                        
+
+                        <p class="terms-text">
+                            By signing up, you accept our <a href="#">terms of service</a> and <a href="#">privacy policy</a>.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
+
+
 
 <!-- Features Section -->
 <section id="features" class="full-height text-center py-5">
@@ -70,6 +120,43 @@
     </div>
 </section>
 
+<!-- What You'll Get Section -->
+<section id="product-preview" class="full-height text-center py-5">
+    <div class="container">
+        <h2>What You’ll Get with Tottable</h2>
+        <p class="mb-4">From planning to shopping, here’s how Tottable lightens your load.</p>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="screenshot-box">
+                    <h5>📆 Weekly Meal Plan</h5>
+                    <img src="/media/dashboard.png" alt="Meal Plan Dashboard" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="screenshot-box">
+                    <h5>📚 Recipe Library</h5>
+                    <img src="/media/recipe_library.png" alt="Recipe Library" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="screenshot-box">
+                    <h5>👩‍🍳 Easy-to-Follow Recipes</h5>
+                    <img src="/media/recipe_detail.png" alt="Recipe Detail" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="screenshot-box">
+                    <h5>🛒 Smart Shopping List</h5>
+                    <img src="/media/shopping_list.png" alt="Shopping List" class="img-fluid">
+                </div>
+            </div>
+                        
+        </div>
+    </div>
+</section>
+
+
+
 <!-- The Problem with Meal Planning Section -->
 <section id="problem" class="full-height text-center py-5">
     <div class="container">
@@ -95,7 +182,7 @@
 </section>
 
 
-<!-- Email Sign-Up Section -->
+<!-- Email Sign-Up Section 
 <section class="email-signup full-height text-center py-5">
     <div class="container">
         <h2>Stay Updated with Tottable</h2>
@@ -105,7 +192,7 @@
             <button type="submit" class="btn btn-primary ms-3">Sign Up</button>
         </form>
     </div>
-</section>
+</section> -->
 
 <!-- Footer -->
 <footer class="bg-dark text-light py-4 text-center">
