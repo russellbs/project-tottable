@@ -1,21 +1,28 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth import login
+from django.contrib.auth import login, get_user_model
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 from django.core.paginator import Paginator
 from django.db.models import Sum
 from .models import Ingredient, Child, Recipe, MealPlan, Meal, RecipeIngredient
-from .forms import AddChildForm, WithinWeekPreferencesForm, AcrossWeekPreferencesForm, SignupForm  # Import the AddChildForm
+from .forms import AddChildForm, WithinWeekPreferencesForm, AcrossWeekPreferencesForm, PreSignupForm  # Import the AddChildForm
 from datetime import datetime, timedelta
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.timezone import now
+from django.conf import settings
+from django.views import View
+from django.urls import reverse
 import logging
 import random
+import stripe
 from datetime import timedelta
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def landing_page(request):
     return render(request, 'landing.html')
@@ -42,6 +49,9 @@ def profile(request):
         for meal in ["breakfast", "lunch", "dinner", "snack"]
     ]
 
+    # 👉 Show welcome modal if no children yet
+    show_welcome = not children.exists()
+    
     context = {
         "user": user,
         "ingredients": ingredients,
@@ -49,6 +59,7 @@ def profile(request):
         "within_week_preferences_flat": within_week_preferences_flat,
         "across_week_preferences_flat": across_week_preferences_flat,
         "allergens": allergens,
+        "show_welcome": show_welcome,
     }
 
     return render(request, "profile.html", context)
@@ -642,17 +653,141 @@ def shopping_list(request):
 
     return render(request, 'shopping_list.html', context)
 
-def signup(request):
-    if request.method == "POST":
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data["password"])
-            user.username = user.email  # Use email as username
-            user.save()
-            login(request, user)  # Log in the user immediately
-            return redirect("dashboard")  # Redirect to dashboard after signup
-    else:
-        form = SignupForm()
-    return render(request, "signup.html", {"form": form})
 
+@login_required
+@require_POST
+def remove_meal(request):
+    meal_id = request.POST.get('meal_id')
+    meal_type = request.POST.get('meal_type')
+
+    if not meal_id or not meal_type:
+        return JsonResponse({'success': False, 'error': 'Missing parameters.'}, status=400)
+
+    try:
+        meal = Meal.objects.get(id=meal_id, meal_plan__child__parent=request.user)
+        setattr(meal, meal_type, None)
+        meal.save()
+        return JsonResponse({'success': True})
+    except Meal.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Meal not found.'}, status=404)
+
+class PreSignupView(View):
+    def get(self, request):
+        form = PreSignupForm()
+        return render(request, 'signup.html', {
+            'form': form,
+            'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY
+        })
+
+    def post(self, request):
+        form = PreSignupForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            first_name = form.cleaned_data['first_name']
+            password = form.cleaned_data['password']
+
+            if User.objects.filter(email=email).exists():
+                if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                    return JsonResponse({'error': 'Email already exists. Please log in.'}, status=400)
+                else:
+                    form.add_error('email', 'Email already exists. Please log in.')
+                    return render(request, 'signup.html', {'form': form, 'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY})
+
+            request.session['signup_data'] = form.cleaned_data
+
+            try:
+                checkout_session = stripe.checkout.Session.create(
+                    payment_method_types=['card'],
+                    line_items=[{
+                        'price': settings.STRIPE_PRICE_ID,
+                        'quantity': 1,
+                    }],
+                    mode='payment',
+                    success_url=request.build_absolute_uri(reverse('post-payment')),
+                    cancel_url=request.build_absolute_uri(reverse('signup-cancelled')),
+                    metadata={
+                        'email': email,
+                        'first_name': first_name,
+                        'password': password,
+                    }
+                )
+                if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                    return JsonResponse({'id': checkout_session.id})
+                else:
+                    return redirect(checkout_session.url)
+            except Exception as e:
+                if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                    return JsonResponse({'error': str(e)}, status=400)
+                else:
+                    form.add_error(None, str(e))
+                    return render(request, 'signup.html', {'form': form, 'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY})
+        else:
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'form_errors': form.errors}, status=400)
+            else:
+                return render(request, 'signup.html', {'form': form, 'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY})
+
+
+
+class PostPaymentView(View):
+    def get(self, request):
+        signup_data = request.session.get('signup_data')
+        if not signup_data:
+            return redirect('signup-cancelled')
+
+        email = signup_data['email']
+
+        if not User.objects.filter(email=email).exists():
+            user = User.objects.create_user(
+                username=email,
+                email=email,
+                first_name=signup_data['first_name'],
+                password=signup_data['password'],
+                is_active=True
+            )
+            user.save()
+
+        # Log the user in
+        user = User.objects.get(email=email)
+        login(request, user)
+
+        del request.session['signup_data']
+        return redirect('profile')
+    
+def signup_cancelled(request):
+    return redirect('landing_page')
+
+@csrf_exempt
+def stripe_webhook(request):
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
+        )
+    except ValueError as e:
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        return HttpResponse(status=400)
+
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        email = session['metadata']['email']
+        first_name = session['metadata'].get('first_name', 'User')
+        password = session['metadata'].get('password')
+
+        # Double-check if user exists (maybe they returned and already completed signup)
+        if not User.objects.filter(email=email).exists():
+            user = User.objects.create_user(
+                username=email,
+                email=email,
+                first_name=first_name,
+                password=password,
+                is_active=True
+            )
+            user.save()
+            # You can log this event or send a welcome email here
+
+    return HttpResponse(status=200)

@@ -20,7 +20,7 @@
             <p>🛒 Smart shopping list that saves time (and last-minute store runs)</p>
         </div>
 
-        <form method="post">
+        <form id="signup-form" method="post" action="{% url 'pre-signup' %}">
             {% csrf_token %}
 
             <div class="form-group">
@@ -50,4 +50,12 @@
         </form>
     </div>
 </div>
+
+<script>
+    const STRIPE_PUBLIC_KEY = "{{ STRIPE_PUBLIC_KEY }}";
+</script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'signup.js' %}"></script>
+
+
 {% endblock %}

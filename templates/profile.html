@@ -234,4 +234,30 @@
 <link rel="stylesheet" href="{% static 'profile.css' %}">
 <script src="{% static 'profile.js' %}"></script>
 <script src="{% static 'profile_preferences.js' %}"></script>
+
+{% if show_welcome %}
+<!-- Welcome Modal -->
+<div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="welcomeModalLabel">Welcome to Tottable! 🎉</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Welcome to Tottable! 🎉 We're so excited to help lighten your mental load.</p>
+        <p>Here’s how to get started:</p>
+        <p>👶 <strong>Add your little one’s name and birthday</strong> so we can recommend the right meals for their age.</p>
+        <p>🍽️ <strong>Tell us what foods they love, dislike, or need to avoid</strong> — we’ll keep it all in mind.</p>
+        <p>🔄 <strong>Choose your meal variety</strong> — pick how much you want things to change from day to day.</p>
+        <p class="mt-3">That’s it! 🎈 We’ll take it from there and create a personalized meal plan you can tweak anytime.</p>
+      </div>      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Let's Go!</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
 {% endblock %}

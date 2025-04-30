@@ -96,18 +96,19 @@ class AcrossWeekPreferencesForm(forms.Form):
         }
         user_profile.save()
 
-class SignupForm(forms.ModelForm):
+class PreSignupForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
-    confirm_password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ['first_name', 'email', 'password']
+        fields = ['first_name', 'email']
 
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get("password")
-        confirm_password = cleaned_data.get("confirm_password")
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.username = self.cleaned_data['email']  # Optional, if using email as username
+        user.set_password(self.cleaned_data['password'])
+        user.is_active = False  # Set to True after Stripe payment success
 
-        if password and confirm_password and password != confirm_password:
-            self.add_error('confirm_password', "Passwords do not match.")
+        if commit:
+            user.save()
+        return user

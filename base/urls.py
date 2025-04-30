@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import test_meal_plan_email, signup
+from .views import test_meal_plan_email, PreSignupView, PostPaymentView, stripe_webhook, signup_cancelled
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView, LoginView
@@ -25,9 +25,13 @@ urlpatterns = [
     path('regenerate-meal-plan/<int:child_id>/', views.regenerate_meal_plan, name='regenerate_meal_plan'),
     path("test-email/", test_meal_plan_email, name="test_meal_plan_email"),
     path('shopping-list/', views.shopping_list, name='shopping_list'),
+    path('remove-meal/', views.remove_meal, name='remove_meal'),
     path("logout/", LogoutView.as_view(next_page="landing_page"), name="logout"),
-    path("signup/", signup, name="signup"),
     path("login/", LoginView.as_view(template_name="login.html"), name="login"),
+    path('signup/', PreSignupView.as_view(), name='pre-signup'),
+    path('post-payment/', PostPaymentView.as_view(), name='post-payment'),
+    path('signup-cancelled/', signup_cancelled, name='signup-cancelled'),
+    path('stripe/webhook/', stripe_webhook, name='stripe-webhook'),
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='password_reset.html'), name='password_reset'),
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'), name='password_reset_confirm'),

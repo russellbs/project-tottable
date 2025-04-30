@@ -11,14 +11,14 @@
 <div class="auth-container">
     <div class="auth-card">
         <h2 class="auth-title">Log in</h2>
-        <p class="auth-subtitle">Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+        <p class="auth-subtitle">Don't have an account? <a href="{% url 'pre-signup' %}">Sign up</a></p>
 
         <form method="post">
             {% csrf_token %}
 
             <div class="form-group">
                 <label for="id_email">Email address</label>
-                <input type="email" name="email" id="id_email" class="form-control" placeholder="Email address" required>
+                <input type="email" name="username" id="id_email" class="form-control" placeholder="Email address" required>
             </div>
 
             <div class="form-group">

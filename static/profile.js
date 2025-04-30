@@ -215,3 +215,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 }); // END of DOMContentLoaded listener
+
+document.addEventListener('DOMContentLoaded', function() {
+    const welcomeModalElement = document.getElementById('welcomeModal');
+
+    if (welcomeModalElement) {
+        const welcomeModal = new bootstrap.Modal(welcomeModalElement);
+        welcomeModal.show();
+    }
+});
+
