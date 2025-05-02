@@ -67,9 +67,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const formData = new FormData(addChildForm);
 
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
         fetch(addChildForm.action, {
             method: 'POST',
-            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': csrfToken,
+            },
             body: formData,
         })
             .then(response => {
