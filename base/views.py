@@ -97,6 +97,9 @@ def add_child(request):
             child.dislikes_ingredients.set(dislikes)
             child.save()
 
+            # ✅ Generate meal plan immediately
+            generate_meal_plan(child.id)
+
             # Return JSON response
             return JsonResponse({
                 'success': True,  # Added this key
