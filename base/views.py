@@ -24,6 +24,9 @@ from datetime import timedelta
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+logger = logging.getLogger(__name__)
+
+
 def landing_page(request):
     return render(request, 'landing.html')
 
@@ -166,13 +169,13 @@ def add_child(request):
             child.dislikes_ingredients.set(dislikes)
             child.save()
 
-            print(f"✅ Child saved: {child.name}, generating meal plan...")
+            logger.error(f"✅ Child saved: {child.name}, generating meal plan...")
 
             try:
                 generate_meal_plan(child.id)
-                print("✅ Meal plan generation completed successfully.")
+                logger.error("✅ Meal plan generation completed successfully.")
             except Exception as e:
-                print(f"❌ Meal plan generation failed: {e}")
+                logger.error(f"❌ Meal plan generation failed: {e}")
 
             # Return JSON response
             return JsonResponse({
@@ -184,7 +187,7 @@ def add_child(request):
                 'allergies': child.allergies or '',
             })
         except Exception as e:
-            print(f"Error in add_child view: {e}")  # Log the error
+            logger.error(f"Error in add_child view: {e}")  # Log the error
             return JsonResponse({'success': False, 'error': 'An unexpected error occurred.'}, status=500)
 
     return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
@@ -421,8 +424,6 @@ def recipe_detail(request, id):
     })
 
 
-
-logger = logging.getLogger(__name__)
 
 def dashboard_swap(request, recipe_id):
     print(f"Received swap request for recipe ID: {recipe_id}")
