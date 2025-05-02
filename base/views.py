@@ -68,6 +68,7 @@ def profile(request):
     return render(request, "profile.html", context)
 
 def generate_meal_plan(child_id, week_offset=0):
+    logger.info(f"⚙️ generate_meal_plan called for child_id={child_id}, week_offset={week_offset}")
     from datetime import timedelta
     from django.utils.timezone import now
 
@@ -84,6 +85,8 @@ def generate_meal_plan(child_id, week_offset=0):
     meal_plan, created = MealPlan.objects.get_or_create(
         child=child, start_date=start_date, end_date=end_date
     )
+
+    logger.info(f"MealPlan {'created' if created else 'already exists'} for child {child_id} from {start_date} to {end_date}")
 
     if not created:
         # If a meal plan already exists, return it
