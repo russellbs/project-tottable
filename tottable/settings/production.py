@@ -3,6 +3,9 @@ from .base import *
 DEBUG = False
 ALLOWED_HOSTS = ['tottable.com', 'www.tottable.com']
 
+CSRF_TRUSTED_ORIGINS = ['https://tottable.com', 'https://www.tottable.com']
+
+
 # Stripe LIVE keys
 STRIPE_PUBLIC_KEY = 'pk_live_...'
 STRIPE_SECRET_KEY = 'sk_live_...'
