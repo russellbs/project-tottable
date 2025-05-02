@@ -166,8 +166,13 @@ def add_child(request):
             child.dislikes_ingredients.set(dislikes)
             child.save()
 
-            # ✅ Generate meal plan immediately
-            generate_meal_plan(child.id)
+            print(f"✅ Child saved: {child.name}, generating meal plan...")
+
+            try:
+                generate_meal_plan(child.id)
+                print("✅ Meal plan generation completed successfully.")
+            except Exception as e:
+                print(f"❌ Meal plan generation failed: {e}")
 
             # Return JSON response
             return JsonResponse({
