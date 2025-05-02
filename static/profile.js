@@ -80,12 +80,16 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(data => {
                 if (data.success) {
-                    location.reload(); // Reload the page to show the new child
+                    if (data.meal_plan_created) {
+                        location.reload();
+                    } else {
+                        alert("Child added, but meal plan generation failed. Please try again or edit preferences.");
+                    }
                 } else {
                     console.error('Error adding child:', data.error);
                     alert(data.error || 'Failed to add the child. Please try again.');
                 }
-            })
+            })            
             .catch(error => {
                 console.error('Error submitting form:', error);
                 alert('An error occurred while adding the child.');

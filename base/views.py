@@ -172,14 +172,17 @@ def add_child(request):
             logger.error(f"✅ Child saved: {child.name}, generating meal plan...")
 
             try:
-                generate_meal_plan(child.id)
+                meal_plan = generate_meal_plan(child.id)
                 logger.error("✅ Meal plan generation completed successfully.")
+                meal_plan_created = True
             except Exception as e:
                 logger.error(f"❌ Meal plan generation failed: {e}")
+                meal_plan_created = False
 
             # Return JSON response
             return JsonResponse({
                 'success': True,  # Added this key
+                'meal_plan_created': meal_plan_created,
                 'name': child.name,
                 'dob': child.dob.strftime('%Y-%m-%d'),
                 'likes_ingredients': list(child.likes_ingredients.values_list('name', flat=True)),
