@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Show/Hide "Add Child" Form
     addChildButton.addEventListener('click', function () {
         addChildFormContainer.style.display = 'block';
+        addChildFormContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
     // Hide "Add Child" Form when Cancel is clicked

@@ -1,7 +1,7 @@
 from .base import *
 
 DEBUG = False
-ALLOWED_HOSTS = ['tottable.com', 'www.tottable.com']
+ALLOWED_HOSTS = ['tottable.com', 'www.tottable.com', '172.232.61.64']
 
 CSRF_TRUSTED_ORIGINS = ['https://tottable.com', 'https://www.tottable.com']
 
