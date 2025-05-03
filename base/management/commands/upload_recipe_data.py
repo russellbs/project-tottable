@@ -9,7 +9,8 @@ class Command(BaseCommand):
     help = "Upload recipe data from CSV files into the database"
 
     def handle(self, *args, **kwargs):
-        base_path = os.path.join(settings.BASE_DIR, 'data')
+        base_path = os.path.join(settings.BASE_DIR, '..', 'data')
+        base_path = os.path.abspath(base_path)
         ingredients_file = os.path.join(base_path, 'ingredients.csv')
         recipes_file = os.path.join(base_path, 'recipes.csv')
         recipe_ingredients_file = os.path.join(base_path, 'recipe_ingredients.csv')
