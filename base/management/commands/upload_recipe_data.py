@@ -1,4 +1,6 @@
 import csv
+import os
+from django.conf import settings
 from django.core.management.base import BaseCommand
 from base.models import Ingredient, Recipe, RecipeIngredient, MealType
 from fractions import Fraction
@@ -7,11 +9,10 @@ class Command(BaseCommand):
     help = "Upload recipe data from CSV files into the database"
 
     def handle(self, *args, **kwargs):
-        # Paths to your data files
-        base_path = '/Users/benjaminrussell/Documents/Project Tottable/data'
-        ingredients_file = f'{base_path}/ingredients.csv'
-        recipes_file = f'{base_path}/recipes.csv'
-        recipe_ingredients_file = f'{base_path}/recipe_ingredients.csv'
+        base_path = os.path.join(settings.BASE_DIR, 'data')
+        ingredients_file = os.path.join(base_path, 'ingredients.csv')
+        recipes_file = os.path.join(base_path, 'recipes.csv')
+        recipe_ingredients_file = os.path.join(base_path, 'recipe_ingredients.csv')
 
         # Upload Ingredients
         self.stdout.write("Uploading ingredients...")
