@@ -314,3 +314,16 @@ footer a:hover {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
+.price-highlight {
+    background-color: #e6f4ea; /* soft green tint */
+    border-left: 4px solid #49b675; /* Tottable-friendly green */
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #2c2c2c;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+

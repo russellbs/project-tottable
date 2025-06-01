@@ -36,6 +36,11 @@ urlpatterns = [
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name='password_reset_complete'),
+    path('stripe/webhook/', views.stripe_webhook, name='stripe_webhook'),
+    path('cancel-subscription/', views.cancel_subscription, name='cancel_subscription'),
+    path('remove-meal/', views.remove_meal, name='remove_meal'),
+    path('terms/', views.terms_view, name='terms'),
+    path('privacy/', views.privacy_view, name='privacy'),
 ]
 
 # Serve media files only during development

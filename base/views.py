@@ -8,12 +8,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.core.paginator import Paginator
 from django.db.models import Sum
-from .models import Ingredient, Child, Recipe, MealPlan, Meal, RecipeIngredient
+from .models import Ingredient, Child, Recipe, MealPlan, Meal, RecipeIngredient, UserProfile
 from .forms import AddChildForm, WithinWeekPreferencesForm, AcrossWeekPreferencesForm, PreSignupForm  # Import the AddChildForm
 from datetime import datetime, timedelta
 from django.db.models import Q
 from django.utils import timezone
-from django.utils.timezone import now
+from django.utils.timezone import now, make_aware
 from django.conf import settings
 from django.views import View
 from django.urls import reverse
@@ -39,6 +39,11 @@ def profile(request):
     children = Child.objects.filter(parent=user)
 
     profile = user.profile
+    trial_active = profile.trial_end_date and now() < profile.trial_end_date
+
+    trial_days_remaining = None
+    if profile.trial_end_date and now() < profile.trial_end_date:
+        trial_days_remaining = (profile.trial_end_date - now()).days
 
     # Prepare Within-Week Preferences
     within_week_preferences_flat = [
@@ -63,6 +68,8 @@ def profile(request):
         "across_week_preferences_flat": across_week_preferences_flat,
         "allergens": allergens,
         "show_welcome": show_welcome,
+        "trial_active": trial_active,
+        "trial_days_remaining": trial_days_remaining,
     }
 
     return render(request, "profile.html", context)
@@ -371,12 +378,21 @@ def recipe_library(request):
     if exclude_allergens:
         recipes = recipes.exclude(ingredients__allergen_type__in=exclude_allergens)
 
-    allergens = Ingredient.objects.exclude(allergen_type__isnull=True).exclude(allergen_type__exact="").values_list('allergen_type', flat=True).distinct()
-        
+    allergens = Ingredient.objects.exclude(
+        allergen_type__in=['', 'None', 'Gluten-Free']
+    ).values_list('allergen_type', flat=True).distinct()
+    
     # Pagination
     paginator = Paginator(recipes.distinct(), 12)  # Show 12 recipes per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+
+    for recipe in page_obj:
+        recipe.has_potential_allergens = recipe.ingredients.filter(
+            allergen_type__isnull=False
+        ).exclude(
+            allergen_type__in=['', 'None', 'Gluten-Free']
+        ).exists()
 
     # 👶 Get the first child and their age in months
     children = Child.objects.filter(parent=request.user)
@@ -418,6 +434,16 @@ def recipe_detail(request, id):
     child_name = child.name if child else None
     child_age_months = child.age_in_months() if child else None
 
+    show_age_modal = child_age_months is not None and recipe.min_age_months > child_age_months
+
+    allergen_ingredients = recipe.ingredients.filter(
+        allergen_type__isnull=False
+    ).exclude(
+        allergen_type__in=['', 'None', 'Gluten-Free']
+    )
+
+    allergen_types = allergen_ingredients.values_list('allergen_type', flat=True).distinct()
+
     return render(request, 'recipe_detail.html', {
         'recipe': recipe,
         'instructions': instructions,
@@ -427,6 +453,8 @@ def recipe_detail(request, id):
         'back_link_url': back_link_url,
         'child_name': child_name,
         'child_age_months': child_age_months,
+        'allergen_types': allergen_types,
+        'show_age_modal': show_age_modal,
     })
 
 
@@ -809,3 +837,116 @@ def stripe_webhook(request):
             # You can log this event or send a welcome email here
 
     return HttpResponse(status=200)
+
+
+@csrf_exempt
+def stripe_webhook(request):
+    payload = request.body
+    sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
+    event = None
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
+        )
+    except (ValueError, stripe.error.SignatureVerificationError):
+        return HttpResponse(status=400)
+
+    # ✅ 1. Checkout Completed
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        email = session['customer_details']['email']
+        stripe_customer_id = session['customer']
+        stripe_subscription_id = session.get('subscription')
+
+        user = User.objects.filter(email=email).first()
+        if user and hasattr(user, 'profile'):
+            profile = user.profile
+            profile.stripe_customer_id = stripe_customer_id
+            profile.stripe_subscription_id = stripe_subscription_id
+            profile.subscription_status = 'trialing'  # Can be updated later
+            profile.subscription_start_date = make_aware(datetime.datetime.now())
+            profile.save()
+
+    # ✅ 2. Subscription Updated
+    elif event['type'] == 'customer.subscription.updated':
+        subscription = event['data']['object']
+        customer_id = subscription['customer']
+        status = subscription['status']
+
+        profile = UserProfile.objects.filter(stripe_customer_id=customer_id).first()
+        if profile:
+            profile.subscription_status = status
+            profile.save()
+
+    # ✅ 3. Subscription Cancelled / Deleted
+    elif event['type'] == 'customer.subscription.deleted':
+        subscription = event['data']['object']
+        customer_id = subscription['customer']
+
+        profile = UserProfile.objects.filter(stripe_customer_id=customer_id).first()
+        if profile:
+            profile.subscription_status = 'canceled'
+            profile.save()
+
+    return HttpResponse(status=200)
+
+@login_required
+def cancel_subscription(request):
+    try:
+        profile = request.user.profile
+        subscription_id = profile.stripe_subscription_id
+
+        if not subscription_id:
+            return JsonResponse({'success': False, 'error': 'No active subscription found.'}, status=400)
+
+        # Cancel at period end to allow trial to run its course
+        stripe.Subscription.modify(
+            subscription_id,
+            cancel_at_period_end=True,
+        )
+
+        # Optional: update local status immediately
+        profile.subscription_status = 'canceled'
+        profile.save()
+
+        return JsonResponse({'success': True, 'message': 'Subscription canceled. It will remain active until the end of the trial or billing period.'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+@login_required
+@require_POST
+def remove_meal(request):
+    meal_id = request.POST.get('meal_id')
+    meal_type = request.POST.get('meal_type')
+
+    if not meal_id or not meal_type:
+        return JsonResponse({'success': False, 'error': 'Missing meal ID or type'})
+
+    try:
+        meal = Meal.objects.get(id=meal_id)
+        if meal_type == 'breakfast':
+            meal.breakfast = None
+        elif meal_type == 'lunch':
+            meal.lunch = None
+        elif meal_type == 'dinner':
+            meal.dinner = None
+        elif meal_type == 'snack':
+            meal.snack = None
+        else:
+            return JsonResponse({'success': False, 'error': 'Invalid meal type'})
+
+        meal.save()
+
+        # Optional: trigger shopping list update logic here
+
+        return JsonResponse({'success': True})
+    except Meal.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Meal not found'})
+
+
+def terms_view(request):
+    return render(request, 'terms.html')
+
+def privacy_view(request):
+    return render(request, 'privacy.html')

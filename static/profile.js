@@ -224,6 +224,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    const cancelTrialForm = document.querySelector('form[action="/cancel-subscription/"]');
+    if (cancelTrialForm) {
+        cancelTrialForm.addEventListener('submit', function (e) {
+            const confirmed = confirm("Are you sure you want to cancel your free trial? You’ll lose access immediately.");
+            if (!confirmed) {
+                e.preventDefault();
+            }
+        });
+    }
+
 }); // END of DOMContentLoaded listener
 
 document.addEventListener('DOMContentLoaded', function() {

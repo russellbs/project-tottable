@@ -464,3 +464,15 @@ thead th.current-day {
         content: "🍎 ";
     }
 }
+
+
+/* Styling for the "Select Meal" placeholder links */
+.select-meal-link {
+    color: #f9a8a8;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.select-meal-link:hover {
+    text-decoration: underline;
+}

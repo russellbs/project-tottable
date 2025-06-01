@@ -128,6 +128,12 @@
                 <h3 class="recipe-title">{{ recipe.title }}</h3>
                 <p class="recipe-description">{{ recipe.description }}</p>
 
+                <!--{% if recipe.has_potential_allergens %}
+                        <p style="background-color: #FCEAE4; color: #333; font-weight: 500; font-size: 0.9em; padding: 6px 10px; border-radius: 6px; margin-top: 6px;">
+                            Contains potential allergens
+                        </p>
+                {% endif %}-->
+                
                 {% if child_age_months and recipe.min_age_months > child_age_months %}
                     <p class="age-warning" style="color: #c58f00; font-weight: bold;">
                         Suitable for {{ recipe.min_age_months }}+ months

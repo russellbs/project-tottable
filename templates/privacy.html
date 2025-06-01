@@ -1,0 +1,123 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}Privacy Policy{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'terms.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body, p, h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="terms-container">
+    <div class="terms-card">
+        <h1>Tottable – Privacy Policy</h1>
+        <p><strong>Effective Date:</strong> 29 May 2025</p>
+
+        <p>This Privacy Policy explains how Russell & Sons Limited (“Tottable”, “we”, “us”, “our”) collects, uses, and protects your personal information when you use our website, app, and services.</p>
+
+        <p>We are committed to safeguarding your privacy and handling your data transparently and responsibly.</p>
+
+        <h2>1. Who We Are</h2>
+        <p>Tottable is a product of Russell & Sons Limited, registered in England and Wales with company number 16408330. We offer tools to help parents plan nutritious meals for babies and young children.</p>
+
+        <h2>2. What Personal Data We Collect</h2>
+
+        <h3>a. Account Information</h3>
+        <ul>
+            <li>Name</li>
+            <li>Email address</li>
+            <li>Password (encrypted)</li>
+        </ul>
+
+        <h3>b. Child Profile Data (optional and controlled by you)</h3>
+        <ul>
+            <li>First name or nickname</li>
+            <li>Date of birth or age</li>
+            <li>Dietary preferences and allergies</li>
+        </ul>
+
+        <h3>c. Usage Data</h3>
+        <ul>
+            <li>Pages viewed, buttons clicked, interactions with the platform</li>
+            <li>Device type, browser, and IP address</li>
+        </ul>
+
+        <h3>d. Payment Information</h3>
+        <p>If you subscribe, payment details are processed by Stripe. We do not store full card details.</p>
+
+        <h2>3. How We Use Your Data</h2>
+        <ul>
+            <li>Provide access to your account</li>
+            <li>Personalize your meal plan and content</li>
+            <li>Improve our service through analytics</li>
+            <li>Respond to your inquiries and support requests</li>
+            <li>Process payments and manage subscriptions</li>
+            <li>Send important service updates (we never spam)</li>
+        </ul>
+
+        <h2>4. Legal Basis for Processing</h2>
+        <p>We only process your personal data when one of the following applies:</p>
+        <ul>
+            <li><strong>Contractual necessity</strong> – to provide the service you’ve signed up for</li>
+            <li><strong>Legitimate interest</strong> – to improve our services or communicate updates</li>
+            <li><strong>Consent</strong> – for optional data (e.g. child preferences) or marketing (if applicable)</li>
+            <li><strong>Legal obligation</strong> – when required to comply with applicable law</li>
+        </ul>
+
+        <h2>5. Sharing Your Data</h2>
+        <p>We do not sell or rent your data. We only share it with:</p>
+        <ul>
+            <li>Service providers like Stripe (payments), Google Analytics (site usage), and email platforms</li>
+            <li>Legal authorities if required to comply with law or protect our rights</li>
+        </ul>
+        <p>All third-party providers are carefully selected and GDPR-compliant.</p>
+
+        <h2>6. International Transfers</h2>
+        <p>We may store your data on servers located outside the UK or EEA, but only with providers that offer adequate data protection measures (e.g. Standard Contractual Clauses).</p>
+
+        <h2>7. Data Retention</h2>
+        <p>We keep your data for as long as you have an account. After that:</p>
+        <ul>
+            <li>Account and meal plan data is deleted or anonymised within 60 days</li>
+            <li>Data may be retained longer if required by law (e.g. for tax or financial records)</li>
+        </ul>
+
+        <h2>8. Your Rights</h2>
+        <p>As a UK or EEA resident, you have the right to:</p>
+        <ul>
+            <li>Access your data</li>
+            <li>Correct inaccurate data</li>
+            <li>Delete your data</li>
+            <li>Object to or restrict processing</li>
+            <li>Withdraw consent at any time (for consent-based processing)</li>
+            <li>File a complaint with the ICO (UK regulator) at <a href="https://ico.org.uk" target="_blank">ico.org.uk</a></li>
+        </ul>
+
+        <h2>9. Cookies</h2>
+        <p>We use essential and analytics cookies to:</p>
+        <ul>
+            <li>Enable core site functionality</li>
+            <li>Understand how users navigate and improve the service</li>
+        </ul>
+        <p>You can manage cookie preferences through your browser settings.</p>
+
+        <h2>10. Children's Data</h2>
+        <p>Tottable is designed for parents and guardians. We do not knowingly collect data directly from children. All child-related data is entered voluntarily by the parent or guardian and is optional.</p>
+
+        <h2>11. Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time. If we make significant changes, we will notify you via email or through the app.</p>
+        <p>The most current version will always be available at <strong>tottable.com/privacy</strong>.</p>
+
+        <h2>12. Contact Us</h2>
+        <p>Questions or concerns?</p>
+        <p>📧 <a href="mailto:ben&#64;tottable&#46;com">ben&#64;tottable&#46;com</a>
+            <br></p>
+    </div>
+</div>
+{% endblock %}

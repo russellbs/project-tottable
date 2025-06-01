@@ -1,0 +1,57 @@
+/* Soft background */
+body {
+    background-color: #FCEAE4;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+/* Container that centers content and provides breathing room */
+.terms-container {
+    display: flex;
+    justify-content: center;
+    padding: 80px 20px 40px; /* top padding to prevent navbar overlap */
+}
+
+/* Legal content card */
+.terms-card {
+    background: white;
+    padding: 3rem 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    width: 100%;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* Headings */
+.terms-card h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.terms-card h2,
+.terms-card h3 {
+    margin-top: 2rem;
+    font-size: 20px;
+    color: #333;
+}
+
+/* Paragraphs */
+.terms-card p {
+    margin: 12px 0;
+    color: #444;
+}
+
+/* Responsive tweak */
+@media (max-width: 768px) {
+    .terms-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .terms-card h1 {
+        font-size: 24px;
+    }
+}

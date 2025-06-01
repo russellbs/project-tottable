@@ -34,6 +34,12 @@
                         <li>📚 Explore over 100 delicious, baby-friendly recipes</li>
                         <li>🛒 Smart shopping list that saves time (and last-minute store runs)</li>
                     </ul>
+
+                    <p class="price-highlight">
+                        Try Tottable free for 14 days.<br>
+                        Pay once — <strong>$49 for lifetime access</strong>.
+                    </p>                    
+
                     <form method="post" action="{% url 'pre-signup' %}">
                         {% csrf_token %}
 
@@ -53,15 +59,15 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-block">
-                            Start 7-Day Free Trial
+                            Start 14-Day Free Trial
                         </button>
-                        <p class="trial-note text-center mt-2">
+                        <!--<p class="trial-note text-center mt-2">
                             Then $49 for lifetime access — cancel anytime during your trial.
-                        </p>                        
+                        </p>-->                  
 
                         <p class="terms-text">
-                            By signing up, you accept our <a href="#">terms of service</a> and <a href="#">privacy policy</a>.
-                        </p>
+                            By signing up, you accept our <a href="{% url 'terms' %}">terms of service</a> and <a href="{% url 'privacy' %}">privacy policy</a>.
+                        </p>                        
                     </form>
                 </div>
             </div>
@@ -196,8 +202,8 @@
 
 <!-- Footer -->
 <footer class="bg-dark text-light py-4 text-center">
-    <p>&copy; 2024 Tottable | All rights reserved.</p>
-    <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+    <p>&copy; {{ current_year }}  Russell & Sons Limited  | All rights reserved.</p>
+    <a href="{% url 'privacy' %}">Privacy Policy</a> | <a href="{% url 'terms' %}">Terms of Service</a>
 </footer>
 
 <!-- Lucide Icons Script -->

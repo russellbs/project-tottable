@@ -15,6 +15,15 @@
 
     <!-- Allow child templates to add extra CSS or JavaScript here -->
     {% block extra_head %}{% endblock %}
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L6965TM4HH"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-L6965TM4HH');
+    </script>
 </head>
 <body>
     <!-- Include Navbar -->

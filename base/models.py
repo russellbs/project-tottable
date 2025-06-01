@@ -52,6 +52,15 @@ class UserProfile(models.Model):
         help_text="Meal variety preferences across weeks for each meal type.",
     )
 
+    # Stripe-related fields
+    stripe_customer_id = models.CharField(max_length=255, blank=True, null=True)
+    stripe_subscription_id = models.CharField(max_length=255, blank=True, null=True)
+    stripe_checkout_session_id = models.CharField(max_length=255, blank=True, null=True)
+    subscription_status = models.CharField(
+        max_length=50, default="trialing", help_text="Stripe subscription status (e.g. trialing, active, canceled)"
+    )
+    trial_end_date = models.DateTimeField(blank=True, null=True)
+    
     def get_within_week_display(self, meal_type):
         """Return display value for within-week preferences."""
         value = self.within_week_preferences.get(meal_type, "medium")

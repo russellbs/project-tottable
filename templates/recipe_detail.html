@@ -43,6 +43,12 @@
         </p>
         {% endif %}
 
+        {% if allergen_types %}
+        <p style="background-color: #FCEAE4; color: #333; font-weight: 500; font-size: 0.9em; padding: 6px 10px; border-radius: 6px; margin-top: 6px;">
+            Contains potential allergens: {{ allergen_types|join:", " }}
+        </p>
+        {% endif %}
+
         <p>{{ recipe.description }}</p>
     </header>
 
@@ -120,4 +126,25 @@
         {% endif %}
     </section>    
 </div>
+
+{% if show_age_modal %}
+<div id="ageModal" class="modal show fade" tabindex="-1" style="display: block; background-color: rgba(0, 0, 0, 0.5);">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 12px;">
+      <div class="modal-header">
+        <h5 class="modal-title">Heads up!</h5>
+        <button type="button" class="btn-close" onclick="document.getElementById('ageModal').style.display='none'"></button>
+      </div>
+      <div class="modal-body">
+        <p>This recipe is designed for babies a bit older than {{ child_name }}. You can still use it later when they're ready!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="document.getElementById('ageModal').style.display='none'">Got it</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+
 {% endblock %}

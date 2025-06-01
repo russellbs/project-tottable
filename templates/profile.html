@@ -13,6 +13,17 @@
         <p><strong>Name:</strong> {{ user.first_name }}</p>
         <p><strong>Email:</strong> {{ user.email }}</p>
         <p><strong>Member Since:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+        {% if trial_active %}
+            <form method="POST" action="{% url 'cancel_subscription' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn">
+                    Cancel Free Trial
+                </button>
+            </form>
+        {% endif %}
+        {% if trial_days_remaining is not None %}
+            <p class="text-muted" style="font-size: 0.9em;">{{ trial_days_remaining }} day{{ trial_days_remaining|pluralize }} remaining</p>
+        {% endif %}
     </div>
 
     <!-- Meal Plan Preferences Section -->
@@ -251,7 +262,12 @@
         <p>🍽️ <strong>Tell us what foods they love, dislike, or need to avoid</strong> — we’ll keep it all in mind.</p>
         <p>🔄 <strong>Choose your meal variety</strong> — pick how much you want things to change from day to day.</p>
         <p class="mt-3">That’s it! 🎈 We’ll take it from there and create a personalized meal plan you can tweak anytime.</p>
-      </div>      
+    
+        <hr>
+        <p class="text-muted" style="font-size: 0.9em;">
+          Every baby is unique. Tottable offers meal suggestions to inspire you, but we always recommend checking with your healthcare professional before introducing new foods — and using your own judgment to make sure meals are right for your little one.
+        </p>
+    </div>      
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Let's Go!</button>
       </div>

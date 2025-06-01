@@ -1,22 +1,21 @@
 /* Full-page background */
 body {
-    background-color: #FCEAE4;  /* ✅ Background color for login & signup */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background-color: #FCEAE4;
     margin: 0;
-    padding: 15px; /* ✅ Prevents content from touching screen edges */
+    padding: 0;
 }
 
-/* Centering container */
 .auth-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 100px; /* Leave space for fixed navbar */
+    padding-left: 15px;
+    padding-right: 15px;
 }
+
 
 /* Auth card (login & signup) */
 .auth-card {
@@ -113,4 +112,16 @@ body {
 
 .forgot-password a:hover {
     text-decoration: underline;
+}
+
+.price-highlight {
+    background-color: #e6f4ea; /* soft green tint */
+    border-left: 4px solid #49b675; /* Tottable-friendly green */
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #2c2c2c;
+    margin-bottom: 1rem;
+    text-align: center;
 }

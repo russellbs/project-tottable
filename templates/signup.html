@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="auth-container d-flex justify-content-center align-items-center py-5">
+<div class="auth-container">
     <div class="auth-card">
         <h2 class="auth-title">Lighten your mental load</h2>
         <p class="auth-subtitle">Get started with personalized meal plans</p>
@@ -19,6 +19,11 @@
             <p>📚 Explore over 100 delicious, baby-friendly recipes</p>
             <p>🛒 Smart shopping list that saves time (and last-minute store runs)</p>
         </div>
+
+        <p class="price-highlight">
+            Try Tottable free for 14 days.<br>
+            Pay once — <strong>$49 for lifetime access</strong>.
+        </p>        
 
         <form id="signup-form" method="post" action="{% url 'pre-signup' %}">
             {% csrf_token %}
@@ -38,11 +43,11 @@
                 <input type="password" name="password" id="id_password" class="form-control" placeholder="Password" required>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block">Start 7-Day Free Trial</button>
+            <button type="submit" class="btn btn-primary btn-block">Start 14-Day Free Trial</button>
 
-            <p class="trial-note text-center mt-2">
+            <!--<p class="trial-note text-center mt-2">
                 Then $49 for lifetime access — cancel anytime during your trial.
-            </p>
+            </p>-->
 
             <p class="terms-text">
                 By signing up, you accept our <a href="#">terms of service</a> and <a href="#">privacy policy</a>.

@@ -12,6 +12,7 @@
 {% include 'user_header.html' %}
 
 <div class="dashboard container">
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
     <!-- Render Messages -->
     {% if messages %}
     <div class="messages">
@@ -80,68 +81,77 @@
                                         <strong>{{ meal.get_day_display }}</strong>
                                     </td>
                                     <td>
-                                        <a href="{% url 'recipe_detail' meal.breakfast.id %}?from=dashboard" class="recipe-title-link">
-                                            <strong>{{ meal.breakfast.title }}</strong>
-                                        </a><br>
-                                        <!--<small>{{ meal.breakfast.description }}</small>-->
-                                        <div class="quick-actions">
-                                            <!--<a href="{% url 'recipe_detail' meal.breakfast.id %}?from=dashboard" class="view-recipe-link">
-                                                View Recipe
-                                                <i class="bi bi-box-arrow-up-right"></i>
-                                            </a>-->
+                                        {% if meal.breakfast %}
+                                            <a href="{% url 'recipe_detail' meal.breakfast.id %}?from=dashboard" class="recipe-title-link">
+                                                <strong>{{ meal.breakfast.title }}</strong>
+                                            </a><br>
+                                            <!--<small>{{ meal.breakfast.description }}</small>-->
+                                            <div class="quick-actions">
+                                                <!--<a href="{% url 'recipe_detail' meal.breakfast.id %}?from=dashboard" class="view-recipe-link">
+                                                    View Recipe
+                                                    <i class="bi bi-box-arrow-up-right"></i>
+                                                </a>-->
+                                                <a href="{% url 'recipe_library' %}?meal_type=breakfast&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                                   class="swap-meal-link">Swap Meal <i class="bi bi-arrow-repeat"></i></a>
+                                                <a href="#" class="remove-meal-link"
+                                                   data-meal-id="{{ meal.id }}" data-meal-type="breakfast"
+                                                   data-url="{% url 'remove_meal' %}">
+                                                   Remove Meal <i class="bi bi-x-circle"></i>
+                                                </a>
+                                            </div>
+                                        {% else %}
                                             <a href="{% url 'recipe_library' %}?meal_type=breakfast&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
-                                            class="swap-meal-link">
-                                                Swap Meal
-                                                <i class="bi bi-arrow-repeat"></i>
-                                            </a>
-                                            <a href="#" class="remove-meal-link" data-meal-id="{{ meal.id }}" data-meal-type="breakfast">
-                                                Remove Meal
-                                                <i class="bi bi-x-circle"></i>
-                                            </a>                                            
-                                        </div>
-                                    </td>
+                                               class="select-meal-link"><em>Select Meal</em></a>
+                                        {% endif %}
+                                    </td>                                    
                                     <td>
-                                        <a href="{% url 'recipe_detail' meal.lunch.id %}?from=dashboard" class="recipe-title-link">
-                                            <strong>{{ meal.lunch.title }}</strong>
-                                        </a><br>
-                                        <!--<small>{{ meal.lunch.description }}</small>-->
-                                        <div class="quick-actions">
-                                            <!--<a href="{% url 'recipe_detail' meal.lunch.id %}?from=dashboard" class="view-recipe-link">
-                                                View Recipe
-                                                <i class="bi bi-box-arrow-up-right"></i>
-                                            </a>-->
+                                        {% if meal.lunch %}
+                                            <a href="{% url 'recipe_detail' meal.lunch.id %}?from=dashboard" class="recipe-title-link">
+                                                <strong>{{ meal.lunch.title }}</strong>
+                                            </a><br>
+                                            <!--<small>{{ meal.lunch.description }}</small>-->
+                                            <div class="quick-actions">
+                                                <!--<a href="{% url 'recipe_detail' meal.lunch.id %}?from=dashboard" class="view-recipe-link">
+                                                    View Recipe
+                                                    <i class="bi bi-box-arrow-up-right"></i>
+                                                </a>-->
+                                                <a href="{% url 'recipe_library' %}?meal_type=lunch&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                                   class="swap-meal-link">Swap Meal <i class="bi bi-arrow-repeat"></i></a>
+                                                <a href="#" class="remove-meal-link"
+                                                   data-meal-id="{{ meal.id }}" data-meal-type="lunch"
+                                                   data-url="{% url 'remove_meal' %}">
+                                                   Remove Meal <i class="bi bi-x-circle"></i>
+                                                </a>
+                                            </div>
+                                        {% else %}
                                             <a href="{% url 'recipe_library' %}?meal_type=lunch&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
-                                            class="swap-meal-link">
-                                                Swap Meal
-                                                <i class="bi bi-arrow-repeat"></i>
-                                            </a>
-                                            <a href="#" class="remove-meal-link" data-meal-id="{{ meal.id }}" data-meal-type="lunch">
-                                                Remove Meal
-                                                <i class="bi bi-x-circle"></i>
-                                            </a>                                            
-                                        </div>
-                                    </td>
+                                               class="select-meal-link"><em>Select Meal</em></a>
+                                        {% endif %}
+                                    </td>                                    
                                     <td>
-                                        <a href="{% url 'recipe_detail' meal.dinner.id %}?from=dashboard" class="recipe-title-link">
-                                            <strong>{{ meal.dinner.title }}</strong>
-                                        </a><br>
-                                        <!--<small>{{ meal.dinner.description }}</small>-->
-                                        <div class="quick-actions">
-                                            <!--<a href="{% url 'recipe_detail' meal.dinner.id %}?from=dashboard" class="view-recipe-link">
-                                                View Recipe
-                                                <i class="bi bi-box-arrow-up-right"></i>
-                                            </a>-->
+                                        {% if meal.dinner %}
+                                            <a href="{% url 'recipe_detail' meal.dinner.id %}?from=dashboard" class="recipe-title-link">
+                                                <strong>{{ meal.dinner.title }}</strong>
+                                            </a><br>
+                                            <!--<small>{{ meal.dinner.description }}</small>-->
+                                            <div class="quick-actions">
+                                                <!--<a href="{% url 'recipe_detail' meal.dinner.id %}?from=dashboard" class="view-recipe-link">
+                                                    View Recipe
+                                                    <i class="bi bi-box-arrow-up-right"></i>
+                                                </a>-->
+                                                <a href="{% url 'recipe_library' %}?meal_type=dinner&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                                   class="swap-meal-link">Swap Meal <i class="bi bi-arrow-repeat"></i></a>
+                                                <a href="#" class="remove-meal-link"
+                                                   data-meal-id="{{ meal.id }}" data-meal-type="dinner"
+                                                   data-url="{% url 'remove_meal' %}">
+                                                   Remove Meal <i class="bi bi-x-circle"></i>
+                                                </a>
+                                            </div>
+                                        {% else %}
                                             <a href="{% url 'recipe_library' %}?meal_type=dinner&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
-                                            class="swap-meal-link">
-                                                Swap Meal
-                                                <i class="bi bi-arrow-repeat"></i>
-                                            </a>
-                                            <a href="#" class="remove-meal-link" data-meal-id="{{ meal.id }}" data-meal-type="dinner">
-                                                Remove Meal
-                                                <i class="bi bi-x-circle"></i>
-                                            </a>                                            
-                                        </div>
-                                    </td>
+                                               class="select-meal-link"><em>Select Meal</em></a>
+                                        {% endif %}
+                                    </td>                                    
                                     <td>
                                         {% if meal.snack %}
                                             <a href="{% url 'recipe_detail' meal.snack.id %}?from=dashboard" class="recipe-title-link">
@@ -154,19 +164,16 @@
                                                     <i class="bi bi-box-arrow-up-right"></i>
                                                 </a>-->
                                                 <a href="{% url 'recipe_library' %}?meal_type=snack&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
-                                                class="swap-meal-link">
-                                                    Swap Meal
-                                                    <i class="bi bi-arrow-repeat"></i>
-                                                </a>
-                                                <a href="#" class="remove-meal-link" data-meal-id="{{ meal.id }}" data-meal-type="snack">
-                                                    Remove Meal
-                                                    <i class="bi bi-x-circle"></i>
-                                                </a>                                                
+                                                   class="swap-meal-link">Swap Meal <i class="bi bi-arrow-repeat"></i></a>
+                                                <a href="#" class="remove-meal-link"
+                                                   data-meal-id="{{ meal.id }}" data-meal-type="snack"
+                                                   data-url="{% url 'remove_meal' %}">Remove Meal <i class="bi bi-x-circle"></i></a>
                                             </div>
                                         {% else %}
-                                            <em>No snack assigned</em>
+                                            <a href="{% url 'recipe_library' %}?meal_type=snack&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                               class="select-meal-link"><em>Select Meal</em></a>
                                         {% endif %}
-                                    </td>
+                                    </td>                                    
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -185,88 +192,83 @@
                         <!-- Breakfast Card -->
                         <div class="day-card breakfast">
                             <h4>🍳 Breakfast</h4>
-                            <a href="{% url 'recipe_detail' meal.breakfast.id %}?from=dashboard" class="recipe-title-link">
-                                {{ meal.breakfast.title }}
-                            </a>
-                            <div class="quick-actions">
-                                <!--<a href="{% url 'recipe_detail' meal.breakfast.id %}?from=dashboard" class="view-recipe-link">
-                                    View Recipe
-                                </a>-->
-                                <a href="{% url 'recipe_library' %}?meal_type=breakfast&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
-                                   class="swap-meal-link">
-                                    Swap Meal
+                            {% if meal.breakfast %}
+                                <a href="{% url 'recipe_detail' meal.breakfast.id %}?from=dashboard" class="recipe-title-link">
+                                    {{ meal.breakfast.title }}
                                 </a>
-                                <a href="#" class="remove-meal-link" data-meal-id="{{ meal.id }}" data-meal-type="breakfast">
-                                    Remove Meal
-                                    <i class="bi bi-x-circle"></i>
-                                </a>                                
-                            </div>
-                        </div>
+                                <div class="quick-actions">
+                                    <!--<a href="{% url 'recipe_detail' meal.breakfast.id %}?from=dashboard" class="view-recipe-link">View Recipe</a>-->
+                                    <a href="{% url 'recipe_library' %}?meal_type=breakfast&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                       class="swap-meal-link">Swap Meal</a>
+                                    <a href="#" class="remove-meal-link"
+                                       data-meal-id="{{ meal.id }}" data-meal-type="breakfast"
+                                       data-url="{% url 'remove_meal' %}">Remove Meal <i class="bi bi-x-circle"></i></a>
+                                </div>
+                            {% else %}
+                                <a href="{% url 'recipe_library' %}?meal_type=breakfast&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                   class="select-meal-link"><em>Select Meal</em></a>
+                            {% endif %}
+                        </div>                        
                         <!-- Lunch Card -->
                         <div class="day-card lunch">
                             <h4>🥗 Lunch</h4>
-                            <a href="{% url 'recipe_detail' meal.lunch.id %}?from=dashboard" class="recipe-title-link">
-                                {{ meal.lunch.title }}
-                            </a>
-                            <div class="quick-actions">
-                                <!--<a href="{% url 'recipe_detail' meal.lunch.id %}?from=dashboard" class="view-recipe-link">
-                                    View Recipe
-                                </a>-->
-                                <a href="{% url 'recipe_library' %}?meal_type=lunch&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
-                                   class="swap-meal-link">
-                                    Swap Meal
+                            {% if meal.lunch %}
+                                <a href="{% url 'recipe_detail' meal.lunch.id %}?from=dashboard" class="recipe-title-link">
+                                    {{ meal.lunch.title }}
                                 </a>
-                                <a href="#" class="remove-meal-link" data-meal-id="{{ meal.id }}" data-meal-type="lunch">
-                                    Remove Meal
-                                    <i class="bi bi-x-circle"></i>
-                                </a>                                
-                            </div>
-                        </div>
+                                <div class="quick-actions">
+                                    <!--<a href="{% url 'recipe_detail' meal.lunch.id %}?from=dashboard" class="view-recipe-link">View Recipe</a>-->
+                                    <a href="{% url 'recipe_library' %}?meal_type=lunch&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                       class="swap-meal-link">Swap Meal</a>
+                                    <a href="#" class="remove-meal-link"
+                                       data-meal-id="{{ meal.id }}" data-meal-type="lunch"
+                                       data-url="{% url 'remove_meal' %}">Remove Meal <i class="bi bi-x-circle"></i></a>
+                                </div>
+                            {% else %}
+                                <a href="{% url 'recipe_library' %}?meal_type=lunch&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                   class="select-meal-link"><em>Select Meal</em></a>
+                            {% endif %}
+                        </div>                        
                         <!-- Dinner Card -->
                         <div class="day-card dinner">
                             <h4>🍽 Dinner</h4>
-                            <a href="{% url 'recipe_detail' meal.dinner.id %}?from=dashboard" class="recipe-title-link">
-                                {{ meal.dinner.title }}
-                            </a>
-                            <div class="quick-actions">
-                                <!--<a href="{% url 'recipe_detail' meal.dinner.id %}?from=dashboard" class="view-recipe-link">
-                                    View Recipe
-                                </a>-->
+                            {% if meal.dinner %}
+                                <a href="{% url 'recipe_detail' meal.dinner.id %}?from=dashboard" class="recipe-title-link">
+                                    {{ meal.dinner.title }}
+                                </a>
+                                <div class="quick-actions">
+                                    <!--<a href="{% url 'recipe_detail' meal.dinner.id %}?from=dashboard" class="view-recipe-link">View Recipe</a>-->
+                                    <a href="{% url 'recipe_library' %}?meal_type=dinner&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                       class="swap-meal-link">Swap Meal</a>
+                                    <a href="#" class="remove-meal-link"
+                                       data-meal-id="{{ meal.id }}" data-meal-type="dinner"
+                                       data-url="{% url 'remove_meal' %}">Remove Meal <i class="bi bi-x-circle"></i></a>
+                                </div>
+                            {% else %}
                                 <a href="{% url 'recipe_library' %}?meal_type=dinner&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
-                                   class="swap-meal-link">
-                                    Swap Meal
-                                </a>
-                                <a href="#" class="remove-meal-link" data-meal-id="{{ meal.id }}" data-meal-type="dinner">
-                                    Remove Meal
-                                    <i class="bi bi-x-circle"></i>
-                                </a>
-                                
-                            </div>
-                        </div>
+                                   class="select-meal-link"><em>Select Meal</em></a>
+                            {% endif %}
+                        </div>                        
                         <!-- Snack Card -->
                         <div class="day-card snack">
                             <h4>🍎 Snack</h4>
                             {% if meal.snack %}
-                            <a href="{% url 'recipe_detail' meal.snack.id %}?from=dashboard" class="recipe-title-link">
-                                {{ meal.snack.title }}
-                            </a>
-                            <div class="quick-actions">
-                                <!--<a href="{% url 'recipe_detail' meal.snack.id %}?from=dashboard" class="view-recipe-link">
-                                    View Recipe
-                                </a>-->
-                                <a href="{% url 'recipe_library' %}?meal_type=snack&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
-                                   class="swap-meal-link">
-                                    Swap Meal
+                                <a href="{% url 'recipe_detail' meal.snack.id %}?from=dashboard" class="recipe-title-link">
+                                    {{ meal.snack.title }}
                                 </a>
-                                <a href="#" class="remove-meal-link" data-meal-id="{{ meal.id }}" data-meal-type="snack">
-                                    Remove Meal
-                                    <i class="bi bi-x-circle"></i>
-                                </a>
-                            </div>
+                                <div class="quick-actions">
+                                    <!--<a href="{% url 'recipe_detail' meal.snack.id %}?from=dashboard" class="view-recipe-link">View Recipe</a>-->
+                                    <a href="{% url 'recipe_library' %}?meal_type=snack&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                       class="swap-meal-link">Swap Meal</a>
+                                    <a href="#" class="remove-meal-link"
+                                       data-meal-id="{{ meal.id }}" data-meal-type="snack"
+                                       data-url="{% url 'remove_meal' %}">Remove Meal <i class="bi bi-x-circle"></i></a>
+                                </div>
                             {% else %}
-                            <em>No snack assigned</em>
+                                <a href="{% url 'recipe_library' %}?meal_type=snack&swap=1&day={{ meal.get_day_display|lower }}&week={{ week_offset }}"
+                                   class="select-meal-link"><em>Select Meal</em></a>
                             {% endif %}
-                        </div>
+                        </div>                        
                         {% endfor %}
                     </div>
                     {% else %}
@@ -279,4 +281,7 @@
 
 <!-- Include the footer -->
 {% include '_footer.html' %}
+
+<script src="{% static 'dashboard.js' %}"></script>
+
 {% endblock %}
