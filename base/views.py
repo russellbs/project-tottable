@@ -786,23 +786,17 @@ class PostPaymentView(View):
             return redirect('signup-cancelled')
 
         email = signup_data['email']
+        password = signup_data['password']
 
-        if not User.objects.filter(email=email).exists():
-            user = User.objects.create_user(
-                username=email,
-                email=email,
-                first_name=signup_data['first_name'],
-                password=signup_data['password'],
-                is_active=True
-            )
-            user.save()
+        user = User.objects.filter(email=email).first()
+        if user:
+            login(request, user)
+            del request.session['signup_data']
+            return redirect('profile')
+        else:
+            # Fallback: redirect them to a page suggesting to try again or contact support
+            return redirect('signup-cancelled')
 
-        # Log the user in
-        user = User.objects.get(email=email)
-        login(request, user)
-
-        del request.session['signup_data']
-        return redirect('profile')
     
 def signup_cancelled(request):
     return redirect('landing_page')
