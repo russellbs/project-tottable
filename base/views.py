@@ -806,7 +806,6 @@ def signup_cancelled(request):
 def stripe_webhook(request):
     payload = request.body
     sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
-    event = None
 
     try:
         event = stripe.Webhook.construct_event(
@@ -819,17 +818,15 @@ def stripe_webhook(request):
     event_type = event['type']
     logger.info(f"📩 Stripe webhook received: {event_type}")
 
-    # ✅ 1. Checkout Completed (after user finishes checkout, before trial ends)
     if event_type == 'checkout.session.completed':
         session = event['data']['object']
         email = session['customer_details']['email']
         stripe_customer_id = session['customer']
         stripe_subscription_id = session.get('subscription')
-
-        # Use metadata for fallback creation
         metadata = session.get('metadata', {})
+
         first_name = metadata.get('first_name', '')
-        password = metadata.get('password', None)
+        password = metadata.get('password')
 
         user = User.objects.filter(email=email).first()
         if not user and password:
@@ -843,17 +840,21 @@ def stripe_webhook(request):
             logger.info(f"🆕 Created user from webhook: {email}")
 
         if user:
-            profile, _ = UserProfile.objects.get_or_create(user=user)
-            profile.stripe_customer_id = stripe_customer_id
-            profile.stripe_subscription_id = stripe_subscription_id
-            profile.subscription_status = 'trialing'
-            profile.subscription_start_date = make_aware(datetime.datetime.now())
+            profile, created = UserProfile.objects.get_or_create(user=user)
+            if not profile.stripe_customer_id:
+                profile.stripe_customer_id = stripe_customer_id
+            if not profile.stripe_subscription_id:
+                profile.stripe_subscription_id = stripe_subscription_id
+            if not profile.subscription_status:
+                profile.subscription_status = 'trialing'
+            if not profile.trial_end_date:
+                # Only set a rough default — real trial_end will be updated on first invoice
+                profile.trial_end_date = make_aware(datetime.datetime.now() + datetime.timedelta(days=14))
             profile.save()
-            logger.info(f"✅ Trial started for {email} — customer ID: {stripe_customer_id}")
+            logger.info(f"✅ Trial info saved for {email} — customer ID: {stripe_customer_id}")
         else:
-            logger.warning(f"⚠️ Could not create or find user for email: {email}")
+            logger.warning(f"⚠️ Could not create or find user for {email}")
 
-    # ✅ 2. Subscription Updated
     elif event_type == 'customer.subscription.updated':
         subscription = event['data']['object']
         customer_id = subscription['customer']
@@ -865,7 +866,6 @@ def stripe_webhook(request):
             profile.save()
             logger.info(f"🔁 Subscription updated: {customer_id} → {status}")
 
-    # ✅ 3. Subscription Cancelled / Deleted
     elif event_type == 'customer.subscription.deleted':
         subscription = event['data']['object']
         customer_id = subscription['customer']
@@ -876,13 +876,11 @@ def stripe_webhook(request):
             profile.save()
             logger.info(f"❌ Subscription canceled: {customer_id}")
 
-    # ✅ 4. Payment Succeeded (after trial ends and billing kicks in)
     elif event_type == 'invoice.payment_succeeded':
         invoice = event['data']['object']
         customer_id = invoice['customer']
         subscription_id = invoice.get('subscription')
 
-        # Fetch full subscription object from Stripe
         subscription = stripe.Subscription.retrieve(subscription_id) if subscription_id else None
         trial_end = datetime.datetime.fromtimestamp(subscription['trial_end']) if subscription and subscription['trial_end'] else None
         status = subscription['status'] if subscription else 'active'
@@ -891,13 +889,13 @@ def stripe_webhook(request):
         if profile:
             profile.subscription_status = status
             profile.stripe_subscription_id = subscription_id
-            profile.trial_end_date = make_aware(trial_end) if trial_end else None
+            if trial_end:
+                profile.trial_end_date = make_aware(trial_end)
             profile.save()
             logger.info(
                 f"💰 Payment succeeded: {customer_id} → status={status}, sub={subscription_id}, trial_end={trial_end}"
             )
 
-    # ✅ 5. Payment Failed
     elif event_type == 'invoice.payment_failed':
         invoice = event['data']['object']
         customer_id = invoice['customer']
@@ -909,6 +907,7 @@ def stripe_webhook(request):
             logger.warning(f"⚠️ Payment failed: {customer_id} → subscription past due")
 
     return HttpResponse(status=200)
+
 
 
 @login_required
