@@ -732,6 +732,7 @@ class PreSignupView(View):
             first_name = form.cleaned_data['first_name']
             password = form.cleaned_data['password']
 
+            # Prevent duplicate signups
             if User.objects.filter(email=email).exists():
                 if request.headers.get('x-requested-with') == 'XMLHttpRequest':
                     return JsonResponse({'error': 'Email already exists. Please log in.'}, status=400)
@@ -739,16 +740,19 @@ class PreSignupView(View):
                     form.add_error('email', 'Email already exists. Please log in.')
                     return render(request, 'signup.html', {'form': form, 'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY})
 
+            # Store signup data in session to finalize user after payment
             request.session['signup_data'] = form.cleaned_data
 
             try:
                 checkout_session = stripe.checkout.Session.create(
-                    payment_method_types=['card'],
+                    mode='subscription',
                     line_items=[{
-                        'price': settings.STRIPE_PRICE_ID,
+                        'price': settings.STRIPE_PRICE_ID,  # Recurring, every 24 months
                         'quantity': 1,
                     }],
-                    mode='payment',
+                    subscription_data={
+                        'trial_period_days': 14  # 🟢 Add trial period here
+                    },
                     success_url=request.build_absolute_uri(reverse('post-payment')),
                     cancel_url=request.build_absolute_uri(reverse('signup-cancelled')),
                     metadata={
@@ -757,10 +761,12 @@ class PreSignupView(View):
                         'password': password,
                     }
                 )
+
                 if request.headers.get('x-requested-with') == 'XMLHttpRequest':
                     return JsonResponse({'id': checkout_session.id})
                 else:
                     return redirect(checkout_session.url)
+
             except Exception as e:
                 if request.headers.get('x-requested-with') == 'XMLHttpRequest':
                     return JsonResponse({'error': str(e)}, status=400)
@@ -772,8 +778,6 @@ class PreSignupView(View):
                 return JsonResponse({'form_errors': form.errors}, status=400)
             else:
                 return render(request, 'signup.html', {'form': form, 'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY})
-
-
 
 class PostPaymentView(View):
     def get(self, request):
@@ -803,41 +807,6 @@ class PostPaymentView(View):
 def signup_cancelled(request):
     return redirect('landing_page')
 
-@csrf_exempt
-def stripe_webhook(request):
-    payload = request.body
-    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
-    event = None
-
-    try:
-        event = stripe.Webhook.construct_event(
-            payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
-        )
-    except ValueError as e:
-        return HttpResponse(status=400)
-    except stripe.error.SignatureVerificationError as e:
-        return HttpResponse(status=400)
-
-    if event['type'] == 'checkout.session.completed':
-        session = event['data']['object']
-        email = session['metadata']['email']
-        first_name = session['metadata'].get('first_name', 'User')
-        password = session['metadata'].get('password')
-
-        # Double-check if user exists (maybe they returned and already completed signup)
-        if not User.objects.filter(email=email).exists():
-            user = User.objects.create_user(
-                username=email,
-                email=email,
-                first_name=first_name,
-                password=password,
-                is_active=True
-            )
-            user.save()
-            # You can log this event or send a welcome email here
-
-    return HttpResponse(status=200)
-
 
 @csrf_exempt
 def stripe_webhook(request):
@@ -849,27 +818,49 @@ def stripe_webhook(request):
         event = stripe.Webhook.construct_event(
             payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
         )
-    except (ValueError, stripe.error.SignatureVerificationError):
+    except (ValueError, stripe.error.SignatureVerificationError) as e:
+        logger.warning(f"❌ Webhook verification failed: {e}")
         return HttpResponse(status=400)
 
-    # ✅ 1. Checkout Completed
-    if event['type'] == 'checkout.session.completed':
+    event_type = event['type']
+    logger.info(f"📩 Stripe webhook received: {event_type}")
+
+    # ✅ 1. Checkout Completed (after user finishes checkout, before trial ends)
+    if event_type == 'checkout.session.completed':
         session = event['data']['object']
         email = session['customer_details']['email']
         stripe_customer_id = session['customer']
         stripe_subscription_id = session.get('subscription')
 
+        # Use metadata for fallback creation
+        metadata = session.get('metadata', {})
+        first_name = metadata.get('first_name', '')
+        password = metadata.get('password', None)
+
         user = User.objects.filter(email=email).first()
-        if user and hasattr(user, 'profile'):
-            profile = user.profile
+        if not user and password:
+            user = User.objects.create_user(
+                username=email,
+                email=email,
+                first_name=first_name,
+                password=password,
+                is_active=True,
+            )
+            logger.info(f"🆕 Created user from webhook: {email}")
+
+        if user:
+            profile, _ = UserProfile.objects.get_or_create(user=user)
             profile.stripe_customer_id = stripe_customer_id
             profile.stripe_subscription_id = stripe_subscription_id
-            profile.subscription_status = 'trialing'  # Can be updated later
+            profile.subscription_status = 'trialing'
             profile.subscription_start_date = make_aware(datetime.datetime.now())
             profile.save()
+            logger.info(f"✅ Trial started for {email} — customer ID: {stripe_customer_id}")
+        else:
+            logger.warning(f"⚠️ Could not create or find user for email: {email}")
 
     # ✅ 2. Subscription Updated
-    elif event['type'] == 'customer.subscription.updated':
+    elif event_type == 'customer.subscription.updated':
         subscription = event['data']['object']
         customer_id = subscription['customer']
         status = subscription['status']
@@ -878,9 +869,10 @@ def stripe_webhook(request):
         if profile:
             profile.subscription_status = status
             profile.save()
+            logger.info(f"🔁 Subscription updated: {customer_id} → {status}")
 
     # ✅ 3. Subscription Cancelled / Deleted
-    elif event['type'] == 'customer.subscription.deleted':
+    elif event_type == 'customer.subscription.deleted':
         subscription = event['data']['object']
         customer_id = subscription['customer']
 
@@ -888,8 +880,42 @@ def stripe_webhook(request):
         if profile:
             profile.subscription_status = 'canceled'
             profile.save()
+            logger.info(f"❌ Subscription canceled: {customer_id}")
+
+    # ✅ 4. Payment Succeeded (after trial ends and billing kicks in)
+    elif event_type == 'invoice.payment_succeeded':
+        invoice = event['data']['object']
+        customer_id = invoice['customer']
+        subscription_id = invoice.get('subscription')
+
+        # Fetch full subscription object from Stripe
+        subscription = stripe.Subscription.retrieve(subscription_id) if subscription_id else None
+        trial_end = datetime.datetime.fromtimestamp(subscription['trial_end']) if subscription and subscription['trial_end'] else None
+        status = subscription['status'] if subscription else 'active'
+
+        profile = UserProfile.objects.filter(stripe_customer_id=customer_id).first()
+        if profile:
+            profile.subscription_status = status
+            profile.stripe_subscription_id = subscription_id
+            profile.trial_end_date = make_aware(trial_end) if trial_end else None
+            profile.save()
+            logger.info(
+                f"💰 Payment succeeded: {customer_id} → status={status}, sub={subscription_id}, trial_end={trial_end}"
+            )
+
+    # ✅ 5. Payment Failed
+    elif event_type == 'invoice.payment_failed':
+        invoice = event['data']['object']
+        customer_id = invoice['customer']
+
+        profile = UserProfile.objects.filter(stripe_customer_id=customer_id).first()
+        if profile:
+            profile.subscription_status = 'past_due'
+            profile.save()
+            logger.warning(f"⚠️ Payment failed: {customer_id} → subscription past due")
 
     return HttpResponse(status=200)
+
 
 @login_required
 def cancel_subscription(request):
