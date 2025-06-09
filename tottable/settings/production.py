@@ -11,7 +11,7 @@ STRIPE_SECRET_KEY = 'sk_test_51RVFsUAX7DzHjpeaGbeICN9QQppwQz17LR9lUs7ksb2bxKPFhH
 STRIPE_PUBLIC_KEY = 'pk_test_51RVFsUAX7DzHjpeafA07ugzkXQX019Wd3A01s5UdCR3EKbc1cL37r67bgj0Yb2uI3BuPwK1DgjKeXLpjfmjdckQM00H1uVzeIa'
 STRIPE_PRICE_ID = 'price_1RVzkzAX7DzHjpea3iFuWlGU'
 # If you're skipping webhooks for now, just leave this as-is or empty
-STRIPE_WEBHOOK_SECRET = 'whsec_2ccf64eae3bbe7f4c740b41f71cf28f054538fb067eade5c041d78ac4c92d4c5'
+STRIPE_WEBHOOK_SECRET = 'whsec_FbifHJQXXnHAdcCLcRCkAeEUrz3gVpSe'
 
 # Example extra security settings you might want:
 CSRF_COOKIE_SECURE = True
