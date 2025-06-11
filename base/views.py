@@ -849,7 +849,7 @@ def stripe_webhook(request):
                 profile.subscription_status = 'trialing'
             if not profile.trial_end_date:
                 # Only set a rough default — real trial_end will be updated on first invoice
-                profile.trial_end_date = make_aware(datetime.datetime.now() + datetime.timedelta(days=14))
+                profile.trial_end_date = make_aware(datetime.now() + timedelta(days=14))
             profile.save()
             logger.info(f"✅ Trial info saved for {email} — customer ID: {stripe_customer_id}")
         else:
@@ -882,7 +882,7 @@ def stripe_webhook(request):
         subscription_id = invoice.get('subscription')
 
         subscription = stripe.Subscription.retrieve(subscription_id) if subscription_id else None
-        trial_end = datetime.datetime.fromtimestamp(subscription['trial_end']) if subscription and subscription['trial_end'] else None
+        trial_end = datetime.fromtimestamp(subscription['trial_end']) if subscription and subscription['trial_end'] else None
         status = subscription['status'] if subscription else 'active'
 
         profile = UserProfile.objects.filter(stripe_customer_id=customer_id).first()
