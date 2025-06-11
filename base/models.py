@@ -60,6 +60,7 @@ class UserProfile(models.Model):
         max_length=50, default="trialing", help_text="Stripe subscription status (e.g. trialing, active, canceled)"
     )
     trial_end_date = models.DateTimeField(blank=True, null=True)
+    subscription_start_date = models.DateTimeField(blank=True, null=True)
     
     def get_within_week_display(self, meal_type):
         """Return display value for within-week preferences."""
