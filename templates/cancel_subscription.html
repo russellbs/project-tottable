@@ -1,0 +1,29 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}Subscription Canceled{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2 class="auth-title">We’ll miss you!</h2>
+        <p class="auth-subtitle">Your subscription will remain active until the end of your trial or billing period.</p>
+
+        <div class="auth-benefits">
+            <p>💡 You can continue using Tottable until then.</p>
+            <p>🗓 No further charges will be made.</p>
+            <p>📩 Need help? Reach out anytime at <a href="mailto:support@tottable.com">ben@tottable.com</a>.</p>
+        </div>
+
+        <p class="price-highlight">
+            Changed your mind? We’d love to have you back.<br>
+            Just contact us to resume access.
+        </p>
+
+    </div>
+</div>
+{% endblock %}

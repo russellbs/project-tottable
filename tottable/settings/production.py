@@ -1,4 +1,5 @@
 from .base import *
+import os
 
 DEBUG = False
 ALLOWED_HOSTS = ['tottable.com', 'www.tottable.com', '172.232.61.64']
@@ -6,12 +7,11 @@ ALLOWED_HOSTS = ['tottable.com', 'www.tottable.com', '172.232.61.64']
 CSRF_TRUSTED_ORIGINS = ['https://tottable.com', 'https://www.tottable.com']
 
 
-# Stripe TEST keys
-STRIPE_SECRET_KEY = 'sk_test_51RVFsUAX7DzHjpeaGbeICN9QQppwQz17LR9lUs7ksb2bxKPFhHPjrYhLheOFXtsvpvzlEunbuZWJPwZ5RNqkrGeh00MtDhOIOw'
-STRIPE_PUBLIC_KEY = 'pk_test_51RVFsUAX7DzHjpeafA07ugzkXQX019Wd3A01s5UdCR3EKbc1cL37r67bgj0Yb2uI3BuPwK1DgjKeXLpjfmjdckQM00H1uVzeIa'
-STRIPE_PRICE_ID = 'price_1RVzkzAX7DzHjpea3iFuWlGU'
-# If you're skipping webhooks for now, just leave this as-is or empty
-STRIPE_WEBHOOK_SECRET = 'whsec_FbifHJQXXnHAdcCLcRCkAeEUrz3gVpSe'
+# Stripe keys
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
+STRIPE_PRICE_ID = os.environ.get('STRIPE_PRICE_ID')
+STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET')
 
 # Example extra security settings you might want:
 CSRF_COOKIE_SECURE = True
