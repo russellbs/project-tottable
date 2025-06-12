@@ -42,7 +42,7 @@ class Command(BaseCommand):
                 meal_type_names = [name.strip() for name in row['Meal Type'].split(';') if name]
                 meal_types = [MealType.objects.get_or_create(name=name)[0] for name in meal_type_names]
 
-                recipe, created = Recipe.objects.update_or_create(
+                recipe, _ = Recipe.objects.update_or_create(
                     id=row['Recipe ID'],  # Use string-based IDs
                     defaults={
                         'title': row['Title'],
@@ -54,13 +54,14 @@ class Command(BaseCommand):
                         'image': row['Image URL'],
                         'min_age_months': int(row['Min Age (Months)']),
                         'max_age_months': int(row.get('Max Age (Months)', 24)),
-                        'tips': row['Tottable Tips'],  # Add Tottable Tips here
+                        'tips': row['Tottable Tips'],
+                        'is_puree': row.get('Is Puree', '0').strip() == '1',
                     }
                 )
-                # Assign meal types if ManyToManyField
-                if created:
-                    recipe.meal_types.set(meal_types)
-                    self.stdout.write(f"Added recipe: {recipe.title}")
+                # Always set meal types regardless of whether recipe is newly created
+                recipe.meal_types.set(meal_types)
+                recipe.save()
+                self.stdout.write(f"Updated recipe: {recipe.title} with meal types {', '.join(mt.name for mt in meal_types)}")
 
         # Upload RecipeIngredients
         self.stdout.write("Uploading recipe ingredients...")
