@@ -41,6 +41,8 @@ urlpatterns = [
     path('remove-meal/', views.remove_meal, name='remove_meal'),
     path('terms/', views.terms_view, name='terms'),
     path('privacy/', views.privacy_view, name='privacy'),
+    path('update-exclude-purees/', views.update_exclude_purees, name='update_exclude_purees'),
+    path('contact/', views.contact, name='contact'),
 ]
 
 # Serve media files only during development

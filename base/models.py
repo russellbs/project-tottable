@@ -46,6 +46,8 @@ class UserProfile(models.Model):
         help_text="Meal variety preferences within a week for each meal type.",
     )
 
+    exclude_purees = models.BooleanField(default=False, help_text="Exclude puree recipes from meal plans.")
+
     # Preferences for meal variety across weeks
     across_week_preferences = models.JSONField(
         default=default_across_week_preferences,
@@ -97,11 +99,12 @@ class Recipe(models.Model):
     instructions = models.TextField()
     is_vegetarian = models.BooleanField(default=True)
     is_vegan = models.BooleanField(default=True)
+    is_puree = models.BooleanField(default=False, help_text="Indicates whether this recipe is a puree.")
     tags = models.CharField(max_length=255, blank=True, help_text="Comma-separated tags for the recipe (e.g., High Protein, Gluten-Free)")
     image = models.ImageField(upload_to='recipes/', null=True, blank=True)
     min_age_months = models.IntegerField(help_text="Minimum age in months for this recipe", default=6)
     max_age_months = models.IntegerField(help_text="Maximum age in months for this recipe", default=24)
-    tips = models.TextField(blank=True, null=True, help_text="Tottable tips for this recipe")  # New field
+    tips = models.TextField(blank=True, null=True, help_text="Tottable tips for this recipe")
 
     def __str__(self):
         return self.title
@@ -121,12 +124,28 @@ class RecipeIngredient(models.Model):
 
     def quantity_as_fraction(self):
         try:
-            # Convert the quantity to a fraction if it's numeric
-            numeric_quantity = float(self.quantity)
-            fraction_quantity = Fraction(numeric_quantity).limit_denominator(8)
-            return str(fraction_quantity)
-        except ValueError:
-            # Return the quantity as is if it can't be converted
+            # Handle strings like "1 1/2"
+            if " " in self.quantity:
+                whole, frac = self.quantity.split()
+                value = float(whole) + float(Fraction(frac))
+            else:
+                value = float(Fraction(self.quantity))  # Handles "1.5", "3/2", etc.
+
+            frac = Fraction(value).limit_denominator(8)
+
+            # 🔍 If it's a whole number, just show it as an integer
+            if frac.denominator == 1:
+                return str(frac.numerator)
+
+            # 🧮 Mixed number if improper fraction
+            if frac.numerator > frac.denominator:
+                whole = frac.numerator // frac.denominator
+                remainder = frac.numerator % frac.denominator
+                return f"{whole} {remainder}/{frac.denominator}"
+
+            # Proper fraction
+            return f"{frac.numerator}/{frac.denominator}"
+        except (ValueError, ZeroDivisionError, TypeError):
             return self.quantity
 
     def __str__(self):

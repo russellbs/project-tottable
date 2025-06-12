@@ -1,0 +1,36 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'terms.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body, p, h1, h2 {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="terms-container">
+    <div class="terms-card">
+        <h1>We’d love to hear from you</h1>
+        <p>Questions? Feedback? Just want to say hi?</p>
+
+        <div class="auth-benefits" style="margin-top: 1rem;">
+            <p>📬 Fill out the form below and we’ll get back to you soon.</p>
+            <p>💡 We welcome feature requests, bug reports, and general thoughts.</p>
+            <p>🍼 You’re helping us build a better tool for parents — thank you!</p>
+        </div>
+
+        <div class="google-form" style="margin-top: 2rem;">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScSWtnDwibLvjL8ItHoz-jzkMwt3DxzmoNzOQxE3Y84YuSaNg/viewform?embedded=true"
+                    width="100%" height="686" frameborder="0" marginheight="0" marginwidth="0">
+                Loading…
+            </iframe>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -36,9 +36,9 @@
                     </ul>
 
                     <p class="price-highlight">
-                        Try Tottable free for 14 days.<br>
-                        Pay once — <strong>$49 for lifetime access</strong>.
-                    </p>                    
+                        Try Tottable free for 14 days<br>
+                        Then <strong>$49 for two years of stress-free meal planning</strong>.
+                    </p>                                        
 
                     <form method="post" action="{% url 'pre-signup' %}">
                         {% csrf_token %}
@@ -61,9 +61,9 @@
                         <button type="submit" class="btn btn-primary btn-block">
                             Start 14-Day Free Trial
                         </button>
-                        <!--<p class="trial-note text-center mt-2">
-                            Then $49 for lifetime access — cancel anytime during your trial.
-                        </p>-->                  
+                        <p class="trial-note text-center mt-2">
+                            Then $49 for two years — cancel anytime during your trial.
+                        </p>                  
 
                         <p class="terms-text">
                             By signing up, you accept our <a href="{% url 'terms' %}">terms of service</a> and <a href="{% url 'privacy' %}">privacy policy</a>.
@@ -203,7 +203,9 @@
 <!-- Footer -->
 <footer class="bg-dark text-light py-4 text-center">
     <p>&copy; {{ current_year }}  Russell & Sons Limited  | All rights reserved.</p>
-    <a href="{% url 'privacy' %}">Privacy Policy</a> | <a href="{% url 'terms' %}">Terms of Service</a>
+    <a href="{% url 'privacy' %}">Privacy Policy</a> | 
+    <a href="{% url 'terms' %}">Terms of Service</a> | 
+    <a href="{% url 'contact' %}">Contact</a>
 </footer>
 
 <!-- Lucide Icons Script -->

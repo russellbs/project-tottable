@@ -21,8 +21,8 @@
         </div>
 
         <p class="price-highlight">
-            Try Tottable free for 14 days.<br>
-            Pay once — <strong>$49 for lifetime access</strong>.
+            Try Tottable free for 14 days<br>
+            Then <strong>$49 for two years of stress-free meal planning</strong>.
         </p>        
 
         <form id="signup-form" method="post" action="{% url 'pre-signup' %}">
@@ -45,12 +45,12 @@
 
             <button type="submit" class="btn btn-primary btn-block">Start 14-Day Free Trial</button>
 
-            <!--<p class="trial-note text-center mt-2">
-                Then $49 for lifetime access — cancel anytime during your trial.
-            </p>-->
+            <p class="trial-note text-center mt-2">
+                Then $49 for two years — cancel anytime during your trial.
+            </p>                  
 
             <p class="terms-text">
-                By signing up, you accept our <a href="#">terms of service</a> and <a href="#">privacy policy</a>.
+                By signing up, you accept our <a href="{% url 'terms' %}">terms of service</a> and <a href="{% url 'privacy' %}">privacy policy</a>.
             </p>
         </form>
     </div>

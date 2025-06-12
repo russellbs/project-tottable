@@ -70,6 +70,7 @@ def profile(request):
         "show_welcome": show_welcome,
         "trial_active": trial_active,
         "trial_days_remaining": trial_days_remaining,
+        "show_preferences_form": True,
     }
 
     return render(request, "profile.html", context)
@@ -111,15 +112,20 @@ def generate_meal_plan(child_id, week_offset=0):
 
         child_age = child.age_in_months()
 
-        possible_recipes = list(
-            Recipe.objects.filter(
-                meal_types__name=meal_type,
-                min_age_months__lte=child_age,
-                max_age_months__gte=child_age
-            )
-            .exclude(ingredients__in=dislikes)
-            .exclude(ingredients__allergen_type__in=allergies)
+        recipe_qs = Recipe.objects.filter(
+            meal_types__name=meal_type,
+            min_age_months__lte=child_age,
+            max_age_months__gte=child_age
+        ).exclude(
+            ingredients__in=dislikes
+        ).exclude(
+            ingredients__allergen_type__in=allergies
         )
+
+        if profile.exclude_purees:
+            recipe_qs = recipe_qs.exclude(is_puree=True)
+
+        possible_recipes = list(recipe_qs)
 
         num_unique_recipes = min(len(possible_recipes), random.randint(min_variety, max_variety))
 
@@ -526,10 +532,14 @@ def update_within_week_preferences(request):
 
         # Save back to the profile
         profile.within_week_preferences = preferences
+
+        # Update exclude_purees toggle
+        profile.exclude_purees = request.POST.get("exclude_purees") == "on"
+
         profile.save()
 
         # Return updated preferences in the response
-        return JsonResponse({"success": True, "preferences": preferences})
+        return JsonResponse({"success": True, "preferences": preferences, "exclude_purees": profile.exclude_purees,})
     return JsonResponse({"success": False, "error": "Invalid request"}, status=400)
 
 @login_required
@@ -589,15 +599,24 @@ def regenerate_meals_for_plan(meal_plan):
         # Fetch recipes
         child_age = child.age_in_months()
 
-        possible_recipes = list(
-            Recipe.objects.filter(
-                meal_types__name=meal_type,
-                min_age_months__lte=child_age,
-                max_age_months__gte=child_age
-            )
-            .exclude(ingredients__in=dislikes)
-            .exclude(ingredients__allergen_type__in=allergies)
+        # ✅ Build recipe queryset
+        recipe_qs = Recipe.objects.filter(
+            meal_types__name=meal_type,
+            min_age_months__lte=child_age,
+            max_age_months__gte=child_age
+        ).exclude(
+            ingredients__in=dislikes
+        ).exclude(
+            ingredients__allergen_type__in=allergies
         )
+
+        if profile.exclude_purees:
+            recipe_qs = recipe_qs.exclude(is_puree=True)
+
+        possible_recipes = list(recipe_qs)
+
+        if not possible_recipes:
+            continue  # Skip this meal type if no valid recipes
 
         if len(possible_recipes) < num_unique_recipes:
             selected_recipes = random.sample(possible_recipes, len(possible_recipes))
@@ -969,3 +988,15 @@ def terms_view(request):
 
 def privacy_view(request):
     return render(request, 'privacy.html')
+
+@login_required
+@require_POST
+def update_exclude_purees(request):
+    profile = request.user.profile
+    profile.exclude_purees = bool(request.POST.get('exclude_purees'))
+    profile.save()
+    messages.success(request, "Puree preference updated.")
+    return redirect('profile')
+
+def contact(request):
+    return render(request, 'contact.html')

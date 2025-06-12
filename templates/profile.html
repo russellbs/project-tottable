@@ -31,6 +31,7 @@
         <h2>Meal Plan Preferences</h2>
 
         <!-- Meal Variety Preferences -->
+
         <!-- Meal Variety Display -->
         <div id="preferences-within-week-display">
             <h3>Meal Variety</h3>
@@ -49,9 +50,13 @@
                     {% endif %}
                 </p>
             {% endfor %}
-            <button id="edit-within-week-preferences-btn" class="btn btn-primary">Edit Meal Variety</button>
+            
+            <h3 class="mt-4">Exclude Purees?</h3>
+            <p><strong>Exclude Purees:</strong> 
+                {% if user.profile.exclude_purees %}Yes{% else %}No{% endif %}
+            </p>
+            <button id="edit-within-week-preferences-btn" class="btn btn-primary">Edit Meal Plan Preferences</button>
         </div>
-
 
         <form id="preferences-within-week-form" method="POST" action="{% url 'update_within_week_preferences' %}" style="display: none;">
             {% csrf_token %}
@@ -75,7 +80,18 @@
                 </select>                
             </div>
             {% endfor %}
-            <button type="submit" class="btn btn-success">Save Meal Variety</button>
+
+            <h3 class="mt-4">Exclude Purees?</h3>
+            <div class="form-check mt-3">
+                <input class="form-check-input" type="checkbox" name="exclude_purees" id="exclude-purees-checkbox"
+                    {% if user.profile.exclude_purees %}checked{% endif %}
+                    {% if not show_preferences_form %}disabled{% endif %}>
+                <label class="form-check-label" for="exclude-purees-checkbox">
+                    <strong>Exclude Purees</strong> – Hide puree-style recipes from your meal plans if your little one has moved on to solids.
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-success">Save Meal Preferences</button>
             <button type="button" id="cancel-within-week-preferences-btn" class="btn btn-secondary">Cancel</button>
         </form>
         
