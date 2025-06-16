@@ -59,6 +59,13 @@ def profile(request):
 
     # 👉 Show welcome modal if no children yet
     show_welcome = not children.exists()
+
+    # ✅ Check for TikTok conversion event and remove it from session
+    pixel_conversion_event = request.session.get('pixel_conversion_event')
+    if pixel_conversion_event:
+        del request.session['pixel_conversion_event']
+    else:
+        pixel_conversion_event = None  # Explicitly set to None if not found
     
     context = {
         "user": user,
@@ -811,6 +818,10 @@ class PostPaymentView(View):
         if user:
             login(request, user)
             del request.session['signup_data']
+
+            # ✅ Set the flag for TikTok pixel tracking
+            request.session['pixel_conversion_event'] = 'subscribe'
+
             return redirect('profile')
         else:
             # Fallback: redirect them to a page suggesting to try again or contact support

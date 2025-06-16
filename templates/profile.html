@@ -292,4 +292,12 @@
 </div>
 {% endif %}
 
+{% if request.session.pixel_conversion_event == "subscribe" %}
+<script>
+  ttq.track('Subscribe');
+</script>
+{% endif %}
+
 {% endblock %}
+
+
