@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from .views import test_meal_plan_email, PreSignupView, PostPaymentView, stripe_webhook, signup_cancelled
 from django.conf import settings
@@ -43,6 +43,7 @@ urlpatterns = [
     path('privacy/', views.privacy_view, name='privacy'),
     path('update-exclude-purees/', views.update_exclude_purees, name='update_exclude_purees'),
     path('contact/', views.contact, name='contact'),
+    path('accounts/', include('allauth.urls')),
 ]
 
 # Serve media files only during development
