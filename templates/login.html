@@ -1,5 +1,6 @@
 {% extends "main.html" %}
 {% load static %}
+{% load socialaccount %}
 
 {% block title %}Log In{% endblock %}
 
@@ -29,6 +30,35 @@
                 </div>
             {% endif %}
 
+            <!-- Sign in with Google -->
+            <a href="{% provider_login_url 'google' %}" style="text-decoration: none;">
+                <div style="
+                width: 100%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                background: white;
+                color: #5f6368;
+                border: 1px solid #dadce0;
+                border-radius: 4px;
+                font-family: Roboto, sans-serif;
+                font-size: 14px;
+                font-weight: 500;
+                height: 40px;
+                padding: 0 12px;
+                box-shadow: 0px 1px 2px rgba(0,0,0,0.05);
+                transition: background 0.3s ease;">
+                <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" style="width: 18px; height: 18px; margin-right: 8px;">
+                Log in with Google
+                </div>
+            </a>
+
+            <!-- OR Divider -->
+            <div class="text-center my-3" style="position: relative;">
+                <span style="background-color: white; padding: 0 10px; position: relative; z-index: 1;">OR</span>
+                <hr style="margin: -12px 0 0 0; border-top: 1px solid #ccc; position: absolute; top: 50%; width: 100%; z-index: 0;">
+            </div>
+            
             <div class="form-group">
                 <label for="id_email">Email address</label>
                 <input type="email" name="username" id="id_email" class="form-control" placeholder="Email address" required>

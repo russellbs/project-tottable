@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.core.paginator import Paginator
 from django.db.models import Sum
-from .models import Ingredient, Child, Recipe, MealPlan, Meal, RecipeIngredient, UserProfile
+from .models import Ingredient, Child, Recipe, MealPlan, Meal, RecipeIngredient, UserProfile, PreSignupSocial
 from .forms import AddChildForm, WithinWeekPreferencesForm, AcrossWeekPreferencesForm, PreSignupForm  # Import the AddChildForm
 from datetime import datetime, timedelta
 from django.db.models import Q
@@ -18,9 +18,14 @@ from django.conf import settings
 from django.views import View
 from django.urls import reverse
 import logging
+import json
+from django.http import JsonResponse
 import random
 import stripe
 from datetime import timedelta
+from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
+from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.providers.google.provider import GoogleProvider
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -758,6 +763,14 @@ class PreSignupView(View):
             first_name = form.cleaned_data['first_name']
             password = form.cleaned_data['password']
 
+            selected_plan = request.POST.get('selected_plan', 'monthly')
+            request.session['selected_plan'] = selected_plan
+
+            if selected_plan == 'yearly':
+                price_id = settings.STRIPE_YEARLY_PRICE_ID
+            else:
+                price_id = settings.STRIPE_MONTHLY_PRICE_ID
+
             # Prevent duplicate signups
             if User.objects.filter(email=email).exists():
                 if request.headers.get('x-requested-with') == 'XMLHttpRequest':
@@ -773,7 +786,7 @@ class PreSignupView(View):
                 checkout_session = stripe.checkout.Session.create(
                     mode='subscription',
                     line_items=[{
-                        'price': settings.STRIPE_PRICE_ID,  # Recurring, every 24 months
+                        'price': price_id,
                         'quantity': 1,
                     }],
                     subscription_data={
@@ -816,6 +829,7 @@ class PostPaymentView(View):
 
         user = User.objects.filter(email=email).first()
         if user:
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, user)
             del request.session['signup_data']
 
@@ -829,6 +843,28 @@ class PostPaymentView(View):
 
     
 def signup_cancelled(request):
+    session_id = (
+        request.GET.get('session_id') or
+        request.session.get('oauth_checkout_session_id') or
+        request.session.get('form_checkout_session_id')
+    )
+    User = get_user_model()
+
+    # Clean up OAuth signups
+    if session_id:
+        social_presignup = PreSignupSocial.objects.filter(stripe_checkout_session_id=session_id).first()
+        if social_presignup:
+            user = User.objects.filter(email=social_presignup.email, is_active=False).first()
+            if user:
+                user.delete()
+            social_presignup.delete()
+            request.session.pop('oauth_checkout_session_id', None)
+            return redirect('landing_page')
+
+    # Clean up form-based signups — just clear session, no model/user to delete
+    request.session.pop('form_checkout_session_id', None)
+    request.session.pop('signup_data', None)
+
     return redirect('landing_page')
 
 
@@ -859,7 +895,9 @@ def stripe_webhook(request):
         password = metadata.get('password')
 
         user = User.objects.filter(email=email).first()
+
         if not user and password:
+            # Email/password signup (presignup)
             user = User.objects.create_user(
                 username=email,
                 email=email,
@@ -868,6 +906,12 @@ def stripe_webhook(request):
                 is_active=True,
             )
             logger.info(f"🆕 Created user from webhook: {email}")
+
+        elif user and not user.is_active:
+            # OAuth signup – user was created by Allauth but is inactive until payment
+            user.is_active = True
+            user.save()
+            logger.info(f"✅ Activated OAuth user from webhook: {email}")
 
         if user:
             profile, created = UserProfile.objects.get_or_create(user=user)
@@ -1011,3 +1055,73 @@ def update_exclude_purees(request):
 
 def contact(request):
     return render(request, 'contact.html')
+
+def redirect_after_oauth_login(request):
+    session_id = request.session.pop('oauth_checkout_session_id', None)
+
+    if session_id:
+        return redirect(f"https://checkout.stripe.com/c/{session_id}")
+    
+    # Just go to dashboard if no session (e.g., returning user)
+    return redirect('dashboard')
+
+def stripe_oauth_success(request):
+    session_id = request.GET.get('session_id')
+    if not session_id:
+        return redirect('signup_cancelled')
+
+    session = stripe.checkout.Session.retrieve(session_id)
+
+    try:
+        presignup = PreSignupSocial.objects.get(stripe_checkout_session_id=session_id)
+    except PreSignupSocial.DoesNotExist:
+        return redirect('signup_cancelled')
+
+    User = get_user_model()
+    user, created = User.objects.get_or_create(
+        email=presignup.email,
+        defaults={
+            'username': presignup.email,
+            'first_name': presignup.first_name,
+            'is_active': True,  # Activate now that payment succeeded
+        }
+    )
+
+    if not created and not user.is_active:
+        user.is_active = True
+        user.save()
+
+    # ✅ Ensure UserProfile exists
+    UserProfile.objects.get_or_create(user=user)
+
+    # ✅ Link SocialAccount if not already linked
+    if not SocialAccount.objects.filter(user=user, provider=presignup.provider).exists():
+        if not SocialAccount.objects.filter(uid=presignup.uid, provider=presignup.provider).exists():
+            SocialAccount.objects.create(
+                user=user,
+                uid=presignup.uid,
+                provider=presignup.provider,
+                extra_data={"email": presignup.email, "name": presignup.first_name},
+            )
+
+    # ✅ Clear session state
+    request.session.pop('pending_sociallogin', None)
+    request.session.pop('oauth_checkout_session_id', None)
+    request.session['pixel_conversion_event'] = 'subscribe'
+
+    # ✅ Log in user
+    user.backend = 'allauth.account.auth_backends.AuthenticationBackend'
+    login(request, user)
+
+    return redirect('profile')
+
+@require_POST
+@csrf_exempt  # Optional if CSRF token is properly passed; safer to keep it enabled
+def set_plan(request):
+    try:
+        data = json.loads(request.body)
+        selected_plan = data.get("selected_plan", "monthly")
+        request.session["selected_plan"] = selected_plan
+        return JsonResponse({"status": "ok"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)

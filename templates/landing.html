@@ -1,11 +1,13 @@
 {% extends 'main.html' %}
 
 {% load static %} 
+{% load socialaccount %}
 
 {% block title %}Welcome to Tottable{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'landing.css' %}">
+<script src="{% static 'landing.js' %}"></script>
 
 <style>
     .hero-heading {
@@ -58,13 +60,60 @@
                     <h2 class="auth-title">Lighten your mental load</h2>
                     <p class="auth-subtitle">Start planning meals in seconds — your future self will thank you.</p>
 
-                    <p class="price-highlight">
-                        Try Tottable free for 14 days<br>
-                        Then <strong>$49 for two years of stress-free meal planning</strong>.
-                    </p>                                        
+                    <!-- Toggle Pricing Display -->
+                    <div class="price-options text-center mb-3">
+                        <p class="mb-2"><strong>Try Tottable free for 14 days</strong> — then:</p>
+                    
+                        <!-- Pricing Toggle -->
+                        <div class="simple-pricing-toggle">
 
+                            <label class="simple-box">
+                                <input type="radio" name="plan" value="monthly">
+                                <span class="toggle-label">$4.99 per month</span>
+                            </label>
+
+                            <label class="simple-box selected">
+                                <input type="radio" name="plan" value="yearly" checked>
+                                <span class="toggle-label">
+                                    $49 per year <span class="savings">(save 18%)</span>
+                                </span>
+                            </label>
+                        </div>
+                                        
+                    <!-- Sign up with Google -->
+                    <a href="{% provider_login_url 'google' %}" class="oauth-button" style="text-decoration: none;">
+                        <div style="
+                          width: 100%;
+                          display: inline-flex;
+                          align-items: center;
+                          justify-content: center;
+                          background: white;
+                          color: #5f6368;
+                          border: 1px solid #dadce0;
+                          border-radius: 4px;
+                          font-family: Roboto, sans-serif;
+                          font-size: 14px;
+                          font-weight: 500;
+                          height: 40px;
+                          padding: 0 12px;
+                          box-shadow: 0px 1px 2px rgba(0,0,0,0.05);
+                          transition: background 0.3s ease;">
+                          <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" style="width: 18px; height: 18px; margin-right: 8px;">
+                          Sign up with Google
+                        </div>
+                      </a>
+
+                    <!-- OR Divider -->
+                    <div class="text-center my-3" style="position: relative;">
+                        <span style="background-color: white; padding: 0 10px; position: relative; z-index: 1;">OR</span>
+                        <hr style="margin: -12px 0 0 0; border-top: 1px solid #ccc; position: absolute; top: 50%; width: 100%; z-index: 0;">
+                    </div>
+
+                    <!-- Email sign-up form -->
                     <form method="post" action="{% url 'pre-signup' %}">
                         {% csrf_token %}
+                        <input type="hidden" name="selected_plan" id="selected-plan" value="monthly">
+
 
                         <div class="form-group">
                             <label for="id_first_name">Name</label>
@@ -84,9 +133,9 @@
                         <button type="submit" class="btn btn-primary btn-block">
                             Start 14-Day Free Trial
                         </button>
-                        <p class="trial-note text-center mt-2">
+                        <!--<p class="trial-note text-center mt-2">
                             Then $49 for two years — cancel anytime during your trial.
-                        </p>                  
+                        </p>-->                 
 
                         <p class="terms-text">
                             By signing up, you accept our <a href="{% url 'terms' %}">terms of service</a> and <a href="{% url 'privacy' %}">privacy policy</a>.

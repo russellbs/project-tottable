@@ -1,5 +1,6 @@
 {% extends "main.html" %}
 {% load static %}
+{% load socialaccount %}
 
 {% block title %}Sign Up{% endblock %}
 
@@ -9,58 +10,82 @@
 
 {% block content %}
 <div class="auth-container">
-    <div class="auth-card">
-        <h2 class="auth-title">Lighten your mental load</h2>
-        <p class="auth-subtitle">Get started with personalized meal plans</p>
+  <div class="auth-card">
+    <h2 class="auth-title">Lighten your mental load</h2>
+    <p class="auth-subtitle">Start planning meals in seconds — your future self will thank you.</p>
 
-        <div class="auth-benefits">
-            <p>✨ Tottable does the planning for you</p>
-            <p>👶 Meals tailored to your baby’s age, tastes, and needs</p>
-            <p>📚 Explore over 100 delicious, baby-friendly recipes</p>
-            <p>🛒 Smart shopping list that saves time (and last-minute store runs)</p>
-        </div>
+    <div class="price-options text-center mb-3">
+      <p class="mb-2"><strong>Try Tottable free for 14 days</strong> — then:</p>
 
-        <p class="price-highlight">
-            Try Tottable free for 14 days<br>
-            Then <strong>$49 for two years of stress-free meal planning</strong>.
-        </p>        
+      <div class="simple-pricing-toggle">
+        <input type="hidden" name="selected_plan" id="selected-plan" value="yearly">
 
-        <form id="signup-form" method="post" action="{% url 'pre-signup' %}">
-            {% csrf_token %}
+        <label class="simple-box">
+          <input type="radio" name="plan" value="monthly">
+          <span class="toggle-label">$4.99 per month</span>
+        </label>
 
-            <div class="form-group">
-                <label for="id_first_name">Name</label>
-                <input type="text" name="first_name" id="id_first_name" class="form-control" placeholder="Your name" required>
-            </div>
-
-            <div class="form-group">
-                <label for="id_email">Email address</label>
-                <input type="email" name="email" id="id_email" class="form-control" placeholder="Your email" required>
-            </div>
-
-            <div class="form-group">
-                <label for="id_password">Password</label>
-                <input type="password" name="password" id="id_password" class="form-control" placeholder="Password" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-block">Start 14-Day Free Trial</button>
-
-            <p class="trial-note text-center mt-2">
-                Then $49 for two years — cancel anytime during your trial.
-            </p>                  
-
-            <p class="terms-text">
-                By signing up, you accept our <a href="{% url 'terms' %}">terms of service</a> and <a href="{% url 'privacy' %}">privacy policy</a>.
-            </p>
-        </form>
+        <label class="simple-box selected">
+          <input type="radio" name="plan" value="yearly" checked>
+          <span class="toggle-label">
+            $49 per year <span class="savings">(save 18%)</span>
+          </span>
+        </label>
+      </div>
     </div>
+
+    <!-- Google Signup -->
+    <a href="{% provider_login_url 'google' %}" class="oauth-button" style="text-decoration: none;">
+      <div style="width: 100%; display: inline-flex; align-items: center; justify-content: center; background: white; color: #5f6368; border: 1px solid #dadce0; border-radius: 4px; font-family: Roboto, sans-serif; font-size: 14px; font-weight: 500; height: 40px; padding: 0 12px; box-shadow: 0px 1px 2px rgba(0,0,0,0.05); transition: background 0.3s ease;">
+        <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" style="width: 18px; height: 18px; margin-right: 8px;">
+        Sign up with Google
+      </div>
+    </a>
+
+    <!-- OR Divider -->
+    <div class="text-center my-3" style="position: relative;">
+      <span style="background-color: white; padding: 0 10px; position: relative; z-index: 1;">OR</span>
+      <hr style="margin: -12px 0 0 0; border-top: 1px solid #ccc; position: absolute; top: 50%; width: 100%; z-index: 0;">
+    </div>
+
+    <form id="signup-form" method="post" action="{% url 'pre-signup' %}">
+      {% csrf_token %}
+      <input type="hidden" name="selected_plan" id="selected-plan" value="yearly">
+
+      <div class="form-group">
+        <label for="id_first_name">Name</label>
+        <input type="text" name="first_name" id="id_first_name" class="form-control" placeholder="Your name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="id_email">Email address</label>
+        <input type="email" name="email" id="id_email" class="form-control" placeholder="Your email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="id_password">Password</label>
+        <input type="password" name="password" id="id_password" class="form-control" placeholder="Password" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">
+        Start 14-Day Free Trial
+      </button>
+
+      <!--<p class="trial-note text-center mt-2">
+        Then $49 for two years — cancel anytime during your trial.
+      </p>-->
+
+      <p class="terms-text">
+        By signing up, you accept our <a href="{% url 'terms' %}">terms of service</a> and <a href="{% url 'privacy' %}">privacy policy</a>.
+      </p>
+    </form>
+  </div>
 </div>
 
 <script>
-    const STRIPE_PUBLIC_KEY = "{{ STRIPE_PUBLIC_KEY }}";
+  const STRIPE_PUBLIC_KEY = "{{ STRIPE_PUBLIC_KEY }}";
 </script>
 <script src="https://js.stripe.com/v3/"></script>
 <script src="{% static 'signup.js' %}"></script>
-
-
+<script src="{% static 'landing.js' %}"></script> 
 {% endblock %}

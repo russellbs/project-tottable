@@ -1,6 +1,6 @@
 from django.urls import path, include
 from . import views
-from .views import test_meal_plan_email, PreSignupView, PostPaymentView, stripe_webhook, signup_cancelled
+from .views import test_meal_plan_email, PreSignupView, PostPaymentView, stripe_webhook, signup_cancelled, redirect_after_oauth_login, stripe_oauth_success, set_plan
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView, LoginView
@@ -44,6 +44,9 @@ urlpatterns = [
     path('update-exclude-purees/', views.update_exclude_purees, name='update_exclude_purees'),
     path('contact/', views.contact, name='contact'),
     path('accounts/', include('allauth.urls')),
+    path("redirect-after-oauth/", redirect_after_oauth_login, name="redirect_after_oauth_login"),
+    path("stripe-oauth-success/", stripe_oauth_success, name="stripe_oauth_success"),
+    path("set-plan/", set_plan, name="set-plan"),
 ]
 
 # Serve media files only during development

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'base',
     'blog',
     'tinymce',
+    'django.contrib.sites',
     # Allauth apps
     'allauth',
     'allauth.account',
@@ -169,5 +170,24 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 ACCOUNT_LOGIN_METHODS = {"email"}
 ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_ADAPTER = 'base.adapters.CustomSocialAccountAdapter'
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+
+
 
 

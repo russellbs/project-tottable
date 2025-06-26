@@ -285,6 +285,17 @@ footer a:hover {
     color: #555;
 }
 
+.auth-card input[type="text"],
+.auth-card input[type="email"],
+.auth-card input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
 
 .screenshot-box {
     padding: 10px;
@@ -327,3 +338,72 @@ footer a:hover {
 }
 
 
+
+.simple-pricing-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.simple-box {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 12px 14px;
+    background-color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    max-width: 260px;
+    width: 100%;
+    transition: border-color 0.2s ease;
+}
+
+.simple-box input[type="radio"] {
+    accent-color: #0366d6;
+    transform: scale(1.1);
+}
+
+.simple-box:hover {
+    border-color: #888;
+}
+
+.savings {
+    color: #0a8754;
+    font-weight: 600;
+    font-size: 13px;
+    margin-left: 4px;
+}
+
+.simple-box.selected {
+    border-color: #0366d6;
+}
+
+
+.oauth-button {
+    margin-top: 12px;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.text-center.my-3 {
+    margin-top: 16px !important;
+    margin-bottom: 16px !important;
+}
+
+button[type="submit"] {
+    margin-top: 12px;
+    padding: 10px 14px;
+    font-size: 15px;
+}
+
+.trial-note {
+    margin-top: 10px;
+}
+
+.terms-text {
+    margin-top: 14px;
+}

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from fractions import Fraction
 from dateutil.relativedelta import relativedelta
 from django.utils.timezone import now
+from allauth.socialaccount.models import SocialApp
 
 def default_meal_variety():
     return {
@@ -246,3 +247,11 @@ class Meal(models.Model):
 
     def __str__(self):
         return f"{self.day.capitalize()} Meal for {self.meal_plan.child.name if self.meal_plan else 'No Plan'}"
+    
+class PreSignupSocial(models.Model):
+    email = models.EmailField()
+    first_name = models.CharField(max_length=150)
+    provider = models.CharField(max_length=50)  # e.g., "google"
+    uid = models.CharField(max_length=255, unique=True)  # from provider
+    created_at = models.DateTimeField(auto_now_add=True)
+    stripe_checkout_session_id = models.CharField(max_length=255)
