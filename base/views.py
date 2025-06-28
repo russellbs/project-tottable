@@ -1049,7 +1049,7 @@ def privacy_view(request):
 @require_POST
 def update_exclude_purees(request):
     profile = request.user.profile
-    profile.exclude_purees = bool(request.POST.get('exclude_purees'))
+    profile.exclude_purees = request.POST.get("exclude_purees") == "on"
     profile.save()
     messages.success(request, "Puree preference updated.")
     return redirect('profile')

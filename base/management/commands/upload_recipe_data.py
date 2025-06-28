@@ -55,7 +55,7 @@ class Command(BaseCommand):
                         'min_age_months': int(row['Min Age (Months)']),
                         'max_age_months': int(row.get('Max Age (Months)', 24)),
                         'tips': row['Tottable Tips'],
-                        'is_puree': row.get('Is Puree', '0').strip() == '1',
+                        'is_puree': row.get('is_puree', '0').strip() == '1',
                     }
                 )
                 # Always set meal types regardless of whether recipe is newly created
@@ -67,6 +67,7 @@ class Command(BaseCommand):
         self.stdout.write("Uploading recipe ingredients...")
         with open(recipe_ingredients_file, newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
+            reader.fieldnames = [field.strip() for field in reader.fieldnames]
             for row in reader:
                 try:
                     recipe = Recipe.objects.get(id=row['Recipe ID'])  # Match string IDs

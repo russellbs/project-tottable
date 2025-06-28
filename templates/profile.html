@@ -83,9 +83,10 @@
 
             <h3 class="mt-4">Exclude Purees?</h3>
             <div class="form-check mt-3">
+                <input type="hidden" name="exclude_purees" value="off">
                 <input class="form-check-input" type="checkbox" name="exclude_purees" id="exclude-purees-checkbox"
-                    {% if user.profile.exclude_purees %}checked{% endif %}
-                    {% if not show_preferences_form %}disabled{% endif %}>
+                    value="on"
+                    {% if user.profile.exclude_purees %}checked{% endif %}>
                 <label class="form-check-label" for="exclude-purees-checkbox">
                     <strong>Exclude Purees</strong> – Hide puree-style recipes from your meal plans if your little one has moved on to solids.
                 </label>
