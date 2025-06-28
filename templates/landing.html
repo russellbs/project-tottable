@@ -17,8 +17,37 @@
       max-width: 500px;
       color: #222;
     }
-</style>    
 
+    /* Mobile adjustment for headline */
+    @media (max-width: 480px) {
+      .hero-heading { font-size: 34px; line-height: 1.25; }
+    }
+
+    /* Primary CTA */
+    .cta-primary{
+      display:inline-block;background:#25c58c;color:#fff;padding:14px 24px;border-radius:6px;font-size:1rem;font-weight:600;text-decoration:none;transition:transform .2s ease;
+    }
+    .cta-primary:hover{transform:scale(1.03);}
+    .cta-wrapper{text-align:center;margin-top:48px;}
+
+    /* Hero demo video looks like a phone */
+    .hero-demo{
+      width:430px;max-width:100%;aspect-ratio:9/16;border-radius:28px;object-fit:cover;box-shadow:0 8px 24px rgba(0,0,0,.12);display:block;margin:0 auto;
+    }
+    @media (prefers-reduced-motion: reduce){.hero-demo{display:none;}}
+</style>
+
+<!-- Lazy‑load hero video only when ~40 % visible -->
+<script defer>
+  document.addEventListener('DOMContentLoaded',()=>{
+    const vid=document.querySelector('.hero-demo');
+    if(!vid)return;
+    const io=new IntersectionObserver(([e])=>{
+      if(e.isIntersecting){vid.play();io.disconnect();}
+    },{threshold:0.4});
+    io.observe(vid);
+  });
+</script>
 {% endblock %}
 
 {% block content %}
@@ -28,106 +57,28 @@
             <!-- Left Side: Hero Text -->
             <div class="col-left">
                 <h1 class="hero-heading">
-                    Personalized baby and toddler meal plans <br> ready in seconds
+                    Baby meals solved by Tottable
                 </h1>
-                <!--<p class="hero-subtext">
-                    We tailor weekly meals to your baby’s age, tastes, and nutrition needs — plus smart shopping lists to save you time.
-                </p>-->
-                <!--<a href="#features" class="btn btn-primary btn-lg mt-3">Reduce your mental load</a>-->
+                <p class="hero-subtext">
+                    One tap builds a full week of easy baby meals plus a grocery list—stress gone, dinner sorted.
+                </p>
+                <a href="{% url 'pre-signup' %}" class="cta-primary mt-3">Get my free meal plan</a>
             </div>
 
             <!-- Right Side: Sign-Up Box -->
-            <div class="col-right">
-                <div class="auth-card">
-                    <h2 class="auth-title">Lighten your mental load</h2>
-                    <p class="auth-subtitle">Start planning meals in seconds — your future self will thank you.</p>
-
-                    <!-- Toggle Pricing Display -->
-                    <div class="price-options text-center mb-3">
-                        <p class="mb-2"><strong>Try Tottable free for 14 days</strong> — then:</p>
-                    
-                        <!-- Pricing Toggle -->
-                        <div class="simple-pricing-toggle">
-
-                            <label class="simple-box">
-                                <input type="radio" name="plan" value="monthly">
-                                <span class="toggle-label">$4.99 per month</span>
-                            </label>
-
-                            <label class="simple-box selected">
-                                <input type="radio" name="plan" value="yearly" checked>
-                                <span class="toggle-label">
-                                    $49 per year <span class="savings">(save 18%)</span>
-                                </span>
-                            </label>
-                        </div>
-                                        
-                    <!-- Sign up with Google -->
-                    <a href="{% provider_login_url 'google' %}" class="oauth-button" style="text-decoration: none;">
-                        <div style="
-                          width: 100%;
-                          display: inline-flex;
-                          align-items: center;
-                          justify-content: center;
-                          background: white;
-                          color: #5f6368;
-                          border: 1px solid #dadce0;
-                          border-radius: 4px;
-                          font-family: Roboto, sans-serif;
-                          font-size: 14px;
-                          font-weight: 500;
-                          height: 40px;
-                          padding: 0 12px;
-                          box-shadow: 0px 1px 2px rgba(0,0,0,0.05);
-                          transition: background 0.3s ease;">
-                          <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" style="width: 18px; height: 18px; margin-right: 8px;">
-                          Sign up with Google
-                        </div>
-                      </a>
-
-                    <!-- OR Divider -->
-                    <div class="text-center my-3" style="position: relative;">
-                        <span style="background-color: white; padding: 0 10px; position: relative; z-index: 1;">OR</span>
-                        <hr style="margin: -12px 0 0 0; border-top: 1px solid #ccc; position: absolute; top: 50%; width: 100%; z-index: 0;">
-                    </div>
-
-                    <!-- Email sign-up form -->
-                    <form method="post" action="{% url 'pre-signup' %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="selected_plan" id="selected-plan" value="monthly">
-
-
-                        <div class="form-group">
-                            <label for="id_first_name">Name</label>
-                            <input type="text" name="first_name" id="id_first_name" class="form-control" placeholder="Your name" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="id_email">Email address</label>
-                            <input type="email" name="email" id="id_email" class="form-control" placeholder="Your email" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="id_password">Password</label>
-                            <input type="password" name="password" id="id_password" class="form-control" placeholder="Password" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-block">
-                            Start 14-Day Free Trial
-                        </button>
-                        <!--<p class="trial-note text-center mt-2">
-                            Then $49 for two years — cancel anytime during your trial.
-                        </p>-->                 
-
-                        <p class="terms-text">
-                            By signing up, you accept our <a href="{% url 'terms' %}">terms of service</a> and <a href="{% url 'privacy' %}">privacy policy</a>.
-                        </p>                        
-                    </form>
-                </div>
-            </div>
+            <video class="hero-demo"
+                autoplay
+                muted
+                loop
+                playsinline          <!-- iOS stays inline -->
+                preload="none"       <!-- don’t fetch until needed -->
+                poster="/img/hero-poster.jpg">
+            <source src="/media/hero-demo.mp4" type="video/mp4">
+            </video>
         </div>
     </div>
 </section>
+
 
 
 <!-- The Problem with Meal Planning Section -->
@@ -149,7 +100,9 @@
                     <path d="M12 12a2 2 0 0 0-2 2v0a2 2 0 0 0 2 2" />
                 </svg>
                 <h3>The Mental Load is Constant</h3>
-                <p>Parents spend <strong>over 13 hours a week</strong> managing household tasks—cooking, cleaning, grocery shopping, and planning meals. Even when they’re not actively doing these tasks, they’re thinking about them. That invisible workload adds up, fast.</p>
+                <p>
+                    Parents already spend <strong>13 + hours a week</strong> cooking, cleaning, shopping, and planning. Even off the clock, the to-do list keeps running in their heads.
+                    </p>
             </div>
             <div class="col-md-4">
                 <!-- zap icon -->
@@ -158,7 +111,9 @@
                     <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
                 </svg>
                 <h3>Decision Fatigue is Real</h3>
-                <p>The average person makes <strong>35,000+ decisions every day</strong>—and parents make even more. What's for dinner? Does my child have enough variety? Do I need to run to the store? The endless decision-making drains energy, leaving parents mentally exhausted before the day is over.</p>
+                <p>
+                    We make roughly <strong>35 000 choices a day</strong>. Add “What’s for dinner?”—plus 50 other food questions—and parents hit mental overload fast.
+                    </p>
             </div>
             <div class="col-md-4">
                 <!-- users icon -->
@@ -173,7 +128,9 @@
                     <circle cx="7" cy="7" r="4" />
                 </svg>
                 <h3>The Burden Falls Mostly on Mothers</h3>
-                <p>Even in families where both parents work, moms handle most of the household responsibilities. The pressure of juggling meal planning, childcare, and everything in between is one of the biggest contributors to parental stress and burnout.</p>
+                <p>
+                    In most households, mums still carry the bulk of meal planning and childcare, even when both parents work—fueling stress and burnout.
+                    </p>
             </div>
         </div>
     </div>
