@@ -792,6 +792,7 @@ class PreSignupView(View):
                     subscription_data={
                         'trial_period_days': 14  # 🟢 Add trial period here
                     },
+                    allow_promotion_codes=True,
                     success_url=request.build_absolute_uri(reverse('post-payment')),
                     cancel_url=request.build_absolute_uri(reverse('signup-cancelled')),
                     metadata={

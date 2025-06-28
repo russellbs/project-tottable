@@ -82,6 +82,7 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
             subscription_data={
                 'trial_period_days': 14
             },
+            allow_promotion_codes=True,
             success_url=success_url,
             cancel_url=cancel_url,
             metadata={
