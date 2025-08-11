@@ -26,6 +26,9 @@ from datetime import timedelta
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.google.provider import GoogleProvider
+from django.contrib.auth import authenticate
+from .decorators import trial_or_subscribed_required
+
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -37,6 +40,7 @@ def landing_page(request):
 
 # View for displaying the user's profile and handling the Add Child and UserPreferences Forms
 @login_required
+@trial_or_subscribed_required
 def profile(request):
     user = request.user
     ingredients = Ingredient.objects.all()
@@ -297,6 +301,7 @@ DUMMY_MEAL_PLAN = [
 ]
 
 @login_required
+@trial_or_subscribed_required
 def dashboard(request):
     user = request.user
     children = Child.objects.filter(parent=user)
@@ -350,6 +355,7 @@ def meal_plan(request):
     return render(request, 'meal_plan.html', context)
 
 @login_required
+@trial_or_subscribed_required
 def recipe_library(request):
     # Fetch all recipes
     recipes = Recipe.objects.all()
@@ -431,6 +437,7 @@ def recipe_library(request):
     })
 
 @login_required
+@trial_or_subscribed_required
 def recipe_detail(request, id):
     # Fetch the recipe using the string-based ID
     recipe = get_object_or_404(Recipe, id=id)
@@ -682,6 +689,7 @@ def test_meal_plan_email(request):
 
 
 @login_required
+@trial_or_subscribed_required
 def shopping_list(request):
     user = request.user
     ingredients = {}
@@ -751,10 +759,7 @@ def remove_meal(request):
 class PreSignupView(View):
     def get(self, request):
         form = PreSignupForm()
-        return render(request, 'signup.html', {
-            'form': form,
-            'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY
-        })
+        return render(request, 'signup.html', {'form': form})
 
     def post(self, request):
         form = PreSignupForm(request.POST)
@@ -763,61 +768,36 @@ class PreSignupView(View):
             first_name = form.cleaned_data['first_name']
             password = form.cleaned_data['password']
 
-            selected_plan = request.POST.get('selected_plan', 'monthly')
-            request.session['selected_plan'] = selected_plan
-
-            if selected_plan == 'yearly':
-                price_id = settings.STRIPE_YEARLY_PRICE_ID
-            else:
-                price_id = settings.STRIPE_MONTHLY_PRICE_ID
-
             # Prevent duplicate signups
             if User.objects.filter(email=email).exists():
-                if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-                    return JsonResponse({'error': 'Email already exists. Please log in.'}, status=400)
-                else:
-                    form.add_error('email', 'Email already exists. Please log in.')
-                    return render(request, 'signup.html', {'form': form, 'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY})
+                form.add_error('email', 'Email already exists. Please log in.')
+                return render(request, 'signup.html', {'form': form})
 
-            # Store signup data in session to finalize user after payment
-            request.session['signup_data'] = form.cleaned_data
+            # Create user immediately
+            user = User.objects.create_user(
+                username=email,
+                email=email,
+                first_name=first_name,
+                password=password,
+                is_active=True
+            )
 
-            try:
-                checkout_session = stripe.checkout.Session.create(
-                    mode='subscription',
-                    line_items=[{
-                        'price': price_id,
-                        'quantity': 1,
-                    }],
-                    subscription_data={
-                        'trial_period_days': 14  # 🟢 Add trial period here
-                    },
-                    allow_promotion_codes=True,
-                    success_url=request.build_absolute_uri(reverse('post-payment')),
-                    cancel_url=request.build_absolute_uri(reverse('signup-cancelled')),
-                    metadata={
-                        'email': email,
-                        'first_name': first_name,
-                        'password': password,
-                    }
-                )
+            # Set up 2-week trial in UserProfile
+            profile, _ = UserProfile.objects.get_or_create(user=user)
+            profile.trial_end_date = now() + timedelta(days=14)
+            profile.subscription_status = 'trialing'
+            profile.save()
 
-                if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-                    return JsonResponse({'id': checkout_session.id})
-                else:
-                    return redirect(checkout_session.url)
+            # Log the user in
+            user = authenticate(request, username=email, password=password)
+            login(request, user)
 
-            except Exception as e:
-                if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-                    return JsonResponse({'error': str(e)}, status=400)
-                else:
-                    form.add_error(None, str(e))
-                    return render(request, 'signup.html', {'form': form, 'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY})
+            # Pixel tracking
+            request.session['pixel_conversion_event'] = 'subscribe'
+
+            return redirect('profile')
         else:
-            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-                return JsonResponse({'form_errors': form.errors}, status=400)
-            else:
-                return render(request, 'signup.html', {'form': form, 'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY})
+            return render(request, 'signup.html', {'form': form})
 
 class PostPaymentView(View):
     def get(self, request):
@@ -1126,3 +1106,62 @@ def set_plan(request):
         return JsonResponse({"status": "ok"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
+    
+@login_required
+def upgrade_required(request):
+    return render(request, "upgrade_required.html", {
+        'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY
+    })
+
+
+@login_required
+def start_checkout(request):
+    user = request.user
+    logger.info("🔔 start_checkout triggered")
+    logger.info("🔹 Request method: %s", request.method)
+    logger.info("🔹 Headers: %s", dict(request.headers))
+    logger.info("🔹 POST data: %s", request.POST)
+
+    selected_plan = request.POST.get('selected_plan', 'monthly')
+
+    price_id = settings.STRIPE_YEARLY_PRICE_ID if selected_plan == 'yearly' else settings.STRIPE_MONTHLY_PRICE_ID
+
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            mode='subscription',
+            line_items=[{'price': price_id, 'quantity': 1}],
+            customer_email=user.email,
+            allow_promotion_codes=True,
+            success_url=request.build_absolute_uri(reverse('profile')),
+            cancel_url=request.build_absolute_uri(reverse('upgrade_required')),
+            metadata={'user_id': str(user.id)},
+        )
+
+        logger.info("✅ Stripe checkout session created: %s", checkout_session.id)
+
+        is_ajax = (
+            request.headers.get('x-requested-with') == 'XMLHttpRequest' or
+            request.headers.get('X-Requested-With') == 'XMLHttpRequest' or
+            request.headers.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+        )
+
+        logger.info("🔍 Is AJAX: %s", is_ajax)
+
+        if is_ajax:
+            return JsonResponse({'id': checkout_session.id})
+        else:
+            return redirect(checkout_session.url)
+
+    except Exception as e:
+        logger.exception("❌ Stripe checkout creation failed")
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({'error': str(e)}, status=400)
+        return HttpResponse(str(e), status=400)
+
+@login_required
+def billing_portal(request):
+    session = stripe.billing_portal.Session.create(
+        customer=request.user.stripe_customer_id,
+        return_url=request.build_absolute_uri(reverse('profile')),
+    )
+    return redirect(session.url)

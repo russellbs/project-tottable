@@ -1,6 +1,6 @@
 from django.urls import path, include
 from . import views
-from .views import test_meal_plan_email, PreSignupView, PostPaymentView, stripe_webhook, signup_cancelled, redirect_after_oauth_login, stripe_oauth_success, set_plan
+from .views import test_meal_plan_email, PreSignupView, PostPaymentView, stripe_webhook, signup_cancelled, redirect_after_oauth_login, stripe_oauth_success, set_plan, start_checkout
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView, LoginView
@@ -47,6 +47,9 @@ urlpatterns = [
     path("redirect-after-oauth/", redirect_after_oauth_login, name="redirect_after_oauth_login"),
     path("stripe-oauth-success/", stripe_oauth_success, name="stripe_oauth_success"),
     path("set-plan/", set_plan, name="set-plan"),
+    path("start-checkout/", start_checkout, name="start_checkout"),
+    path("upgrade-required/", views.upgrade_required, name="upgrade_required"),
+    path("billing-portal/", views.billing_portal, name="billing_portal"),
 ]
 
 # Serve media files only during development

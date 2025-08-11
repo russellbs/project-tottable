@@ -10,32 +10,115 @@
 <script defer src="{% static 'landing.js' %}"></script>
 
 <style>
+    /* Layout: two columns on desktop, stacked on mobile, full-width CTA row */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+    @media (min-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+          "left right"
+          "cta  cta";
+      }
+      .col-left  { grid-area: left; }
+      .col-right { grid-area: right; }
+      .cta-full  { grid-area: cta; }
+    }
+  
+    /* Headline */
     .hero-heading {
       font-size: 56px;
       font-weight: 600;
       line-height: 1.2;
       max-width: 500px;
       color: #222;
+      margin: 0; /* tighten spacing */
     }
-
-    /* Mobile adjustment for headline */
     @media (max-width: 480px) {
       .hero-heading { font-size: 34px; line-height: 1.25; }
     }
-
+  
+    /* Subtext (optional tweak) */
+    .hero-subtext {
+      margin-top: 12px;
+      color: #444;
+      max-width: 520px;
+    }
+  
     /* Primary CTA */
-    .cta-primary{
-      display:inline-block;background:#25c58c;color:#fff;padding:14px 24px;border-radius:6px;font-size:1rem;font-weight:600;text-decoration:none;transition:transform .2s ease;
+    .cta-primary {
+      display: inline-block;
+      background: #25c58c;
+      color: #fff;
+      padding: 14px 24px;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform .2s ease;
     }
-    .cta-primary:hover{transform:scale(1.03);}
-    .cta-wrapper{text-align:center;margin-top:48px;}
-
-    /* Hero demo video looks like a phone */
-    .hero-demo{
-      width:430px;max-width:100%;aspect-ratio:9/16;border-radius:28px;object-fit:cover;box-shadow:0 8px 24px rgba(0,0,0,.12);display:block;margin:0 auto;
+    .cta-primary:hover { transform: scale(1.03); }
+  
+    /* CTA row centered under both columns */
+    .cta-full {
+      text-align: center;
+      margin-top: 8px;
     }
-    @media (prefers-reduced-motion: reduce){.hero-demo{display:none;}}
-</style>
+  
+    /* Optional wrapper spacing if you keep it elsewhere */
+    .cta-wrapper { text-align: center; margin-top: 24px; }
+  
+    /* Hero demo video (phone look) */
+    .hero-demo {
+      width: 430px;
+      max-width: 100%;
+      aspect-ratio: 9 / 16;
+      border-radius: 28px;
+      object-fit: cover;
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      display: block;
+      margin: 0 auto;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-demo { display: none; }
+    }
+  
+    /* Trial benefits list with green ticks only, centered */
+    .trial-benefits {
+      list-style: none;           /* remove bullets */
+      padding: 0;
+      margin: 16px 0 0;
+      text-align: center;
+    }
+    .trial-benefits li {
+      position: relative;
+      display: inline-block;      /* sit on one line on desktop */
+      padding-left: 28px;         /* space for tick */
+      margin: 4px 12px;
+      font-size: 16px;
+      color: #222;
+    }
+    .trial-benefits li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: #25c58c;             /* match CTA green */
+      font-weight: bold;
+    }
+  
+    /* Slight tightening on very small screens: stack benefits vertically */
+    @media (max-width: 480px) {
+      .trial-benefits li {
+        display: block;
+        margin: 6px 0;
+      }
+    }
+  </style>
+  
 
 <!-- Lazy‑load hero video only when ~40 % visible -->
 <script defer>
@@ -53,32 +136,35 @@
 {% block content %}
 <section class="hero">
     <div class="container">
-        <div class="row">
-            <!-- Left Side: Hero Text -->
-            <div class="col-left">
-                <h1 class="hero-heading">
-                    Baby meals solved by Tottable
-                </h1>
-                <p class="hero-subtext">
-                    One tap builds a full week of easy baby meals plus a grocery list—stress gone, dinner sorted.
-                </p>
-                <a href="{% url 'pre-signup' %}" class="cta-primary mt-3">Get my free meal plan</a>
-            </div>
-
-            <!-- Right Side: Sign-Up Box -->
-            <video class="hero-demo"
-                autoplay
-                muted
-                loop
-                playsinline          <!-- iOS stays inline -->
-                preload="none"       <!-- don’t fetch until needed -->
-                poster="/img/hero-poster.jpg">
-            <source src="/media/hero-demo.mp4" type="video/mp4">
-            </video>
+      <div class="hero-grid">
+        <!-- Left column -->
+        <div class="col-left">
+          <h1 class="hero-heading">Automatic baby meal plans. No thinking required.</h1>
+          <p class="hero-subtext">One tap builds a week of age-based meals plus a grocery list—done in seconds.</p>
         </div>
+  
+        <!-- Right column -->
+        <div class="col-right">
+          <video class="hero-demo"
+                 autoplay muted loop playsinline preload="none"
+                 poster="/img/hero-poster.jpg">
+            <source src="/media/hero-demo.mp4" type="video/mp4">
+          </video>
+        </div>
+  
+        <!-- Full-width CTA row -->
+        <div class="cta-full">
+          <a href="{% url 'pre-signup' %}" class="cta-primary">Get my free meal plan</a>
+          <ul class="trial-benefits">
+            <li>14-day free trial</li>
+            <li>No credit card required</li>
+            <li>Cancel anytime</li>
+          </ul>
+        </div>
+      </div>
     </div>
-</section>
-
+  </section>
+  
 
 
 <!-- The Problem with Meal Planning Section -->

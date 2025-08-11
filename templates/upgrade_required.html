@@ -1,0 +1,59 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %}Upgrade Your Plan{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+  <div class="auth-card">
+    <h2 class="auth-title">Your free trial has ended</h2>
+    <p class="auth-subtitle">Choose a plan to continue enjoying Tottable’s features.</p>
+
+    <form id="upgrade-form" method="post" action="{% url 'start_checkout' %}">
+      {% csrf_token %}
+
+      <div class="price-options text-center mb-3">
+        <p class="mb-2"><strong>Pick a plan to unlock full access</strong></p>
+
+        <div class="simple-pricing-toggle">
+          <input type="hidden" name="selected_plan" id="selected-plan" value="yearly">
+
+          <label class="simple-box">
+            <input type="radio" name="plan" value="monthly">
+            <span class="toggle-label">$4.99 per month</span>
+          </label>
+
+          <label class="simple-box selected">
+            <input type="radio" name="plan" value="yearly" checked>
+            <span class="toggle-label">
+              $49 per year <span class="savings">(save 18%)</span>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">
+        Continue to Payment
+      </button>
+    </form>
+
+    <p class="guarantee-text text-center mt-2">
+      Cancel anytime — no hidden fees.
+    </p>
+
+    <p class="terms-text text-center">
+      By upgrading, you agree to our <a href="{% url 'terms' %}">terms</a> and <a href="{% url 'privacy' %}">privacy policy</a>.
+    </p>
+  </div>
+</div>
+
+<!-- ✅ Scripts at the bottom of content block -->
+<script>
+  const STRIPE_PUBLIC_KEY = "{{ STRIPE_PUBLIC_KEY }}";
+</script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'upgrade_required.js' %}"></script>
+{% endblock %}
