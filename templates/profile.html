@@ -13,22 +13,34 @@
         <p><strong>Name:</strong> {{ user.first_name }}</p>
         <p><strong>Email:</strong> {{ user.email }}</p>
         <p><strong>Member Since:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
-        <!-- Subscription Controls -->
+    
         {% if trial_active %}
-            <p><strong>Status:</strong> Free Trial</p>
-            {% if trial_days_remaining is not None %}
-                <p class="text-muted" style="font-size: 0.9em;">{{ trial_days_remaining }} day{{ trial_days_remaining|pluralize }} remaining</p>
-            {% endif %}
-            <a href="{% url 'upgrade_required' %}" class="btn btn-primary mt-2">Upgrade Now</a>
-            <a href="{% url 'billing_portal' %}" class="btn btn-outline-secondary mt-2">Cancel Trial</a>
+        <p><strong>Status:</strong> Free Trial</p>
+        {% if trial_days_remaining is not None %}
+            <p class="text-muted" style="font-size:0.9em;">
+            {{ trial_days_remaining }} day{{ trial_days_remaining|pluralize }} remaining
+            </p>
+        {% endif %}
+        <p class="text-muted" style="font-size:0.9em;">
+            No credit card on file. Your trial will simply end on the date above.
+        </p>
+        <a href="{% url 'upgrade_required' %}" class="btn btn-primary mt-2">Upgrade Now</a>
+    
         {% elif user.is_subscribed %}
-            <p><strong>Status:</strong> Active Subscription</p>
-            <a href="{% url 'billing_portal' %}" class="btn btn-outline-secondary mt-2">Manage Your Subscription</a>
+        <p><strong>Status:</strong> Active Subscription</p>
+        <a href="{% url 'billing_portal' %}" class="btn btn-outline-secondary mt-2">
+            Manage Your Subscription
+        </a>
+    
         {% else %}
-            <p><strong>Status:</strong> Trial Ended</p>
-            <a href="{% url 'upgrade_required' %}" class="btn btn-primary mt-2">Subscribe to Continue</a>
+        <p><strong>Status:</strong> Trial Ended</p>
+        <a href="{% url 'upgrade_required' %}" class="btn btn-primary mt-2">
+            Subscribe to Continue
+        </a>
         {% endif %}
     </div>
+  
+
 
     <!-- Meal Plan Preferences Section -->
     <div class="section meal-preferences">

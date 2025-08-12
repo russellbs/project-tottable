@@ -1160,8 +1160,34 @@ def start_checkout(request):
 
 @login_required
 def billing_portal(request):
+    profile = request.user.profile
+    if not profile.stripe_customer_id:
+        # No Stripe customer yet – show a nice message or redirect
+        messages.info(request, "You don’t have a billing account yet. Start a subscription to manage billing.")
+        return redirect('profile')
+
     session = stripe.billing_portal.Session.create(
-        customer=request.user.stripe_customer_id,
+        customer=profile.stripe_customer_id,
         return_url=request.build_absolute_uri(reverse('profile')),
     )
     return redirect(session.url)
+
+@login_required
+@require_POST
+def cancel_free_trial(request):
+    profile = request.user.profile
+
+    # Only allow if they are truly in the free trial (no Stripe customer yet)
+    if profile.subscription_status != 'trialing' or profile.stripe_customer_id:
+        return JsonResponse(
+            {"success": False, "error": "Trial is not active or already linked to Stripe."},
+            status=400
+        )
+
+    # End trial immediately and block gated pages
+    profile.subscription_status = 'trial_canceled'   # or 'canceled' if you prefer
+    profile.trial_end_date = now()
+    profile.save()
+
+    messages.success(request, "Your free trial has been canceled. Thanks for trying Tottable!")
+    return JsonResponse({"success": True})

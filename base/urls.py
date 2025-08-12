@@ -50,6 +50,7 @@ urlpatterns = [
     path("start-checkout/", start_checkout, name="start_checkout"),
     path("upgrade-required/", views.upgrade_required, name="upgrade_required"),
     path("billing-portal/", views.billing_portal, name="billing_portal"),
+    path("cancel-free-trial/", views.cancel_free_trial, name="cancel_free_trial"),
 ]
 
 # Serve media files only during development
